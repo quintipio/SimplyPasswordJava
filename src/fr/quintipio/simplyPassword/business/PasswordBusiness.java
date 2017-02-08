@@ -18,13 +18,36 @@ public class PasswordBusiness {
 
     private static String motDePasse;
 
+    ///GETTER ET SETTER
+
+    public static ComFile getFichier() {
+        return fichier;
+    }
+
+    public static void setFichier(ComFile fichier) {
+        PasswordBusiness.fichier = fichier;
+    }
+
+    public static String getMotDePasse() {
+        return motDePasse;
+    }
+
+    public static void setMotDePasse(String motDePasse) {
+        PasswordBusiness.motDePasse = motDePasse;
+    }
+
+
+    ///METHODES DE GESTION
     /**
      * Sauvegarde dans un fichier
      */
-    public static void save() throws Exception {
+    public static void save(String path) throws Exception {
         ICrypt crypt = Base64Crypt.wrap(new AesCrypt());
         byte[] data = ObjectUtils.serialize(dossierMere);
         byte[] dataCipher = crypt.encodeByteArray(data,motDePasse);
+        if(path != null && path.isEmpty()) {
+            fichier = new ComFile(path);
+        }
         fichier.writeFile(dataCipher,true);
     }
 
@@ -59,5 +82,15 @@ public class PasswordBusiness {
         fichier = nouveauFichier;
         motDePasse = nouveauMotDePasse;
 
+    }
+
+    /**
+     * Réinitialise les données
+     */
+    public static void reset() {
+        dossierMere = new Dossier();
+        dossierMere.setTitre("Racine");
+        motDePasse = null;
+        fichier = null;
     }
 }
