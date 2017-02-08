@@ -1,82 +1,61 @@
 package fr.quintipio.simplyPassword.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
 
-public class Dossier {
+import java.io.Serializable;
+import java.util.List;
 
-    private StringProperty titre;
+/**
+ * L'objet Dossier
+ */
+public class Dossier implements Serializable{
 
-    private ObjectProperty<Dossier> dossierParent;
+    private String titre;
 
-    private ListProperty<Dossier> sousDossier;
+    private Dossier dossierParent;
 
-    private ListProperty<MotDePasse> listeMotDePasse;
+    private List<Dossier> sousDossier;
 
-    private IntegerProperty idIcone;
+    private List<MotDePasse> listeMotDePasse;
 
+    private Integer idIcone;
 
-
-    public String getTitre() {
-        return titre.get();
+    public Integer getIdIcone() {
+        return idIcone;
     }
 
-    public StringProperty titreProperty() {
+    public void setIdIcone(Integer idIcone) {
+        this.idIcone = idIcone;
+    }
+
+    public String getTitre() {
         return titre;
     }
 
     public void setTitre(String titre) {
-        this.titre.set(titre);
+        this.titre = titre;
     }
 
     public Dossier getDossierParent() {
-        return dossierParent.get();
-    }
-
-    public ObjectProperty<Dossier> dossierParentProperty() {
         return dossierParent;
     }
 
     public void setDossierParent(Dossier dossierParent) {
-        this.dossierParent.set(dossierParent);
+        this.dossierParent = dossierParent;
     }
 
-    public ObservableList<Dossier> getSousDossier() {
-        return sousDossier.get();
-    }
-
-    public ListProperty<Dossier> sousDossierProperty() {
+    public List<Dossier> getSousDossier() {
         return sousDossier;
     }
 
-    public void setSousDossier(ObservableList<Dossier> sousDossier) {
-        this.sousDossier.set(sousDossier);
+    public void setSousDossier(List<Dossier> sousDossier) {
+        this.sousDossier = sousDossier;
     }
 
-    public ObservableList<MotDePasse> getListeMotDePasse() {
-        return listeMotDePasse.get();
-    }
-
-    public ListProperty<MotDePasse> listeMotDePasseProperty() {
+    public List<MotDePasse> getListeMotDePasse() {
         return listeMotDePasse;
     }
 
-    public void setListeMotDePasse(ObservableList<MotDePasse> listeMotDePasse) {
-        this.listeMotDePasse.set(listeMotDePasse);
-    }
-
-    public int getIdIcone() {
-        return idIcone.get();
-    }
-
-    public IntegerProperty idIconeProperty() {
-        return idIcone;
-    }
-
-    public void setIdIcone(int idIcone) {
-        this.idIcone.set(idIcone);
+    public void setListeMotDePasse(List<MotDePasse> listeMotDePasse) {
+        this.listeMotDePasse = listeMotDePasse;
     }
 }
