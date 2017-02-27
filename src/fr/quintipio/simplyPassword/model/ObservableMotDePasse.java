@@ -1,65 +1,111 @@
 package fr.quintipio.simplyPassword.model;
 
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.io.Serializable;
 
 /**
  * L'objet Mot de passe
  */
-public class MotDePasse implements Serializable {
+public class ObservableMotDePasse implements Serializable {
 
-    private String titre;
+    private MotDePasse mdpOri;
 
-    private String login;
+    private StringProperty titre;
 
-    private String motDePasseObjet;
+    private StringProperty login;
 
-    private String commentaire;
+    private StringProperty motDePasseObjet;
 
-    private String siteWeb;
+    private StringProperty commentaire;
+
+    private StringProperty siteWeb;
 
     private Dossier dossierPossesseur;
 
     private Integer idIcone;
 
+    public ObservableMotDePasse(MotDePasse mdp) {
+        titre = new SimpleStringProperty(mdp.getTitre());
+        login = new SimpleStringProperty(mdp.getLogin());
+        motDePasseObjet = new SimpleStringProperty(mdp.getMotDePasseObjet());
+        siteWeb = new SimpleStringProperty(mdp.getSiteWeb());
+        commentaire = new SimpleStringProperty(mdp.getCommentaire());
+        idIcone = 0;
+        dossierPossesseur = mdp.getDossierPossesseur();
+        mdpOri = mdp;
+
+
+    }
+
+    public MotDePasse getMdpOri() {
+        return mdpOri;
+    }
+
+    public void setMdpOri(MotDePasse mdpOri) {
+        this.mdpOri = mdpOri;
+    }
+
     public String getTitre() {
+        return titre.get();
+    }
+
+    public StringProperty titreProperty() {
         return titre;
     }
 
     public void setTitre(String titre) {
-        this.titre = titre;
+        this.titre.set(titre);
     }
 
     public String getLogin() {
+        return login.get();
+    }
+
+    public StringProperty loginProperty() {
         return login;
     }
 
     public void setLogin(String login) {
-        this.login = login;
+        this.login.set(login);
     }
 
     public String getMotDePasseObjet() {
+        return motDePasseObjet.get();
+    }
+
+    public StringProperty motDePasseObjetProperty() {
         return motDePasseObjet;
     }
 
     public void setMotDePasseObjet(String motDePasseObjet) {
-        this.motDePasseObjet = motDePasseObjet;
+        this.motDePasseObjet.set(motDePasseObjet);
     }
 
     public String getCommentaire() {
+        return commentaire.get();
+    }
+
+    public StringProperty commentaireProperty() {
         return commentaire;
     }
 
     public void setCommentaire(String commentaire) {
-        this.commentaire = commentaire;
+        this.commentaire.set(commentaire);
     }
 
     public String getSiteWeb() {
+        return siteWeb.get();
+    }
+
+    public StringProperty siteWebProperty() {
         return siteWeb;
     }
 
     public void setSiteWeb(String siteWeb) {
-        this.siteWeb = siteWeb;
+        this.siteWeb.set(siteWeb);
     }
 
     public Dossier getDossierPossesseur() {
@@ -79,16 +125,11 @@ public class MotDePasse implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return titre;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MotDePasse)) return false;
+        if (!(o instanceof ObservableMotDePasse)) return false;
 
-        MotDePasse that = (MotDePasse) o;
+        ObservableMotDePasse that = (ObservableMotDePasse) o;
 
         if (getTitre() != null ? !getTitre().equals(that.getTitre()) : that.getTitre() != null) return false;
         if (getLogin() != null ? !getLogin().equals(that.getLogin()) : that.getLogin() != null) return false;

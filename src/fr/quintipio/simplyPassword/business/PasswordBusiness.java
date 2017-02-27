@@ -3,9 +3,14 @@ package fr.quintipio.simplyPassword.business;
 import fr.quintipio.simplyPassword.com.ComFile;
 import fr.quintipio.simplyPassword.impl.ICrypt;
 import fr.quintipio.simplyPassword.model.Dossier;
+import fr.quintipio.simplyPassword.model.MotDePasse;
 import fr.quintipio.simplyPassword.util.AesCrypt;
 import fr.quintipio.simplyPassword.util.Base64Crypt;
 import fr.quintipio.simplyPassword.util.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Classe de gestion des mots de passes et des dossiers
@@ -17,6 +22,8 @@ public class PasswordBusiness {
     private static ComFile fichier;
 
     private static String motDePasse;
+
+    private static boolean modif;
 
     ///GETTER ET SETTER
 
@@ -36,7 +43,43 @@ public class PasswordBusiness {
         PasswordBusiness.motDePasse = motDePasse;
     }
 
+    public static Dossier getDossierMere() {return dossierMere;}
 
+    public static boolean isModif() {
+        return modif;
+    }
+
+    public static void setModif(boolean modif) {
+        PasswordBusiness.modif = modif;
+    }
+
+    public static void  init() {
+
+
+        dossierMere = new Dossier("Dossier racine",null);
+        Dossier dossierA = new Dossier("Dossier A",dossierMere);
+        Dossier dossierB = new Dossier("Dossier B",dossierMere);
+        Dossier dossierC = new Dossier("Dossier C",dossierA);
+
+        MotDePasse mdpa = new MotDePasse();
+        mdpa.setTitre("piou");
+        mdpa.setLogin("toto");
+        mdpa.setMotDePasseObjet("toto");
+        mdpa.setDossierPossesseur(dossierC);
+        MotDePasse mdpb = new MotDePasse();
+        mdpb.setTitre("pioupiou");
+        mdpb.setLogin("tata");
+        mdpb.setMotDePasseObjet("tata");
+        mdpb.setDossierPossesseur(dossierC);
+
+
+        dossierMere.getSousDossier().add(dossierA);
+        dossierMere.getSousDossier().add(dossierB);
+        dossierA.getSousDossier().add(dossierC);
+        dossierC.getListeMotDePasse().add(mdpa);
+        dossierA.getListeMotDePasse().add(mdpb);
+
+    }
     ///METHODES DE GESTION
     /**
      * Sauvegarde dans un fichier
@@ -92,5 +135,24 @@ public class PasswordBusiness {
         dossierMere.setTitre("Racine");
         motDePasse = null;
         fichier = null;
+    }
+
+    /**
+     * Lance une recherche de mot de passe sur les titres et les logins dans le dossier et ses sous dossiers
+     * @param recherche le texte à rechercher
+     * @param dossier le dossier dans lequel effectuer la recherche
+     * @return les résultats
+     */
+    public static List<MotDePasse> recherche(String recherche,Dossier dossier) {
+        List<MotDePasse> retour = new ArrayList<>();
+        if(dossier.getListeMotDePasse() != null && dossier.getListeMotDePasse().size() > 0) {
+            retour.addAll(dossier.getListeMotDePasse().stream().filter(mdp -> mdp.getLogin().contains(recherche) || mdp.getTitre().contains(recherche)).collect(Collectors.toList()));
+        }
+        if(dossier.getSousDossier() != null && dossier.getSousDossier().size() > 0) {
+            for (Dossier dos : dossier.getSousDossier()) {
+                retour.addAll(recherche(recherche, dos));
+            }
+        }
+        return retour;
     }
 }

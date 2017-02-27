@@ -79,6 +79,7 @@ public class Main extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/MainView.fxml"));
+            loader.setResources(ResourceBundle.getBundle(ContexteStatic.bundle));
             AnchorPane mainView =  loader.load();
 
             MainViewController controller = loader.getController();
