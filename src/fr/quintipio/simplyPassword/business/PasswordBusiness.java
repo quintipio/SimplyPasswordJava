@@ -7,6 +7,7 @@ import fr.quintipio.simplyPassword.model.MotDePasse;
 import fr.quintipio.simplyPassword.util.AesCrypt;
 import fr.quintipio.simplyPassword.util.Base64Crypt;
 import fr.quintipio.simplyPassword.util.ObjectUtils;
+import fr.quintipio.simplyPassword.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +32,9 @@ public class PasswordBusiness {
         return fichier;
     }
 
-    public static void setFichier(ComFile fichier) {
-        PasswordBusiness.fichier = fichier;
+    public static void setFichier(String path) {
+
+        fichier = new ComFile(path);
     }
 
     public static String getMotDePasse() {
@@ -107,7 +109,7 @@ public class PasswordBusiness {
      * @return true si ok
      */
     public static boolean isMotDePasse() {
-        return motDePasse != null && !motDePasse.isEmpty();
+        return !StringUtils.stringEmpty(motDePasse);
     }
 
     /**

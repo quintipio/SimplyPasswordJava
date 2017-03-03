@@ -4,57 +4,31 @@
     <bookmark url="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainViewController.java" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/model/ObservableMotDePasse.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/about32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/cross40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/edit32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/export32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon.ico" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_archive40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_cd40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_db40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_dollar40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_engrenage40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_euro40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_folder40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_globe40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_house40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_mail40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_pc40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_people40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_phone40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_server40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_shell40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_software40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icon/icon_wifi40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/icone.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/import32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/leave32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/leave64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/loadCipher32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/loadCipher64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/lock32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/newFile.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/newFile32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/ok40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/open.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/open32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/plus32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/save32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/saveAll32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/saveCipher32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/saveCipher64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/share32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rsc/trash32.png" afterPath="" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Avancement fenetre principale">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/rsc/icon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/rsc/key.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.classpath" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.project" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/business/ParamBusiness.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/util/CryptUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/util/StringUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/GenereMdpDialog.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/GenereMdpDialogController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/GererMasterPasswordDialog.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/GererMasterPasswordDialogController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/PasswordEditDialog.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/PasswordEditDialogController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bundle/strings_fr.properties" afterPath="$PROJECT_DIR$/src/bundle/strings_fr.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/Main.java" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/business/PasswordBusiness.java" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/business/PasswordBusiness.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/model/Dossier.java" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/model/Dossier.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/model/MotDePasse.java" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/model/MotDePasse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/contexte/ContexteStatic.java" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/contexte/ContexteStatic.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainView.fxml" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainView.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainViewController.java" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainViewController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayout.fxml" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayout.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayoutController.java" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayoutController.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -116,26 +90,24 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="MainView.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainView.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
+            <state relative-caret-position="1071">
               <caret line="63" column="159" selection-start-line="63" selection-start-column="139" selection-end-line="63" selection-end-column="159" />
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainViewController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainViewController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="306" column="13" selection-start-line="306" selection-start-column="13" selection-end-line="306" selection-end-column="13" />
+            <state relative-caret-position="231">
+              <caret line="286" column="52" selection-start-line="286" selection-start-column="52" selection-end-line="286" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7037#7038#0" expanded="true" />
-                <element signature="e#7100#7101#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -147,9 +119,46 @@
             <state relative-caret-position="323">
               <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1223#1224#0" expanded="true" />
-                <element signature="e#1257#1258#0" expanded="true" />
+                <element signature="e#1078#1079#0" expanded="false" />
+                <element signature="e#1107#1108#0" expanded="false" />
+                <element signature="e#1155#1156#0" expanded="false" />
+                <element signature="e#1191#1192#0" expanded="false" />
+                <element signature="e#1302#1303#0" expanded="false" />
+                <element signature="e#1330#1331#0" expanded="false" />
+                <element signature="e#1372#1373#0" expanded="false" />
+                <element signature="e#1409#1410#0" expanded="false" />
+                <element signature="e#1441#1442#0" expanded="false" />
+                <element signature="e#1475#1476#0" expanded="false" />
+                <element signature="e#1520#1521#0" expanded="false" />
+                <element signature="e#1548#1549#0" expanded="false" />
+                <element signature="e#1590#1591#0" expanded="false" />
+                <element signature="e#1627#1628#0" expanded="false" />
+                <element signature="e#1669#1670#0" expanded="false" />
+                <element signature="e#1713#1714#0" expanded="false" />
+                <element signature="e#1768#1769#0" expanded="false" />
+                <element signature="e#1806#1807#0" expanded="false" />
+                <element signature="e#1868#1869#0" expanded="false" />
+                <element signature="e#1925#1926#0" expanded="false" />
+                <element signature="e#1963#1964#0" expanded="false" />
+                <element signature="e#2003#2004#0" expanded="false" />
+                <element signature="e#2054#2055#0" expanded="false" />
+                <element signature="e#2088#2089#0" expanded="false" />
+                <element signature="e#2142#2143#0" expanded="false" />
+                <element signature="e#2191#2192#0" expanded="false" />
+                <element signature="e#2225#2226#0" expanded="false" />
+                <element signature="e#2261#2262#0" expanded="false" />
+                <element signature="e#2308#2309#0" expanded="false" />
+                <element signature="e#2338#2339#0" expanded="false" />
+                <element signature="e#2384#2385#0" expanded="false" />
+                <element signature="e#2425#2426#0" expanded="false" />
+                <element signature="e#2470#2471#0" expanded="false" />
+                <element signature="e#2510#2511#0" expanded="false" />
+                <element signature="e#2577#2578#0" expanded="false" />
+                <element signature="e#2635#2636#0" expanded="false" />
+                <element signature="e#2670#2671#0" expanded="false" />
+                <element signature="e#2700#2701#0" expanded="false" />
+                <element signature="e#2747#2748#0" expanded="false" />
+                <element signature="e#2785#2786#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -158,12 +167,19 @@
       <file leaf-file-name="PasswordBusiness.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/business/PasswordBusiness.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-              <folding>
-                <element signature="e#1235#1236#0" expanded="true" />
-                <element signature="e#1263#1264#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="391">
+              <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParamBusiness.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/business/ParamBusiness.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1130">
+              <caret line="141" column="30" selection-start-line="141" selection-start-column="30" selection-end-line="141" selection-end-column="30" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -224,17 +240,18 @@
         <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/impl/ICrypt.java" />
         <option value="$PROJECT_DIR$/src/bundle/MyBundle_fr.properties" />
         <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/contexte/ContexteStatic.java" />
-        <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayoutController.java" />
         <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/style.css" />
         <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayout.fxml" />
         <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/model/Dossier.java" />
         <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/model/MotDePasse.java" />
-        <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/business/PasswordBusiness.java" />
         <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/Main.java" />
         <option value="$PROJECT_DIR$/src/bundle/strings_fr.properties" />
         <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/model/ObservableMotDePasse.java" />
         <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainView.fxml" />
         <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainViewController.java" />
+        <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/business/PasswordBusiness.java" />
+        <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayoutController.java" />
+        <option value="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/business/ParamBusiness.java" />
       </list>
     </option>
   </component>
@@ -281,6 +298,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -296,6 +315,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="SimplyPasswordJava" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimplyPasswordJava" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimplyPasswordJava" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -426,8 +459,6 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -446,6 +477,9 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -945,6 +979,7 @@
       <workItem from="1487946991717" duration="9511000" />
       <workItem from="1487956864657" duration="315000" />
       <workItem from="1488198750957" duration="17344000" />
+      <workItem from="1488559008632" duration="1208000" />
     </task>
     <task id="LOCAL-00001" summary="Ajout des classes de bases (chiffrement, gestion des fichiers, objets et fenetre de base)">
       <created>1486565495239</created>
@@ -971,7 +1006,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66707000" />
+    <option name="totallyTimeSpent" value="67915000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -984,18 +1019,18 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947916" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947916" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2751046" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2751046" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1040,27 +1075,15 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="33" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7037#7038#0" expanded="true" />
-            <element signature="e#7100#7101#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayout.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
           <caret line="34" column="43" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="43" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayoutController.java">
@@ -1080,14 +1103,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainView.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainViewController.java">
@@ -1096,21 +1119,19 @@
           <caret line="2" column="33" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7037#7038#0" expanded="true" />
-            <element signature="e#7100#7101#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayout.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
           <caret line="34" column="43" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="43" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayoutController.java">
@@ -1138,14 +1159,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayout.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/Main.java">
@@ -1164,14 +1185,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayout.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayoutController.java">
@@ -1310,19 +1331,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayoutController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1214">
-          <caret line="63" column="27" selection-start-line="63" selection-start-column="27" selection-end-line="63" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_74/javafx-src.zip!/javafx/scene/control/MenuItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="352" column="37" selection-start-line="352" selection-start-column="37" selection-end-line="352" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1338,7 +1350,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="51" column="13" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1346,19 +1357,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="2248" column="28" selection-start-line="2248" selection-start-column="28" selection-end-line="2248" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayout.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="74" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/Main.java">
@@ -1377,51 +1387,173 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/business/PasswordBusiness.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding>
-            <element signature="e#1235#1236#0" expanded="true" />
-            <element signature="e#1263#1264#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/model/ObservableMotDePasse.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1223#1224#0" expanded="true" />
-            <element signature="e#1257#1258#0" expanded="true" />
+            <element signature="e#1078#1079#0" expanded="false" />
+            <element signature="e#1107#1108#0" expanded="false" />
+            <element signature="e#1155#1156#0" expanded="false" />
+            <element signature="e#1191#1192#0" expanded="false" />
+            <element signature="e#1302#1303#0" expanded="false" />
+            <element signature="e#1330#1331#0" expanded="false" />
+            <element signature="e#1372#1373#0" expanded="false" />
+            <element signature="e#1409#1410#0" expanded="false" />
+            <element signature="e#1441#1442#0" expanded="false" />
+            <element signature="e#1475#1476#0" expanded="false" />
+            <element signature="e#1520#1521#0" expanded="false" />
+            <element signature="e#1548#1549#0" expanded="false" />
+            <element signature="e#1590#1591#0" expanded="false" />
+            <element signature="e#1627#1628#0" expanded="false" />
+            <element signature="e#1669#1670#0" expanded="false" />
+            <element signature="e#1713#1714#0" expanded="false" />
+            <element signature="e#1768#1769#0" expanded="false" />
+            <element signature="e#1806#1807#0" expanded="false" />
+            <element signature="e#1868#1869#0" expanded="false" />
+            <element signature="e#1925#1926#0" expanded="false" />
+            <element signature="e#1963#1964#0" expanded="false" />
+            <element signature="e#2003#2004#0" expanded="false" />
+            <element signature="e#2054#2055#0" expanded="false" />
+            <element signature="e#2088#2089#0" expanded="false" />
+            <element signature="e#2142#2143#0" expanded="false" />
+            <element signature="e#2191#2192#0" expanded="false" />
+            <element signature="e#2225#2226#0" expanded="false" />
+            <element signature="e#2261#2262#0" expanded="false" />
+            <element signature="e#2308#2309#0" expanded="false" />
+            <element signature="e#2338#2339#0" expanded="false" />
+            <element signature="e#2384#2385#0" expanded="false" />
+            <element signature="e#2425#2426#0" expanded="false" />
+            <element signature="e#2470#2471#0" expanded="false" />
+            <element signature="e#2510#2511#0" expanded="false" />
+            <element signature="e#2577#2578#0" expanded="false" />
+            <element signature="e#2635#2636#0" expanded="false" />
+            <element signature="e#2670#2671#0" expanded="false" />
+            <element signature="e#2700#2701#0" expanded="false" />
+            <element signature="e#2747#2748#0" expanded="false" />
+            <element signature="e#2785#2786#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainView.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
+        <state relative-caret-position="1071">
           <caret line="63" column="159" selection-start-line="63" selection-start-column="139" selection-end-line="63" selection-end-column="159" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/MainViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="306" column="13" selection-start-line="306" selection-start-column="13" selection-end-line="306" selection-end-column="13" />
+        <state relative-caret-position="231">
+          <caret line="286" column="52" selection-start-line="286" selection-start-column="52" selection-end-line="286" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7037#7038#0" expanded="true" />
-            <element signature="e#7100#7101#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/RootLayoutController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="139" column="48" selection-start-line="139" selection-start-column="48" selection-end-line="139" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/business/PasswordBusiness.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/business/ParamBusiness.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1130">
+          <caret line="141" column="30" selection-start-line="141" selection-start-column="30" selection-end-line="141" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>SimplyPasswordJava</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>

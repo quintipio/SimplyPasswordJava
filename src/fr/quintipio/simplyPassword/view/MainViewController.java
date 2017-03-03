@@ -1,22 +1,30 @@
 package fr.quintipio.simplyPassword.view;
 
+import fr.quintipio.simplyPassword.Main;
 import fr.quintipio.simplyPassword.business.PasswordBusiness;
+import fr.quintipio.simplyPassword.contexte.ContexteStatic;
 import fr.quintipio.simplyPassword.model.Dossier;
 import fr.quintipio.simplyPassword.model.MotDePasse;
 import fr.quintipio.simplyPassword.model.ObservableMotDePasse;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.scene.input.*;
+import javafx.scene.input.KeyCombination.ModifierValue;
 import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 public class MainViewController implements Initializable {
@@ -41,7 +49,9 @@ public class MainViewController implements Initializable {
     @FXML
     private ProgressBar countdownProgressbar;
     private ResourceBundle bundle;
-    private ObservableList<ObservableMotDePasse> listeMdp = FXCollections.observableArrayList();
+    private Main main;
+    
+	private ObservableList<ObservableMotDePasse> listeMdp = FXCollections.observableArrayList();
 
     //ContexteMenu
     private ContextMenu dossierContexteMenu;
@@ -56,26 +66,30 @@ public class MainViewController implements Initializable {
     private boolean coupe;
     private boolean copie;
     private MenuItem collerMenuItem;
+    
+    //pour le timer
+    private Timer timer;
+    private int nbSecondepasse;
 
-    /**
-    Constructeur
-     */
-    public MainViewController() {
-        PasswordBusiness.init();
-    }
-
-
+    
+    //INIT GETTER SETTER
+    
+	public void setMain(Main main) {
+		this.main = main;
+	}
     /**
      * Méthode d'initialisation
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        PasswordBusiness.init();
         bundle = resources;
         genererTreeView();
         startTableMdp();
         afficherOuPasMdp();
-
+        
         collerMenuItem = new MenuItem(resources.getString("coller"));
+        collerMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.V,KeyCombination.CONTROL_DOWN));
         collerMenuItem.setOnAction(t -> {
             if(copie) {
                 selectedDossier.getValue().getListeMotDePasse().add(selectedMotDePasseToMove);
@@ -129,6 +143,7 @@ public class MainViewController implements Initializable {
 
         //créer le menu contextuel
         dossierContexteMenu = new ContextMenu();
+        
         MenuItem creerDossier = new MenuItem(bundle.getString("creerDossier"));
         creerDossier.setOnAction(t -> {
             Dossier dossierTmp = new Dossier(bundle.getString("creerDossier"),selectedDossier.getValue());
@@ -136,66 +151,43 @@ public class MainViewController implements Initializable {
             selectedDossier.getChildren().add(new TreeItem<>(dossierTmp));
             PasswordBusiness.setModif(true);
         });
+        
         MenuItem modifierDossier = new MenuItem(bundle.getString("modifierDossier"));
         modifierDossier.setOnAction(t -> {
             dossierTreeView.edit(selectedDossier);
             PasswordBusiness.setModif(true);
         });
+        
         MenuItem supprimerDossier = new MenuItem(bundle.getString("supprimerDossier"));
         supprimerDossier.setOnAction(t -> {
-            selectedDossier.getValue().getDossierParent().getSousDossier().remove(selectedDossier.getValue());
-            TreeItem tmp = selectedDossier.getParent();
-            selectedDossier.getParent().getChildren().remove(selectedDossier);
-            PasswordBusiness.setModif(true);
-            selectedDossier = tmp;
+        	 Alert al = new Alert(AlertType.CONFIRMATION);
+             al.setTitle(bundle.getString("supprimerDossier"));
+             al.setHeaderText(bundle.getString("supprimerDossier"));
+             al.setContentText(bundle.getString("confirmSupprimerDossier"));
+             Optional<ButtonType> res = al.showAndWait();
+             if(res.get() == ButtonType.OK) {
+            	 selectedDossier.getValue().getDossierParent().getSousDossier().remove(selectedDossier.getValue());
+                 TreeItem<Dossier> tmp = selectedDossier.getParent();
+                 selectedDossier.getParent().getChildren().remove(selectedDossier);
+                 PasswordBusiness.setModif(true);
+                 selectedDossier = tmp;
+             }
         });
+        
         MenuItem importerDossier = new MenuItem(bundle.getString("importerDossier"));
+        
         MenuItem exporterDossier = new MenuItem(bundle.getString("exporterDossier"));
+        
         dossierContexteMenu.getItems().add(creerDossier);
         dossierContexteMenu.getItems().add(modifierDossier);
         dossierContexteMenu.getItems().add(supprimerDossier);
+        dossierContexteMenu.getItems().add(new SeparatorMenuItem());
         dossierContexteMenu.getItems().add(importerDossier);
         dossierContexteMenu.getItems().add(exporterDossier);
         dossierTreeView.setContextMenu(dossierContexteMenu);
         selectedDossier = rootItem;
     }
-
-    /**
-     * Génère un arbre des items de dossier
-     * @param dossier le dossier dont on veut le tree item
-     * @return le tree item
-     */
-    private TreeItem<Dossier> genererTreeItem(Dossier dossier) {
-
-        TreeItem<Dossier> dossierTreeItem = new TreeItem<>(dossier);
-        dossierTreeItem.setExpanded(true);
-        if(dossier.getSousDossier() != null && dossier.getSousDossier().size() > 0) {
-            for (Dossier sousDossier : dossier.getSousDossier()) {
-                TreeItem<Dossier> item = genererTreeItem(sousDossier);
-                dossierTreeItem.getChildren().add(item);
-            }
-        }
-        return  dossierTreeItem;
-    }
-
-    /**
-     * Ouvre un dossier et affiche les mots de passe
-     * @param dossier le dossier à ouvrir
-     */
-    private void ouvrirDossier(Dossier dossier) {
-        ouvrirMotsDePasse(dossier.getListeMotDePasse());
-    }
-
-    /**
-     * Ouvre une liste de mot de passe dans le tableau
-     * @param listeMdp la liste des mots de passe à afficher
-     */
-    private void ouvrirMotsDePasse(List<MotDePasse> listeMdp) {
-        this.listeMdp.clear();
-        this.listeMdp.addAll(listeMdp.stream().map(ObservableMotDePasse::new).collect(Collectors.toList()));
-        afficherOuPasMdp();
-    }
-
+    
     /**
      * Démarre la table d'affichage des mots de passe avec les évènements
      */
@@ -215,17 +207,48 @@ public class MainViewController implements Initializable {
         //menu contextuel
         mdpContexteMenu = new ContextMenu();
         MenuItem modifMdp = new MenuItem(bundle.getString("modifMdp"));
+        modifMdp.setAccelerator(new KeyCodeCombination(KeyCode.M,KeyCombination.CONTROL_DOWN));
+        modifMdp.setOnAction(t -> {
+        	MotDePasse mdp = main.showEditPassword(selectedMotDepasse.getMdpOri());
+        	if(mdp != null) {
+        		mdp.setDossierPossesseur(selectedDossier.getValue());
+        		selectedDossier.getValue().getListeMotDePasse().remove(selectedMotDepasse.getMdpOri());
+        		selectedDossier.getValue().getListeMotDePasse().add(mdp);
+        		ouvrirDossier(selectedDossier.getValue());
+                PasswordBusiness.setModif(true);
+        	}
+        });
+        
         MenuItem supMdp = new MenuItem(bundle.getString("supprimerMdp"));
         supMdp.setOnAction(t -> {
-            selectedDossier.getValue().getListeMotDePasse().remove(selectedMotDepasse.getMdpOri());
-            ouvrirDossier(selectedDossier.getValue());
-            PasswordBusiness.setModif(true);
+            Alert al = new Alert(AlertType.CONFIRMATION);
+            al.setTitle(bundle.getString("supprimerMdp"));
+            al.setHeaderText(bundle.getString("supprimerMdp"));
+            al.setContentText(bundle.getString("confirmSupprimerMdp"));
+            Optional<ButtonType> res = al.showAndWait();
+            if(res.get() == ButtonType.OK) {
+            	selectedDossier.getValue().getListeMotDePasse().remove(selectedMotDepasse.getMdpOri());
+                ouvrirDossier(selectedDossier.getValue());
+                PasswordBusiness.setModif(true);
+            }
         });
+        
         MenuItem copieLogin = new MenuItem(bundle.getString("copieLogin"));
-        copieLogin.setOnAction(t -> copyToClipBoard(selectedMotDepasse.getLogin()));
+        copieLogin.setAccelerator(new KeyCodeCombination(KeyCode.X,KeyCombination.CONTROL_DOWN,KeyCombination.SHIFT_DOWN));
+        copieLogin.setOnAction(t -> {
+        	copyToClipBoard(selectedMotDepasse.getLogin());
+        	startTimer();
+        });
+        
         MenuItem copieMdp = new MenuItem(bundle.getString("copieMdp"));
-        copieMdp.setOnAction(t -> copyToClipBoard(selectedMotDepasse.getMdpOri().getMotDePasseObjet()));
+        copieMdp.setAccelerator(new KeyCodeCombination(KeyCode.C,KeyCombination.CONTROL_DOWN,KeyCombination.SHIFT_DOWN));
+        copieMdp.setOnAction(t -> {
+        	copyToClipBoard(selectedMotDepasse.getMdpOri().getMotDePasseObjet());
+        	startTimer();
+        });
+        
         MenuItem copier = new MenuItem(bundle.getString("copier"));
+        copier.setAccelerator(new KeyCodeCombination(KeyCode.C,KeyCombination.CONTROL_DOWN));
         copier.setOnAction(t -> {
             selectedMotDePasseToMove = selectedMotDepasse.getMdpOri();
             copie = true;
@@ -233,7 +256,9 @@ public class MainViewController implements Initializable {
             ajouterCollerElement();
 
         });
+        
         MenuItem couper = new MenuItem(bundle.getString("couper"));
+        couper.setAccelerator(new KeyCodeCombination(KeyCode.X,KeyCombination.CONTROL_DOWN));
         couper.setOnAction(t -> {
             selectedMotDePasseToMove = selectedMotDepasse.getMdpOri();
             copie = false;
@@ -243,8 +268,10 @@ public class MainViewController implements Initializable {
         });
         mdpContexteMenu.getItems().add(copieLogin);
         mdpContexteMenu.getItems().add(copieMdp);
+        mdpContexteMenu.getItems().add(new SeparatorMenuItem());
         mdpContexteMenu.getItems().add(modifMdp);
         mdpContexteMenu.getItems().add(supMdp);
+        mdpContexteMenu.getItems().add(new SeparatorMenuItem());
         mdpContexteMenu.getItems().add(copier);
         mdpContexteMenu.getItems().add(couper);
         mdpTable.setContextMenu(mdpContexteMenu);
@@ -252,6 +279,30 @@ public class MainViewController implements Initializable {
         mdpTable.setItems(listeMdp);
     }
 
+    
+    
+    
+    //OUVRIR MDP ET DOSSIER
+    /**
+     * Ouvre un dossier et affiche les mots de passe
+     * @param dossier le dossier à ouvrir
+     */
+    private void ouvrirDossier(Dossier dossier) {
+        ouvrirMotsDePasse(dossier.getListeMotDePasse());
+    }
+
+    /**
+     * Ouvre une liste de mot de passe dans le tableau
+     * @param listeMdp la liste des mots de passe à afficher
+     */
+    private void ouvrirMotsDePasse(List<MotDePasse> listeMdp) {
+        this.listeMdp.clear();
+        this.listeMdp.addAll(listeMdp.stream().map(ObservableMotDePasse::new).collect(Collectors.toList()));
+        afficherOuPasMdp();
+    }
+    
+    
+    //COPIER COLLER
     /**
      * Ajoute le menu item coller dans les contexteMennu pour coller un mot de passe
      */
@@ -267,7 +318,11 @@ public class MainViewController implements Initializable {
         dossierContexteMenu.getItems().remove(collerMenuItem);
         mdpContexteMenu.getItems().remove(collerMenuItem);
     }
-
+    
+    
+    
+    
+    //PRESSE PAPIER
     /**
      * Copie du texte dans le presse papier
      * @param data les données à copier
@@ -278,7 +333,53 @@ public class MainViewController implements Initializable {
         content.putString(data);
         clipboard.setContent(content);
     }
-
+    
+    /**
+     * D�marre un timer de compte � rebours, fait diminuer la progress bar, et efface les donn�es du presse-papier au bout d'un certain temps
+     */
+    private void startTimer() {
+    	if(timer != null) {
+    		timer.cancel();
+    	}
+    	countdownProgressbar.setProgress(1);
+    	nbSecondepasse = 0;
+    	timer = new Timer();
+    	timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				if(nbSecondepasse < ContexteStatic.dureeTimerCopieClipboard) {
+					nbSecondepasse++;
+					double recul = (double)1/(double)ContexteStatic.dureeTimerCopieClipboard;
+					countdownProgressbar.setProgress(countdownProgressbar.getProgress()-recul);
+				}
+				else {
+					try{
+						Platform.runLater(new Runnable() {
+							
+							@Override
+							public void run() {
+								copyToClipBoard("");
+								
+							}
+						});
+						countdownProgressbar.setProgress(1);
+						this.cancel();
+						timer.cancel();
+						timer.purge();
+					}catch(Exception ex) {
+						ex.printStackTrace();
+					}
+					
+				}
+			}
+		}, 0,1000);
+    }
+    
+    
+    
+    
+    
+    //METHODE FXML
     /**
      * Lance une recherche de mots de passe
      */
@@ -291,7 +392,24 @@ public class MainViewController implements Initializable {
             ouvrirDossier(selectedDossier.getValue());
         }
     }
+    
+    /**
+     * Charge la boite de dialogue pour un nouveau mot de passe
+     */
+    @FXML
+    private void nouveauMdp() {
+    	MotDePasse mdp = main.showEditPassword(null);
+    	if(mdp != null) {
+    		mdp.setDossierPossesseur(selectedDossier.getValue());
+    		selectedDossier.getValue().getListeMotDePasse().add(mdp);
+    		ouvrirDossier(selectedDossier.getValue());
+            PasswordBusiness.setModif(true);
+    	}
+    }
 
+    /**
+     * Affiche ou masque les mots de passe du passe tableau
+     */
     @FXML
     private void afficherOuPasMdp() {
         if(checkMdpAfficher.isSelected()) {
@@ -306,5 +424,26 @@ public class MainViewController implements Initializable {
                 mdp.setMotDePasseObjet("********");
             }
         }
+    }
+    
+    
+    
+    //OUTILS
+    /**
+     * Génère un arbre des items de dossier
+     * @param dossier le dossier dont on veut le tree item
+     * @return le tree item
+     */
+    private TreeItem<Dossier> genererTreeItem(Dossier dossier) {
+
+        TreeItem<Dossier> dossierTreeItem = new TreeItem<>(dossier);
+        dossierTreeItem.setExpanded(true);
+        if(dossier.getSousDossier() != null && dossier.getSousDossier().size() > 0) {
+            for (Dossier sousDossier : dossier.getSousDossier()) {
+                TreeItem<Dossier> item = genererTreeItem(sousDossier);
+                dossierTreeItem.getChildren().add(item);
+            }
+        }
+        return  dossierTreeItem;
     }
 }

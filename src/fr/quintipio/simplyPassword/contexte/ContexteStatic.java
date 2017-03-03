@@ -5,6 +5,21 @@ package fr.quintipio.simplyPassword.contexte;
  */
 public class ContexteStatic {
 
+	/**
+	 * Nom de l'application
+	 */
+	public static String nomAppli = "Simply Password";
+	
+	/**
+	 * Numéro de version
+	 */
+	public static String version = "0.9";
+	
+	/**
+	 * Nom du développeur
+	 */
+	public static String developpeur = "Quentin Delfour";
+	
     /**
      * Chemin du rÃ©pertoire ou se trouve les textes de l'application
      */
@@ -14,4 +29,9 @@ public class ContexteStatic {
      * Extension acceptÃ© pour charger et sauvegarder les donnÃ©es
      */
     public static String extension = ".spj";
+    
+    /**
+     * Durée en seconde de la copie d'un identifiant ou d'un mot de passe dans le presse papier
+     */
+    public static int dureeTimerCopieClipboard = 20;
 }

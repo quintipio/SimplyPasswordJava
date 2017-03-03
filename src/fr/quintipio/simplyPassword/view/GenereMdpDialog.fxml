@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Button?>
+
+<!--  
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StacKPane?>
+<?import javafx.scene.control.CheckBox?>
+
+<StackPane  xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.quintipio.simplyPassword.view.GenereMdpDialogController">
+	<children>
+		<CheckBox fx:id="lettreCheck" text="%lettreMinMaj"/>
+		<CheckBox fx:id="chiffreCheck" text="%chiffre"/>
+		<CheckBox fx:id="specCheck" text="%caracSpec"/>
+	</children>
+</StackPane>-->
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.quintipio.simplyPassword.view.GenereMdpDialogController">
+   <children>
+      <GridPane>
+         <columnConstraints>
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+         <children>
+            <CheckBox fx:id="lettreCheck" mnemonicParsing="false" text="%lettreMinMaj" onAction="#verifChecked"/>
+            <CheckBox fx:id="chiffreCheck" mnemonicParsing="false" text="%chiffre" GridPane.rowIndex="1" onAction="#verifChecked"/>
+            <CheckBox fx:id="specCheck" mnemonicParsing="false" text="%caracSpec" GridPane.rowIndex="2" onAction="#verifChecked"/>
+            <GridPane GridPane.rowIndex="3">
+            <columnConstraints>
+	            <ColumnConstraints />
+	            <ColumnConstraints />
+	         </columnConstraints>
+	         <rowConstraints>
+	            <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints />
+	         </rowConstraints>
+	         <children>
+                  <Label text="%longueur" />
+                  <Label fx:id="longueurLabel" textAlignment="CENTER" GridPane.columnIndex="1" />
+	          	<Slider fx:id="longueurSlider" majorTickUnit="10.0" max="40.0" min="5.0" minorTickCount="5" showTickLabels="true" showTickMarks="true" value="11.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+	         </children>
+            </GridPane>
+            <GridPane GridPane.rowIndex="4">
+            <columnConstraints>
+            	<ColumnConstraints />
+            	<ColumnConstraints  />
+         	</columnConstraints>
+         	<rowConstraints>
+            	<RowConstraints />
+            </rowConstraints>
+            <children>
+            	<Button fx:id="validerButton" GridPane.rowIndex="0" GridPane.columnIndex="0" text="%valider" onAction="#valider" />
+            	<Button GridPane.rowIndex="0" GridPane.columnIndex="1" text="%annuler" onAction="#annuler" />
+            </children>
+            </GridPane>
+           
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

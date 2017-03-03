@@ -48,7 +48,7 @@
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin></TextField>
-                          <Button text="%creerMdp" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
+                          <Button text="%creerMdp" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0" onAction="#nouveauMdp">
                            <GridPane.margin>
                               <Insets right="10.0" />
                            </GridPane.margin></Button>
