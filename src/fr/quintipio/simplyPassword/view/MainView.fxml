@@ -14,24 +14,19 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.quintipio.simplyPassword.view.MainViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.quintipio.simplyPassword.view.MainViewController">
    <children>
-      <SplitPane dividerPositions="0.29797979797979796" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-            <StackPane>
+            <AnchorPane maxWidth="-Infinity" minWidth="150.0" prefWidth="200.0">
                <children>
-                  <TreeView fx:id="dossierTreeView" prefHeight="254.0" prefWidth="175.0">
-                     <StackPane.margin>
-                        <Insets />
-                     </StackPane.margin>
-                  </TreeView>
+                  <TreeView fx:id="dossierTreeView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
-            </StackPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            </AnchorPane>
+          <AnchorPane minHeight="400.0" minWidth="400.0">
                <children>
-                  <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
                       <ColumnConstraints minWidth="10.0" />
                       <ColumnConstraints minWidth="10.0" />
@@ -48,11 +43,11 @@
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin></TextField>
-                          <Button text="%creerMdp" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0" onAction="#nouveauMdp">
+                          <Button onAction="#nouveauMdp" text="%creerMdp" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
                            <GridPane.margin>
                               <Insets right="10.0" />
                            </GridPane.margin></Button>
-                          <TableView fx:id="mdpTable" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                          <TableView fx:id="mdpTable" minWidth="600.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1">
                               <columns>
                                   <TableColumn fx:id="titreColumn" prefWidth="100.0" text="%titre" />
                                   <TableColumn fx:id="loginColumn" prefWidth="100.0" text="%login" />
@@ -61,7 +56,7 @@
                               </columns>
                           </TableView>
                           <CheckBox fx:id="checkMdpAfficher" onAction="#afficherOuPasMdp" text="%afficherMdp" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                            <ProgressBar progress="1.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" fx:id="countdownProgressbar" />
+                            <ProgressBar fx:id="countdownProgressbar" progress="1.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                       </children>
                   </GridPane>
                </children>

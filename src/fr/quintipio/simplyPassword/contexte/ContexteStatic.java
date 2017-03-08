@@ -11,12 +11,12 @@ public class ContexteStatic {
 	public static String nomAppli = "Simply Password";
 	
 	/**
-	 * NumÈro de version
+	 * Num√†ro de version
 	 */
 	public static String version = "0.9";
 	
 	/**
-	 * Nom du dÈveloppeur
+	 * Nom du d√©veloppeur
 	 */
 	public static String developpeur = "Quentin Delfour";
 	
@@ -31,7 +31,17 @@ public class ContexteStatic {
     public static String extension = ".spj";
     
     /**
-     * DurÈe en seconde de la copie d'un identifiant ou d'un mot de passe dans le presse papier
+     * Dur√†e en seconde de la copie d'un identifiant ou d'un mot de passe dans le presse papier
      */
     public static int dureeTimerCopieClipboard = 20;
+    
+    /**
+     * La liste des langues disponibles
+     */
+    public static String[] listeLangues = {"fr","en"};
+    
+    /**
+     * La langue par d√©faut de l'application
+     */
+    public static String langueDefaut = listeLangues[0];
 }

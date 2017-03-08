@@ -5,13 +5,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * L'objet Dossier
  */
+@XmlRootElement
 public class Dossier implements Serializable{
 
     private String titre;
 
+	@XmlTransient
     private Dossier dossierParent;
 
     private List<Dossier> sousDossier;
@@ -49,6 +56,7 @@ public class Dossier implements Serializable{
         this.titre = titre;
     }
 
+	@XmlTransient
     public Dossier getDossierParent() {
         return dossierParent;
     }

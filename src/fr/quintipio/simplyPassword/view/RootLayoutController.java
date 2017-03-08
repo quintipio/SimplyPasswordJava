@@ -1,6 +1,7 @@
 package fr.quintipio.simplyPassword.view;
 
 import fr.quintipio.simplyPassword.Main;
+import fr.quintipio.simplyPassword.business.ParamBusiness;
 import fr.quintipio.simplyPassword.business.PasswordBusiness;
 import fr.quintipio.simplyPassword.com.ComFile;
 import fr.quintipio.simplyPassword.contexte.ContexteStatic;
@@ -14,6 +15,8 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -79,13 +82,10 @@ public class RootLayoutController implements Initializable  {
      * Quitter l'application
      */
     @FXML
-    private void handleExit() {
-
-        if(isModif()) {
-            save();
+    private void close() {
+        if(main.askSave()) {
+        	main.getPrimaryStage().close();
         }
-
-        System.exit(0);
     }
 
     /**
@@ -93,66 +93,31 @@ public class RootLayoutController implements Initializable  {
      */
     @FXML
     private void saveAs() {
-        //vérification si le mot de passe maître existe
-        if(PasswordBusiness.isMotDePasse()) {
-
-            //ouverture d'une dlg de fichier
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ContexteStatic.extension.toUpperCase()+" (*"+ ContexteStatic.extension+")", "*"+ContexteStatic.extension));
-            File file = fileChooser.showSaveDialog(main.getPrimaryStage());
-            String path = null;
-            if(file != null) {
-                if (!file.getPath().endsWith(ContexteStatic.extension)) {
-                    path = file.getPath() + ContexteStatic.extension;
-                }
+        //ouverture d'une dlg de fichier
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ContexteStatic.extension.toUpperCase()+" (*"+ ContexteStatic.extension+")", "*"+ContexteStatic.extension));
+        File file = fileChooser.showSaveDialog(main.getPrimaryStage());
+        if(file != null) {
+        	if (file.getPath().endsWith(ContexteStatic.extension)) {
+                PasswordBusiness.setFichier(file.getPath(),true);
             }
-
-            //sauvegarde
-            if(path != null && path.isEmpty()) {
-                try {
-                    PasswordBusiness.save(path);
-                }catch(Exception ex) {
-
-                }
+            else {
+                PasswordBusiness.setFichier(file.getPath()+ContexteStatic.extension,true);
             }
         }
-        else {
 
+        //sauvegarde
+        if(file != null && file.getPath() != null && !file.getPath().isEmpty()) {
+            save();
         }
     }
 
     /**
-     * Sauvegarder
+     * Sauvegarder (demande un mot de passe, si aucun, demande un emplacement de sauvegarde si aucun
      */
     @FXML
     private void save() {
-        if(!PasswordBusiness.isMotDePasse()) {
-
-        }
-
-        if(!PasswordBusiness.isFichier()) {
-            //ouverture d'une dlg de fichier
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ContexteStatic.extension.toUpperCase()+" (*"+ ContexteStatic.extension+")", "*"+ContexteStatic.extension));
-            File file = fileChooser.showSaveDialog(main.getPrimaryStage());
-            if(file != null) {
-                if (!file.getPath().endsWith(ContexteStatic.extension)) {
-                    PasswordBusiness.setFichier(file.getPath() + ContexteStatic.extension);
-                }
-            }
-        }
-
-        if(PasswordBusiness.isFichier() && PasswordBusiness.isMotDePasse()) {
-            try {
-                PasswordBusiness.save(null);
-            }catch(Exception ex) {
-
-            }
-        }
-        else {
-            PasswordBusiness.setFichier(null);
-            PasswordBusiness.setMotDePasse(null);
-        }
+        main.save();
     }
 
     /**
@@ -168,23 +133,16 @@ public class RootLayoutController implements Initializable  {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ContexteStatic.extension.toUpperCase()+" (*"+ ContexteStatic.extension+")", "*"+ContexteStatic.extension));
         File file = fileChooser.showOpenDialog(main.getPrimaryStage());
         if(file != null) {
-            if (!file.getPath().endsWith(ContexteStatic.extension)) {
-                PasswordBusiness.setFichier(file.getPath() + ContexteStatic.extension);
+        	if (file.getPath().endsWith(ContexteStatic.extension)) {
+                PasswordBusiness.setFichier(file.getPath(),true);
             }
-        }
-
-        //chargement du mot de passe
-        if(path != null && !path.isEmpty()) {
-
-        }
-
-        //chargement
-        if(path != null && !path.isEmpty() && password != null && !password.isEmpty()) {
-            try {
-                PasswordBusiness.load(path,password);
-            }catch(Exception ex) {
-
+            else {
+                PasswordBusiness.setFichier(file.getPath()+ContexteStatic.extension,true);
             }
+        	
+        	PasswordBusiness.setMotDePasse(null);
+        	
+        	main.ouvrirFenetre(true);
         }
     }
 
@@ -194,10 +152,11 @@ public class RootLayoutController implements Initializable  {
     @FXML
     private void newApp() {
         PasswordBusiness.reset();
+        main.ouvrirFenetre(false);
     }
     
     /**
-     * Ouvre la fen�tre pour changer le mot de passe ma�tre
+     * Ouvre la fenêtre pour changer le mot de passe maêtre
      */
     @FXML
     private void changeMdpMaitre() {
@@ -210,10 +169,16 @@ public class RootLayoutController implements Initializable  {
     @FXML
     private void changeLangue() {
     	List<String> listeLangue = new ArrayList<String>();
-    	listeLangue.add(bundle.getString("fr"));
-    	listeLangue.add(bundle.getString("en"));
+    	for (String lang : ContexteStatic.listeLangues) {
+    		listeLangue.add(bundle.getString(lang));
+		}
     	
-    	ChoiceDialog<String> dialog = new ChoiceDialog<>(listeLangue.get(0),listeLangue);
+    	int choixDefaut = 0;
+    	if(ParamBusiness.getParametreLangue() != null && ParamBusiness.getParametreLangue().contentEquals(listeLangue.get(1))) {
+    		choixDefaut = 1;
+    	}
+    	
+    	ChoiceDialog<String> dialog = new ChoiceDialog<>(listeLangue.get(choixDefaut),listeLangue);
     	dialog.setTitle(bundle.getString("changerlangue"));
     	dialog.setHeaderText(bundle.getString("selectLangue"));
     	dialog.setContentText(bundle.getString("langue"));
@@ -224,32 +189,39 @@ public class RootLayoutController implements Initializable  {
     
     /**
      * Applique une nouvelle langue
-     * @param langue la langue s�lectionn�
+     * @param langue la langue sélectionné
      * @param liste la liste des langues
      */
     private void appliquerLangue(String langue,List<String> liste) {
+    	
     	if(langue.equals(liste.get(0))) {
-    		main.ouvrirFenetre(new Locale("fr","FR"));
+        	ParamBusiness.setParametreLangue(ContexteStatic.listeLangues[0]);
+    		main.ouvrirFenetre(false);
     	}
     	if(langue.equals(liste.get(1))) {
-    		main.ouvrirFenetre(new Locale("en","EN"));
+        	ParamBusiness.setParametreLangue(ContexteStatic.listeLangues[1]);
+    		main.ouvrirFenetre(false);
     	}
+    	ParamBusiness.ecrireFichierParamUser();
     	
     }
     
     /**
-     * Affiche la boite de dialogue � propos de...
+     * Affiche la boite de dialogue à propos de...
      */
     @FXML
     private void openAppd() {
     	Dialog dlg = new Dialog<String>();
     	dlg.setTitle(bundle.getString("appd"));
     	dlg.setHeaderText(ContexteStatic.nomAppli);
+    	dlg.setGraphic(new ImageView("/rsc/icon.png"));
     	
     	ButtonType button = new ButtonType("OK",ButtonData.OK_DONE);
     	dlg.getDialogPane().getButtonTypes().add(button);
     	
     	GridPane grid = new GridPane();
+    	grid.setHgap(10);
+    	grid.setVgap(10);
     	Label laa = new Label();
     	laa.setText(bundle.getString("version"));
     	Label lab = new Label();

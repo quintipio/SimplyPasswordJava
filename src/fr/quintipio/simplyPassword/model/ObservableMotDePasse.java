@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 import java.io.Serializable;
 
 /**
- * L'objet Mot de passe
+ * L'objet Mot de passe pour être observable dans la vue
  */
 public class ObservableMotDePasse implements Serializable {
 

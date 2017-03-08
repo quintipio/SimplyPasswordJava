@@ -9,6 +9,7 @@ import fr.quintipio.simplyPassword.util.StringUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Alert.AlertType;
@@ -28,6 +29,8 @@ public class GererMasterPasswordDialogController implements Initializable {
 	private ProgressBar progressMdp;
 	@FXML
 	private Label oldMdplabel;
+	@FXML
+	private Button validButton;
 
 	private ResourceBundle bundle;
     private Stage dialogStage;
@@ -43,6 +46,13 @@ public class GererMasterPasswordDialogController implements Initializable {
 		oldMdplabel.setVisible(PasswordBusiness.isMotDePasse());
 		oldMdp.setVisible(PasswordBusiness.isMotDePasse());
 		progressMdp.setProgress(0);
+		validButton.setDisable(true);
+		if(PasswordBusiness.isMotDePasse()) {
+			oldMdp.textProperty().addListener((observable,oldValue,newValue) ->checkDisableButtonValid());
+		}
+		newMdp.textProperty().addListener((observable,oldValue,newValue) ->checkDisableButtonValid());
+		confMdp.textProperty().addListener((observable,oldValue,newValue) ->checkDisableButtonValid());
+		
 	}
 	
 	/**
@@ -101,6 +111,18 @@ public class GererMasterPasswordDialogController implements Initializable {
             alert.showAndWait();
             return false;
         }
+	}
+	
+	
+	/**
+	 * Rend disponible ou no le bouton de validation
+	 */
+	private void checkDisableButtonValid() {
+		 validButton.setDisable((PasswordBusiness.isMotDePasse() && StringUtils.stringEmpty(oldMdp.getText())) || (PasswordBusiness.isMotDePasse() && !StringUtils.stringEmpty(oldMdp.getText()) && !PasswordBusiness.getMotDePasse().contentEquals(oldMdp.getText()))
+					|| StringUtils.stringEmpty(newMdp.getText()) || (!StringUtils.stringEmpty(newMdp.getText()) && newMdp.getText().length() < 8)
+					|| StringUtils.stringEmpty(confMdp.getText()) || (!StringUtils.stringEmpty(confMdp.getText()) && confMdp.getText().length() < 8) 
+					|| (!StringUtils.stringEmpty(confMdp.getText()) && !StringUtils.stringEmpty(newMdp.getText()) && !confMdp.getText().contentEquals(newMdp.getText()))
+					|| (!StringUtils.stringEmpty(newMdp.getText()) && !StringUtils.stringEmpty(oldMdp.getText()) && oldMdp.getText().contentEquals(newMdp.getText())));
 	}
 	
 	/**

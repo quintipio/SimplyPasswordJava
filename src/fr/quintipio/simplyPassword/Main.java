@@ -1,24 +1,44 @@
 package fr.quintipio.simplyPassword;
 
+import fr.quintipio.simplyPassword.business.ParamBusiness;
+import fr.quintipio.simplyPassword.business.PasswordBusiness;
 import fr.quintipio.simplyPassword.contexte.ContexteStatic;
+import fr.quintipio.simplyPassword.model.Dossier;
 import fr.quintipio.simplyPassword.model.MotDePasse;
 import fr.quintipio.simplyPassword.view.GenereMdpDialogController;
 import fr.quintipio.simplyPassword.view.GererMasterPasswordDialogController;
+import fr.quintipio.simplyPassword.view.ImportExportDialogController;
 import fr.quintipio.simplyPassword.view.MainViewController;
 import fr.quintipio.simplyPassword.view.PasswordEditDialogController;
 import fr.quintipio.simplyPassword.view.RootLayoutController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
 
 /**
  * Classe de démarrage de l'application
@@ -27,8 +47,6 @@ public class Main extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    
-    private Locale langueLocale;
 
 
     /**
@@ -56,18 +74,35 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle(ContexteStatic.nomAppli);
-        this.primaryStage.getIcons().add(new Image("file:/rsc/icon.png"));
-        ouvrirFenetre(new Locale("fr","FR"));
+        this.primaryStage.getIcons().add(new Image("/rsc/icon.png"));
+        
+        
+        //chargement de la configuration
+        if(!ParamBusiness.isModeLive()) {
+        	ParamBusiness.getDonneesParamUser();
+        }
+        
+        //àvnàment de fermeture
+        this.primaryStage.setOnCloseRequest(t -> {
+        	if(!askSave()) {
+        		t.consume();
+        	}
+        });
+        
+        //dàmarrage de la fenêtre
+        ouvrirFenetre(PasswordBusiness.isFichier());
     }
 
     /**
-     * Lance la fenêtre mère
+     * Lance la fenêtre mére
+     * @param askPassword boolean pour ouvrir la fenetre de mot de passe avant
      */
-    public void initRootLayout(Locale locale) {
+    public void initRootLayout(boolean askPassword) {
         try {
             FXMLLoader loader = new FXMLLoader();
+            ResourceBundle bundle = ResourceBundle.getBundle(ContexteStatic.bundle,new Locale(ParamBusiness.getParametreLangue().toLowerCase(),ParamBusiness.getParametreLangue().toUpperCase()));
             loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
-            loader.setResources(ResourceBundle.getBundle(ContexteStatic.bundle,locale));
+            loader.setResources(bundle);
             rootLayout = (BorderPane) loader.load();
 
             Scene scene = new Scene(rootLayout);
@@ -76,6 +111,69 @@ public class Main extends Application {
             RootLayoutController controller = loader.getController();
             controller.setMain(this);
 
+            //affiche la dlg des mots d epasse, s'il fuat ouvrir un fichier
+            if(askPassword) {
+            	boolean erreurMdp = false;
+            	boolean getError= false;
+            	do {
+            		erreurMdp = false;
+            		Dialog<String> dlg = new Dialog<String>();
+                	dlg.setTitle(bundle.getString("entrezmdp"));
+                	dlg.setHeaderText(ContexteStatic.nomAppli);
+                	ImageView img = new ImageView("/rsc/key.png");
+                	img.resize(64, 64);
+                	dlg.setGraphic(img);
+                	
+                	
+                	Label la = new Label();
+                	la.setText(bundle.getString("entrezmdp"));
+                	Label lb = new Label();
+                	lb.setText(bundle.getString("erreurDechiffre"));
+                	lb.setTextFill(Color.RED);
+                	PasswordField field = new PasswordField();
+
+                	GridPane grid = new GridPane();
+                	grid.add(la,0,0);
+                	grid.add(field, 1,0);
+                	if(getError) {
+                		grid.add(lb,0,1,2,1);
+                	}
+                	dlg.getDialogPane().setContent(grid);
+                	
+                	ButtonType okButton = new ButtonType("OK",ButtonData.OK_DONE);
+                	dlg.getDialogPane().getButtonTypes().addAll(okButton, ButtonType.CANCEL);
+                	Node validButton = dlg.getDialogPane().lookupButton(okButton);
+                	validButton.setDisable(true);
+                	
+                	field.textProperty().addListener((observable,oldValue,newValue) -> validButton.setDisable(newValue.trim().isEmpty() || newValue.length() < 8));
+                	Platform.runLater(() -> field.requestFocus());
+                	
+                	dlg.setResultConverter(dlgButton -> {
+                		if(dlgButton == okButton) {
+                			return field.getText();
+                		}
+                		return null;
+                	});
+                	
+                	Optional<String> mdp = dlg.showAndWait();
+                	String data = mdp.get();
+                	
+                	if(data != null) {
+                		try {
+                    		PasswordBusiness.load(PasswordBusiness.getFichier().getFile().getPath(),data);
+                		}catch(Exception ex) {
+                			ex.printStackTrace();
+                			erreurMdp = true;
+                			getError = true;
+                		}
+                	}
+            	}while(erreurMdp);
+            }
+            
+            if(PasswordBusiness.getDossierMere() == null) {
+            	PasswordBusiness.setDossierMere(new Dossier(bundle.getString("racine"),null));
+            }
+            
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,13 +184,13 @@ public class Main extends Application {
     
     //OUVETURE DE FENETRES
     /**
-     * Affiche le contenu de la fen�tre principale
+     * Affiche le contenu de la fenêtre principale
      */
-    public void showMainView(Locale locale) {
+    public void showMainView() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/MainView.fxml"));
-            loader.setResources(ResourceBundle.getBundle(ContexteStatic.bundle,locale));
+            loader.setResources(ResourceBundle.getBundle(ContexteStatic.bundle,new Locale(ParamBusiness.getParametreLangue().toLowerCase(),ParamBusiness.getParametreLangue().toUpperCase())));
             AnchorPane mainView =  loader.load();
 
             MainViewController controller = loader.getController();
@@ -105,17 +203,19 @@ public class Main extends Application {
     
     /**
      * Affiche la boite de dialogue pour ajouter ou modifier un mot de passe
-     * @param mdp le mot de passe � modifier
+     * @param mdp le mot de passe à modifier
      */
     public MotDePasse showEditPassword(MotDePasse mdp) {
     	try {
     		FXMLLoader loader = new FXMLLoader();
-    		ResourceBundle bundle = ResourceBundle.getBundle(ContexteStatic.bundle,langueLocale);
+    		ResourceBundle bundle = ResourceBundle.getBundle(ContexteStatic.bundle,new Locale(ParamBusiness.getParametreLangue().toLowerCase(),ParamBusiness.getParametreLangue().toUpperCase()));
     		loader.setLocation(Main.class.getResource("view/PasswordEditDialog.fxml"));
             loader.setResources(bundle);
             AnchorPane page = loader.load();
             
             Stage dialogStage = new Stage();
+            dialogStage.setResizable(false);
+            dialogStage.getIcons().add(new Image("/rsc/icon.png"));
             dialogStage.setTitle((mdp == null)?bundle.getString("creerMdp"):bundle.getString("modifMdp"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
@@ -138,17 +238,19 @@ public class Main extends Application {
     }
     
     /**
-     * Affiche la boite de dialogue pour modifier le mot de passe ma�tre
+     * Affiche la boite de dialogue pour modifier le mot de passe maêtre
      */
     public void showChangeMasterPassword() {
     	try {
     		FXMLLoader loader = new FXMLLoader();
-    		ResourceBundle bundle = ResourceBundle.getBundle(ContexteStatic.bundle,langueLocale);
+    		ResourceBundle bundle = ResourceBundle.getBundle(ContexteStatic.bundle,new Locale(ParamBusiness.getParametreLangue().toLowerCase(),ParamBusiness.getParametreLangue().toUpperCase()));
     		loader.setLocation(Main.class.getResource("view/GererMasterPasswordDialog.fxml"));
             loader.setResources(bundle);
             AnchorPane page = loader.load();
             
             Stage dialogStage = new Stage();
+            dialogStage.setResizable(false);
+            dialogStage.getIcons().add(new Image("/rsc/icon.png"));
             dialogStage.setTitle(bundle.getString("changerMdpMaitre"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
@@ -169,18 +271,66 @@ public class Main extends Application {
     }
     
     /**
-     * Affiche la fen�tre pour g�n�rer un mot de passe
+     * Affiche la boite de dialogue pour l'import/export
+     * @param dossier le dossier dans lequel s'effectue l'import / export
+     * @param export true si export sinon import
+     */
+    public void showImportExport(Dossier dossier, boolean export) {
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+    		ResourceBundle bundle = ResourceBundle.getBundle(ContexteStatic.bundle,new Locale(ParamBusiness.getParametreLangue().toLowerCase(),ParamBusiness.getParametreLangue().toUpperCase()));
+    		loader.setLocation(Main.class.getResource("view/ImportExportDialog.fxml"));
+            loader.setResources(bundle);
+            AnchorPane page = loader.load();
+            
+            
+            
+            Stage dialogStage = new Stage();
+            dialogStage.setResizable(false);
+            dialogStage.getIcons().add(new Image("/rsc/icon.png"));
+            dialogStage.setTitle(bundle.getString(export?"export":"import"));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            
+            ImportExportDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setDossierSelected(dossier);
+            controller.setExport(export);
+            controller.init();
+                        
+            dialogStage.showAndWait();
+            
+            if(!export) {
+            	if(controller.isOk()) {
+                	ouvrirFenetre(false);
+            	}
+            }
+            
+    		return ;
+    	}
+    	catch(Exception ex) {
+    		ex.printStackTrace();
+    		return ;
+    	}
+    }
+    
+    /**
+     * Affiche la fenêtre pour générer un mot de passe
      * @return
      */
     public String showGenereMotDePasse(Stage stage) {
     	try {
 			FXMLLoader loader = new FXMLLoader();
-    		ResourceBundle bundle = ResourceBundle.getBundle(ContexteStatic.bundle,langueLocale);
+    		ResourceBundle bundle = ResourceBundle.getBundle(ContexteStatic.bundle,new Locale(ParamBusiness.getParametreLangue().toLowerCase(),ParamBusiness.getParametreLangue().toUpperCase()));
     		loader.setLocation(Main.class.getResource("view/GenereMdpDialog.fxml"));
             loader.setResources(bundle);
             AnchorPane page = loader.load();
             
             Stage dialogStage = new Stage();
+            dialogStage.setResizable(false);
+            dialogStage.getIcons().add(new Image("/rsc/icon.png"));
             dialogStage.setTitle(bundle.getString("genereMdp"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(stage);
@@ -205,13 +355,73 @@ public class Main extends Application {
     
     /**
      * Change la langue de l'application
-     * @param locale premier para
-     * @param langueB
+     * @param askpassword indique s'il faut demander le mot de passe à l'ouverture
      */
-    public void ouvrirFenetre(Locale locale) {
-    	 initRootLayout(locale);
-    	 showMainView(locale);
-    	 langueLocale = locale;
+    public void ouvrirFenetre(boolean askPassword) {
+    	 initRootLayout(askPassword);
+    	 showMainView();
+    }
+    
+    /**
+     * Demande de confirmation de sauvegarde
+     * @return true si fermeture autorisée
+     */
+    public boolean askSave() {
+    	if(PasswordBusiness.isModif()) {
+
+            ResourceBundle bundle = ResourceBundle.getBundle(ContexteStatic.bundle,new Locale(ParamBusiness.getParametreLangue().toLowerCase(),ParamBusiness.getParametreLangue().toUpperCase()));
+    		Alert alert = new Alert(AlertType.WARNING);
+    		alert.setTitle(bundle.getString("askConfirm"));
+    		alert.setHeaderText(bundle.getString("askConfirm"));
+    		alert.setContentText(bundle.getString("askSave"));
+    		alert.getButtonTypes().setAll(ButtonType.YES,ButtonType.NO,ButtonType.CANCEL);
+    		
+    		Optional<ButtonType> result = alert.showAndWait();
+    		
+    		if(result.get() == ButtonType.YES) {
+    			return save();
+    		}
+
+			if(result.get() == ButtonType.CANCEL) {
+				return false;
+			}
+		}
+		return true;
+    }
+    
+    /**
+     * Sauvegarde les données de l'appli
+     * @return true si sauvegardée
+     */
+    public boolean save() {
+    	if(!PasswordBusiness.isMotDePasse()) {
+    		showChangeMasterPassword();
+    	}
+
+	    if(PasswordBusiness.isMotDePasse() && !PasswordBusiness.isFichier()) {
+	        //ouverture d'une dlg de fichier
+	        FileChooser fileChooser = new FileChooser();
+	        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ContexteStatic.extension.toUpperCase()+" (*"+ ContexteStatic.extension+")", "*"+ContexteStatic.extension));
+	        File file = fileChooser.showSaveDialog(primaryStage);
+	        if(file != null) {
+	            if (file.getPath().endsWith(ContexteStatic.extension)) {
+	                PasswordBusiness.setFichier(file.getPath(),true);
+	            }
+	            else {
+	                PasswordBusiness.setFichier(file.getPath()+ContexteStatic.extension,true);
+	            }
+	        }
+	    }
+	
+	    if(PasswordBusiness.isFichier() && PasswordBusiness.isMotDePasse()) {
+	        try {
+	            PasswordBusiness.save();
+	            return true;
+	        }catch(Exception ex) {
+	        		ex.printStackTrace();
+	        }
+	    }
+	    return false;
     }
     
 }

@@ -3,9 +3,15 @@ package fr.quintipio.simplyPassword.model;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * L'objet Mot de passe
  */
+@XmlRootElement
 public class MotDePasse implements Serializable {
 
     private String titre;
@@ -18,6 +24,7 @@ public class MotDePasse implements Serializable {
 
     private String siteWeb;
 
+	@XmlTransient
     private Dossier dossierPossesseur;
 
     private Integer idIcone;
@@ -62,6 +69,7 @@ public class MotDePasse implements Serializable {
         this.siteWeb = siteWeb;
     }
 
+	@XmlTransient
     public Dossier getDossierPossesseur() {
         return dossierPossesseur;
     }

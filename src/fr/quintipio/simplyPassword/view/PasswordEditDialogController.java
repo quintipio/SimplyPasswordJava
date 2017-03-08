@@ -53,13 +53,13 @@ public class PasswordEditDialogController implements Initializable {
     private Stage dialogStage;
     private Main main;
 	
-    //le mot de passe à retourner
+    //le mot de passe Ã  retourner
 	private MotDePasse motdePasse;
 	
 	
 	//INIT GETTER ET SETTER
 	/**
-	 * méthode de chargement
+	 * mÃ thode de chargement
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -94,7 +94,7 @@ public class PasswordEditDialogController implements Initializable {
 	}
 
 	/**
-	 * Charge un mot de passe à modifier
+	 * Charge un mot de passe Ã  modifier
 	 * @param motdePasse le mot de passe
 	 */
 	public void setMotdePasse(MotDePasse motdePasse) {
@@ -121,7 +121,7 @@ public class PasswordEditDialogController implements Initializable {
 	
 	
 	
-	//Methodes liés au FXML
+	//Methodes liÃ s au FXML
 	
 	/**
 	 * Affiche ou masque le mot de passe
@@ -133,7 +133,7 @@ public class PasswordEditDialogController implements Initializable {
 	}
 	
 	/**
-	 * Ouvre la dlg pour générer un mot de passe
+	 * Ouvre la dlg pour gÃ©nÃ©rer un mot de passe
 	 */
 	@FXML
 	private void genereMdp() {
@@ -147,7 +147,7 @@ public class PasswordEditDialogController implements Initializable {
 	}
 	
 	/**
-	 * Copie les données du PasswordField vers le TextField
+	 * Copie les donnÃ©es du PasswordField vers le TextField
 	 */
 	@FXML
 	private void ecrireMdpPasswordField() {
@@ -156,7 +156,7 @@ public class PasswordEditDialogController implements Initializable {
 	}
 	
 	/**
-	 * Copie les données du PasswordField vers le TextField
+	 * Copie les donnÃ©es du PasswordField vers le TextField
 	 */
 	@FXML
 	private void ecrireMdpTextField() {
@@ -165,7 +165,7 @@ public class PasswordEditDialogController implements Initializable {
 	}
 	
 	/**
-	 * Bouton valider (vérfie les données, et charge le mot de passe)
+	 * Bouton valider (vÃ rfie les donnÃ©es, et charge le mot de passe)
 	 */
 	@FXML
 	private void valider() {
@@ -207,7 +207,7 @@ public class PasswordEditDialogController implements Initializable {
 	}
 		
 	/**
-	 * Controle les données entrés par l'utilisateur et affiche les erreurs
+	 * Controle les donnÃ©es entrÃ s par l'utilisateur et affiche les erreurs
 	 * @return true si ok
 	 */
 	private boolean validate() {
@@ -230,7 +230,7 @@ public class PasswordEditDialogController implements Initializable {
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle(bundle.getString("erreur"));
-            alert.setHeaderText(bundle.getString("erreur"));
+            alert.setHeaderText(bundle.getString("erreurVide"));
             alert.setContentText(errorMessage);
             alert.showAndWait();
             return false;

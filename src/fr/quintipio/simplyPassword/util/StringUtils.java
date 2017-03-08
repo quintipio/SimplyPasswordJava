@@ -3,7 +3,7 @@ package fr.quintipio.simplyPassword.util;
 public class StringUtils {
 
 	/**
-	 * Vérifie si une chaine de caractère est vide
+	 * VÃ©rifie si une chaine de caractÃ¨re est vide
 	 * @param chaine la chaine
 	 * @return true si vide
 	 */

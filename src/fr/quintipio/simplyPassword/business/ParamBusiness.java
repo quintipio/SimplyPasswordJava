@@ -1,6 +1,12 @@
 package fr.quintipio.simplyPassword.business;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import fr.quintipio.simplyPassword.com.ComFile;
 import fr.quintipio.simplyPassword.contexte.ContexteStatic;
 import fr.quintipio.simplyPassword.util.StringUtils;
@@ -8,11 +14,11 @@ import fr.quintipio.simplyPassword.util.StringUtils;
 public class ParamBusiness {
 
 	/**
-	 * Fichier de paramètre de l'appli
+	 * Fichier de paramÃªtre de l'appli
 	 */
 	private static ComFile fileParamAppli;
 	/**
-	 * Fichier de paramètre de l'utilisateur
+	 * Fichier de paramÃªtre de l'utilisateur
 	 */
 	private static ComFile fileParamUser;
 	
@@ -29,21 +35,49 @@ public class ParamBusiness {
 	private static String paramUserLang="lang";
 	
 	
+	///GESTION DE LA LANGUE
+	/**
+	 * Retourne la langue sÃ©lectionnÃ©, sinon retourne la langue par dÃ©faut
+	 * @return le code langue sÃ©lectionnÃ© pour l'appli
+	 */
 	public static String getParametreLangue() {
+		if(StringUtils.stringEmpty(parametreLangue)) {
+			ResourceBundle bundle = ResourceBundle.getBundle(ContexteStatic.bundle);
+			Locale loc = bundle.getLocale();
+			if(Arrays.asList(ContexteStatic.listeLangues).contains(loc.getLanguage())) {
+				parametreLangue = loc.getLanguage();
+			}
+			else {
+				parametreLangue = ContexteStatic.langueDefaut;
+			}
+		}
 		return parametreLangue;
+	}
+	
+	/**
+	 * Modifie la langue par dÃ©faut
+	 * @param langue la nouvelle langue (doit Ãªtre prÃ©sente dans ContexteStatic.listeLangues[])
+	 */
+	public static void setParametreLangue(String langue) {
+		if(langue != null) {
+			parametreLangue = langue.toLowerCase();
+		}
+		else {
+			parametreLangue = ContexteStatic.langueDefaut;
+		}
 	}
 	
 	
 	////METHODE PARAM APPLI
 	/**
-	 * Vérifie si le fichier de paramètre appli existe, sinon création, et vérification des autorisations de lecture
+	 * VÃ©rifie si le fichier de paramÃªtre appli existe, sinon crÃ ation, et vÃ©rification des autorisations de lecture
 	 */
 	private static boolean checkParamAppli() {
 		if(fileParamAppli == null) {
 			fileParamAppli = new ComFile(paramAppliName);
 		}
 		
-		if(!fileParamAppli.getFile().exists() && fileParamAppli.getFile().canWrite()) {
+		if(!fileParamAppli.getFile().exists()) {
 			fileParamAppli.writeFile(paramLive+paramLiveNo+paramSeparator,true);
 		}
 		
@@ -51,10 +85,10 @@ public class ParamBusiness {
 	}
 	
 	/**
-	 * Vérifie si l'application est en mode live ou non
+	 * VÃ©rifie si l'application est en mode live ou non
 	 * @return true si en mode live
 	 */
-	private static boolean isModeLive() {
+	public static boolean isModeLive() {
 		if(checkParamAppli()) {
 			String data = fileParamAppli.readFileToString();
 			if(!StringUtils.stringEmpty(data)) {
@@ -69,29 +103,46 @@ public class ParamBusiness {
 		return false;
 	}
 	
+	
+	///PARAMETRE UTILISATEUR
 	/**
-	 * Retourne le chemin d'accès du répertoire utilisateur
-	 * @return
+	 * Retourne le chemin d'accÃ s du rÃ©pertoire utilisateur et crÃ er le rÃ©pertoire si nÃ cÃ ssaire
+	 * @return le rÃ©pertoire utilisateur
 	 */
 	private static String getUserParamDirectory() {
-		String res = System.getProperty("os.name");
+		try {
+		String res = System.getProperty("os.name").toLowerCase();
+		String retour = "";
 		if(res.indexOf("win") >= 0) {
-			return System.getProperty("user.home")+"\\AppData\\Local\\"+ContexteStatic.nomAppli.replace(' ','_')+"\\"+paramUserName;
+			retour = System.getProperty("user.home")+"\\AppData\\Local\\"+ContexteStatic.nomAppli.replace(' ','_');
 		}
-		if(res.indexOf("mac") >= 0) {
-			return System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replace(' ','_')+"\\"+paramUserName;
+		else if(res.indexOf("mac") >= 0) {
+			retour =  System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replace(' ','_');
 		}
-		if(res.indexOf("nix") >= 0) {
-			return System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replace(' ','_')+"\\"+paramUserName;
+		else if(res.indexOf("nix") >= 0) {
+			retour =  System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replace(' ','_');
 		}
-		if(res.indexOf("sunos") >= 0) {
-			return System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replace(' ','_')+"\\"+paramUserName;
+		else if(res.indexOf("sunos") >= 0) {
+			retour =  System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replace(' ','_');
 		}
-		return System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replace(' ','_')+"\\"+paramUserName;
+		else {
+			retour = System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replace(' ','_');
+		}
+		
+		ComFile folder = new ComFile(retour);
+		if(!folder.getFile().exists()) {
+				folder.getFile().mkdir();
+			
+		}
+		return retour+"\\"+paramUserName;
+		} catch (SecurityException e) {
+			e.printStackTrace();
+			return "";
+		}
 	}
 	
 	/**
-	 * Génère le fichier de paramètre utilisateur
+	 * GÃ©nÃ¨re le fichier de paramÃ¨tre utilisateur
 	 */
 	public static void ecrireFichierParamUser() {
 		if(!isModeLive()) {
@@ -99,20 +150,23 @@ public class ParamBusiness {
 				fileParamUser = new ComFile(getUserParamDirectory());
 			}
 			
-			if(fileParamUser.getFile().canWrite()) {
-				String data = "<"+paramUserFile+">"+((PasswordBusiness.getFichier() != null)?PasswordBusiness.getFichier().getFile().getAbsolutePath():"")+"</"+paramUserFile+">";
-				data += "<"+paramUserLang+">"+parametreLangue+"</"+paramUserLang+">";
-				fileParamUser.writeFile(data,true);
-			}
+			String data = "<"+paramUserFile+">"+((PasswordBusiness.getFichier() != null)?PasswordBusiness.getFichier().getFile().getAbsolutePath():"")+"</"+paramUserFile+">";
+			data += "<"+paramUserLang+">"+getParametreLangue()+"</"+paramUserLang+">";
+			fileParamUser.getFile().delete();
+			fileParamUser.writeFile(data,true);
 		}
 	}
 	
 	/**
-	 * Met en place les paramètres dans l'application
+	 * Met en place les paramÃªtres dans l'application
 	 */
 	public static void getDonneesParamUser() {
 		if(fileParamUser == null) {
 			fileParamUser = new ComFile(getUserParamDirectory());
+		}
+		
+		if(!fileParamUser.getFile().exists()) {
+			ecrireFichierParamUser();
 		}
 		
 		if(fileParamUser.getFile().canRead()) {
@@ -123,7 +177,9 @@ public class ParamBusiness {
             String res = data.substring(start,stop);
             res = res.replaceAll("<"+paramUserFile+">","");
             res = res.replaceAll("</"+paramUserFile+">","");
-            PasswordBusiness.setFichier(res);
+            if(new File(res).exists()) {
+                PasswordBusiness.setFichier(res,false);
+            }
 
             start = data.indexOf("<"+paramUserLang+">");
             stop = data.lastIndexOf("</"+paramUserLang+">");
@@ -133,13 +189,4 @@ public class ParamBusiness {
             parametreLangue = res;
 		}
 	}
-	
-	/**
-	 * Initialise les paramètres de l'application
-	 */
-	public static void init() {
-		isModeLive();
-        getDonneesParamUser();
-	}
-	
 }

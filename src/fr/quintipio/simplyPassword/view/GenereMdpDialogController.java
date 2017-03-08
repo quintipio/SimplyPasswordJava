@@ -33,7 +33,7 @@ public class GenereMdpDialogController {
 	
 	
 	/**
-	 * Retourne le mot de passe généré
+	 * Retourne le mot de passe gÃ nÃ rÃ 
 	 * @return
 	 */
 	public String getMotdePasse() {
@@ -41,7 +41,7 @@ public class GenereMdpDialogController {
 	}
 
 	/**
-	 * Fourni la fenêtre généré
+	 * Fourni la fenÃªtre gÃ nÃ rÃ 
 	 * @param dialogStage
 	 */
 	public void setDialogStage(Stage dialogStage) {
@@ -49,7 +49,7 @@ public class GenereMdpDialogController {
 	}
 	
 	/**
-	 * Initialise la fenêtre
+	 * Initialise la fenÃªtre
 	 */
 	@FXML
 	private void initialize() {
@@ -80,7 +80,7 @@ public class GenereMdpDialogController {
 	}
 	
 	/**
-	 * Vérifie si le bouton valider peut être clicable
+	 * VÃ©rifie si le bouton valider peut Ãªtre clicable
 	 */
 	@FXML
 	private void verifChecked() {

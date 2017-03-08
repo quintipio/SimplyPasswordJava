@@ -1,14 +1,14 @@
 package fr.quintipio.simplyPassword.business;
 
 import fr.quintipio.simplyPassword.com.ComFile;
-import fr.quintipio.simplyPassword.impl.ICrypt;
 import fr.quintipio.simplyPassword.model.Dossier;
 import fr.quintipio.simplyPassword.model.MotDePasse;
-import fr.quintipio.simplyPassword.util.AesCrypt;
-import fr.quintipio.simplyPassword.util.Base64Crypt;
+import fr.quintipio.simplyPassword.util.CryptUtils;
 import fr.quintipio.simplyPassword.util.ObjectUtils;
 import fr.quintipio.simplyPassword.util.StringUtils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,9 +32,12 @@ public class PasswordBusiness {
         return fichier;
     }
 
-    public static void setFichier(String path) {
+    public static void setFichier(String path,boolean changerParam) {
 
         fichier = new ComFile(path);
+        if(changerParam) {
+            ParamBusiness.ecrireFichierParamUser();
+        }
     }
 
     public static String getMotDePasse() {
@@ -46,6 +49,10 @@ public class PasswordBusiness {
     }
 
     public static Dossier getDossierMere() {return dossierMere;}
+    
+    public static void setDossierMere(Dossier dossierMere) {
+    	PasswordBusiness.dossierMere = dossierMere;
+    }
 
     public static boolean isModif() {
         return modif;
@@ -56,8 +63,6 @@ public class PasswordBusiness {
     }
 
     public static void  init() {
-
-
         dossierMere = new Dossier("Dossier racine",null);
         Dossier dossierA = new Dossier("Dossier A",dossierMere);
         Dossier dossierB = new Dossier("Dossier B",dossierMere);
@@ -80,20 +85,37 @@ public class PasswordBusiness {
         dossierA.getSousDossier().add(dossierC);
         dossierC.getListeMotDePasse().add(mdpa);
         dossierA.getListeMotDePasse().add(mdpb);
-
     }
     ///METHODES DE GESTION
+    
+    /**
+     * Charge les données à partir d'un fichier
+     * @param path le chemin du fichier à charger
+     * @param nouveauMotDePasse le mot de passe de déchiffrement
+     * @throws Exception
+     */
+    public static void load(String path,String nouveauMotDePasse) throws Exception {
+        ComFile nouveauFichier = new ComFile(path);
+        byte[] data = nouveauFichier.readFileToByteArray();
+        ByteArrayInputStream input = new ByteArrayInputStream(data);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        CryptUtils.decrypt(nouveauMotDePasse.toCharArray() , input, output);
+        dossierMere = (Dossier)ObjectUtils.deserialize(output.toByteArray());
+        fichier = nouveauFichier;
+        motDePasse = nouveauMotDePasse;
+    }
+    
     /**
      * Sauvegarde dans un fichier
      */
-    public static void save(String path) throws Exception {
-        ICrypt crypt = Base64Crypt.wrap(new AesCrypt());
+    public static void save() throws Exception {
         byte[] data = ObjectUtils.serialize(dossierMere);
-        byte[] dataCipher = crypt.encodeByteArray(data,motDePasse);
-        if(path != null && path.isEmpty()) {
-            fichier = new ComFile(path);
-        }
-        fichier.writeFile(dataCipher,true);
+        ByteArrayInputStream input = new ByteArrayInputStream(data);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        CryptUtils.encrypt(128,motDePasse.toCharArray() , input, output);
+        fichier.writeFile(output.toByteArray(),true);
+        ParamBusiness.ecrireFichierParamUser();
+        modif = false;
     }
 
     /**
@@ -101,7 +123,7 @@ public class PasswordBusiness {
      * @return true si ok
      */
     public static boolean isFichier() {
-        return fichier != null;
+        return fichier != null && !StringUtils.stringEmpty(fichier.getFile().getPath());
     }
 
     /**
@@ -112,29 +134,13 @@ public class PasswordBusiness {
         return !StringUtils.stringEmpty(motDePasse);
     }
 
-    /**
-     * Charge les données à partir d'un fichier
-     * @param path le chemin du fichier à charger
-     * @param nouveauMotDePasse le mot de passe de déchiffrement
-     * @throws Exception
-     */
-    public static void load(String path,String nouveauMotDePasse) throws Exception {
-        ComFile nouveauFichier = new ComFile(path);
-        ICrypt crypt = Base64Crypt.wrap(new AesCrypt());
-        byte[] data = nouveauFichier.readFileToByteArray();
-        byte[] dataDecipher = crypt.decodeByteArray(data,motDePasse);
-        dossierMere = (Dossier)ObjectUtils.deserialize(dataDecipher);
-        fichier = nouveauFichier;
-        motDePasse = nouveauMotDePasse;
-
-    }
+    
 
     /**
      * Réinitialise les données
      */
     public static void reset() {
-        dossierMere = new Dossier();
-        dossierMere.setTitre("Racine");
+        dossierMere = null;
         motDePasse = null;
         fichier = null;
     }

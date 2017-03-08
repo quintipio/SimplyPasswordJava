@@ -6,42 +6,42 @@
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.quintipio.simplyPassword.view.RootLayoutController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.quintipio.simplyPassword.view.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="%fichier">
             <items>
-                <MenuItem mnemonicParsing="false" text="%nouveau">
+                <MenuItem mnemonicParsing="false" onAction="#newApp" text="%nouveau">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                <MenuItem mnemonicParsing="false" text="%charger">
+                <MenuItem mnemonicParsing="false" onAction="#load" text="%charger">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                <MenuItem mnemonicParsing="false" text="%sauvegarder">
+                <MenuItem mnemonicParsing="false" onAction="#save" text="%sauvegarder">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem mnemonicParsing="false" text="%sauvegarderSous">
+                  <MenuItem mnemonicParsing="false" onAction="#saveAs" text="%sauvegarderSous">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                <MenuItem mnemonicParsing="false" onAction="#handleExit" text="%quitter">
+                <MenuItem mnemonicParsing="false" onAction="#close" text="%quitter">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
             </items>
           </Menu>
-          <Menu  mnemonicParsing="false" text="%parametres">
+          <Menu mnemonicParsing="false" text="%parametres">
           	<items>
-          		<MenuItem mnemonicParsing="false" text="%changerMdpMaitre" onAction="#changeMdpMaitre">
+          		<MenuItem mnemonicParsing="false" onAction="#changeMdpMaitre" text="%changerMdpMaitre">
                     <accelerator>
                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                     </accelerator></MenuItem>
-                <MenuItem mnemonicParsing="false" text="%changerlangue" onAction="#changeLangue">
+                <MenuItem mnemonicParsing="false" onAction="#changeLangue" text="%changerlangue">
 	                <accelerator>
 	                   <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
 	                </accelerator></MenuItem>
@@ -49,7 +49,7 @@
           </Menu>
             <Menu mnemonicParsing="false" text="%aide">
               <items>
-                <MenuItem mnemonicParsing="false" text="%appd" onAction="#openAppd"/>
+                <MenuItem mnemonicParsing="false" onAction="#openAppd" text="%appd" />
               </items>
             </Menu>
         </menus>
