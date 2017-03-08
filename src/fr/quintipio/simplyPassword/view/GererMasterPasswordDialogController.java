@@ -63,6 +63,9 @@ public class GererMasterPasswordDialogController implements Initializable {
 		this.dialogStage = dialogStage;
 	}
 	
+        /**
+         * Change le niveau de la barre de progression
+         */
 	@FXML
 	private void changeProgress() {
 		progressMdp.setProgress(((double)CryptUtils.calculerForceMotDePasse(newMdp.getText()))/100);

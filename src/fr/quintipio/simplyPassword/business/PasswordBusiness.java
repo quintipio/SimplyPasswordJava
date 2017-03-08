@@ -26,6 +26,8 @@ public class PasswordBusiness {
 
     private static boolean modif;
 
+    private static final String clePartage = "p55sbev7/2>tV8m7^]Fm4#4jJp%),a3fCpxE.E8?Fd{a=yE*g2R/yt(yG6~vu<fK,^5eP9?~EV8$Bm8kc3L8X9.d7)bT#VH9JAjJ44!t279fR53M?3>rLX8.TmX77Y52)mTT5H7Ac27^mK99R+U@F@3Ac{-45n*r@PkJ4Y3Mg5sw2pr8CC9)95s9]Q4.~g*g2,m4t2_*95AT%C[KK7U;uA>^PgLLdU>}/aij&Luyf&~,3;6TX$&e_Z45;2E^SzyH";
+
     ///GETTER ET SETTER
 
     public static ComFile getFichier() {
@@ -162,5 +164,30 @@ public class PasswordBusiness {
             }
         }
         return retour;
+    }
+
+    /**
+     * Retourne un mot de passe chiffré prêt à être écrit dans un fichier
+     * @param motDePasse le mot de passe à partager
+     * @return le mot de passe chiffré en AES
+     */
+    public static byte[] genererPartage(MotDePasse motDePasse) throws Exception {
+        byte[] data = ObjectUtils.serialize(motDePasse);
+        ByteArrayInputStream input = new ByteArrayInputStream(data);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        CryptUtils.encrypt(128,clePartage.toCharArray() , input, output);
+        return output.toByteArray();
+    }
+
+    /**
+     * Déchiffre un byte[] et retourne le mot de passe
+     * @param data les données à déchiffrer
+     * @return le mot de passe
+     */
+    public static MotDePasse dechiffrerPartage(byte[] data) throws Exception {
+        ByteArrayInputStream input = new ByteArrayInputStream(data);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        CryptUtils.decrypt(clePartage.toCharArray() , input, output);
+        return (MotDePasse)ObjectUtils.deserialize(output.toByteArray());
     }
 }

@@ -40,9 +40,7 @@ public class CryptUtils {
         private static char[] listeLettreMajuscule = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'
         , 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
         private static char[] listeChiffre = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-        private static char[] listeCaractereSpeciaux = { '²', '&', 'é', '"', '#', '\'', '{', '-', '|', 'è', '_'
-                , '\\', 'ç', 'à', '@', ')', '(', '[', ']', '=', '+', '}', '£', '$', '¤', '%', 'ù', 'µ', '*', '?', ',', '.', ';'
-                , '/', ':', '§', '!', '€', '>', '<'};
+	private static char[] listeCaractereSpeciaux = { '²', '&', 'é', '"', '#', '\'', '{', '-', '|', 'è', '_', '\\', 'ç', 'à', '@', ')', '(', '[', ']', '=', '+', '}', '£', '$', '¤', '%', 'ù', 'µ', '*', '?', ',', '.', ';', '/', ':', '§', '!', '€', '>', '<'};
 	
 	/**
 	 * Calcul la force approximative d'un mot de passe
@@ -115,11 +113,11 @@ public class CryptUtils {
 	
 	/**
 	 * Genere un mot de passe alàatoire composer de caractères majuscules, minuscules, de chiffres et de caractères spéciaux
-	 * @param longueur longueur du mot de passe souhaità, si 0 sera de 12 caractères
+	 * @param longueur longueur du mot de passe souhaité, si 0 sera de 12 caractères
 	 * @param lettre autorise les lettres minuscules et majuscules dans le mot de passe
 	 * @param chiffre autorise les chiffres dans le mot de passe
 	 * @param caracSpeciaux autorise les caractères spéciaux dans le mot de passe
-	 * @return le mot de passe gànàrà
+	 * @return le mot de passe généré
 	 */
 	public static String genereMotdePasse(int longueur, boolean lettre, boolean chiffre, boolean caracSpeciaux){
 		int length = (longueur == 0) ? 12 : longueur;
@@ -232,9 +230,9 @@ public class CryptUtils {
 	 *   an arbitrary byte stream to encrypt
 	 * @param output
 	 *   stream to which encrypted data will be written
-	 * @throws AES.InvalidKeyLengthException
+	 * @throws CryptUtils.InvalidKeyLengthException
 	 *   if keyLength is not 128, 192, or 256
-	 * @throws AES.StrongEncryptionNotAvailableException
+	 * @throws CryptUtils.StrongEncryptionNotAvailableException
 	 *   if keyLength is 192 or 256, but the Java runtime's jurisdiction
 	 *   policy files do not allow 192- or 256-bit encryption
 	 * @throws IOException
@@ -299,11 +297,11 @@ public class CryptUtils {
 	 * @param output
 	 *   stream to which decrypted data will be written
 	 * @return the key length for the decrypted stream (128, 192, or 256)
-	 * @throws AES.InvalidPasswordException
+	 * @throws CryptUtils.InvalidPasswordException
 	 *   if the given password was not used to encrypt the data
-	 * @throws AES.InvalidAESStreamException
+	 * @throws CryptUtils.InvalidAESStreamException
 	 *   if the given input stream is not a valid AES-encrypted stream
-	 * @throws AES.StrongEncryptionNotAvailableException
+	 * @throws CryptUtils.StrongEncryptionNotAvailableException
 	 *   if the stream is 192 or 256-bit encrypted, and the Java runtime's
 	 *   jurisdiction policy files do not allow for AES-192 or 256
 	 * @throws IOException

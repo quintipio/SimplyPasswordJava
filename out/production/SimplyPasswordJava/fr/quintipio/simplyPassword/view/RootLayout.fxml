@@ -39,11 +39,11 @@
           	<items>
           		<MenuItem mnemonicParsing="false" onAction="#changeMdpMaitre" text="%changerMdpMaitre">
                     <accelerator>
-                       <KeyCodeCombination alt="UP" code="G" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                       <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                     </accelerator></MenuItem>
                 <MenuItem mnemonicParsing="false" onAction="#changeLangue" text="%changerlangue">
 	                <accelerator>
-	                   <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+	                   <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
 	                </accelerator></MenuItem>
           	</items>
           </Menu>

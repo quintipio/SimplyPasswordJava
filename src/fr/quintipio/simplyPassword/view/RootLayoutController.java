@@ -3,19 +3,15 @@ package fr.quintipio.simplyPassword.view;
 import fr.quintipio.simplyPassword.Main;
 import fr.quintipio.simplyPassword.business.ParamBusiness;
 import fr.quintipio.simplyPassword.business.PasswordBusiness;
-import fr.quintipio.simplyPassword.com.ComFile;
 import fr.quintipio.simplyPassword.contexte.ContexteStatic;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
@@ -23,9 +19,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -147,7 +141,7 @@ public class RootLayoutController implements Initializable  {
     }
 
     /**
-     * Reinitialiser
+     * Réinitialiser
      */
     @FXML
     private void newApp() {
@@ -156,7 +150,7 @@ public class RootLayoutController implements Initializable  {
     }
     
     /**
-     * Ouvre la fenêtre pour changer le mot de passe maêtre
+     * Ouvre la fenêtre pour changer le mot de passe maître
      */
     @FXML
     private void changeMdpMaitre() {

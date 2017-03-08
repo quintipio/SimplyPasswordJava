@@ -2,21 +2,21 @@ package fr.quintipio.simplyPassword.view;
 
 import fr.quintipio.simplyPassword.Main;
 import fr.quintipio.simplyPassword.business.PasswordBusiness;
+import fr.quintipio.simplyPassword.com.ComFile;
 import fr.quintipio.simplyPassword.contexte.ContexteStatic;
 import fr.quintipio.simplyPassword.model.Dossier;
 import fr.quintipio.simplyPassword.model.MotDePasse;
 import fr.quintipio.simplyPassword.model.ObservableMotDePasse;
+import java.io.File;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.scene.input.*;
-import javafx.scene.input.KeyCombination.ModifierValue;
 import javafx.util.StringConverter;
 
 import java.net.URL;
@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
+import javafx.stage.FileChooser;
 
 public class MainViewController implements Initializable {
 
@@ -193,7 +194,6 @@ public class MainViewController implements Initializable {
         	if(selectedDossier != null) {
             	main.showImportExport(selectedDossier.getValue(), false);
         	}
-        	//TODO refresh tree
         	
         });
         MenuItem exporterDossier = new MenuItem(bundle.getString("exporterDossier"));
@@ -262,6 +262,32 @@ public class MainViewController implements Initializable {
         	}
         });
         
+        MenuItem shareMdp = new MenuItem(bundle.getString("partage"));
+        shareMdp.setAccelerator(new KeyCodeCombination(KeyCode.P,KeyCombination.CONTROL_DOWN));
+        shareMdp.setOnAction(t -> {
+        	if(selectedMotDepasse != null) {
+                    try {
+                        FileChooser fileChooser = new FileChooser();
+                        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ContexteStatic.extensionPartage.toUpperCase()+" (*"+ ContexteStatic.extensionPartage+")", "*"+ContexteStatic.extensionPartage));
+                        File file = fileChooser.showSaveDialog(main.getPrimaryStage());
+                        if(file != null) {
+                                byte[] data = PasswordBusiness.genererPartage(selectedMotDepasse.getMdpOri());
+                                ComFile fichier = new ComFile(file.getPath());
+                                fichier.writeFile(data,true);
+                    }
+                    }catch(Exception ex) {
+                        ex.printStackTrace();
+                        Alert alert = new Alert(AlertType.ERROR);
+                        alert.initOwner(main.getPrimaryStage());
+                        alert.setTitle(bundle.getString("erreur"));
+                        alert.setHeaderText(bundle.getString("erreur"));
+                        alert.setContentText(bundle.getString("erreurPartage"));
+                        alert.showAndWait();
+                    }
+                    
+        	}
+        });
+        
         MenuItem copieLogin = new MenuItem(bundle.getString("copieLogin"));
         copieLogin.setAccelerator(new KeyCodeCombination(KeyCode.X,KeyCombination.CONTROL_DOWN,KeyCombination.SHIFT_DOWN));
         copieLogin.setOnAction(t -> {
@@ -309,6 +335,8 @@ public class MainViewController implements Initializable {
         mdpContexteMenu.getItems().add(new SeparatorMenuItem());
         mdpContexteMenu.getItems().add(copier);
         mdpContexteMenu.getItems().add(couper);
+        mdpContexteMenu.getItems().add(new SeparatorMenuItem());
+        mdpContexteMenu.getItems().add(shareMdp);
         mdpTable.setContextMenu(mdpContexteMenu);
 
         mdpTable.setItems(listeMdp);
@@ -370,7 +398,7 @@ public class MainViewController implements Initializable {
     }
     
     /**
-     * Dàmarre un timer de compte à rebours, fait diminuer la progress bar, et efface les données du presse-papier au bout d'un certain temps
+     * Démarre un timer de compte à rebours, fait diminuer la progress bar, et efface les données du presse-papier au bout d'un certain temps
      */
     private void startTimer() {
     	if(timer != null) {

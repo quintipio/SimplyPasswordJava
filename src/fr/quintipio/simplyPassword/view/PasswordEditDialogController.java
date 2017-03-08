@@ -4,25 +4,23 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import fr.quintipio.simplyPassword.Main;
+import fr.quintipio.simplyPassword.business.PasswordBusiness;
+import fr.quintipio.simplyPassword.com.ComFile;
 import fr.quintipio.simplyPassword.contexte.ContexteStatic;
 import fr.quintipio.simplyPassword.model.MotDePasse;
 import fr.quintipio.simplyPassword.util.CryptUtils;
 import fr.quintipio.simplyPassword.util.StringUtils;
+import java.io.File;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -48,10 +46,12 @@ public class PasswordEditDialogController implements Initializable {
 	private CheckBox affcheMdpCheckbox;
 	@FXML
 	private ProgressBar mdpProgress;
+        @FXML
+        private Button recupButton;
 	
 	private ResourceBundle bundle;
-    private Stage dialogStage;
-    private Main main;
+        private Stage dialogStage;
+        private Main main;
 	
     //le mot de passe à retourner
 	private MotDePasse motdePasse;
@@ -59,7 +59,7 @@ public class PasswordEditDialogController implements Initializable {
 	
 	//INIT GETTER ET SETTER
 	/**
-	 * màthode de chargement
+	 * méthode de chargement
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -105,6 +105,7 @@ public class PasswordEditDialogController implements Initializable {
 			ecrireMdp(motdePasse.getMotDePasseObjet(),true);
 			webField.setText(motdePasse.getSiteWeb());
 			commentaireField.setText(motdePasse.getCommentaire());
+                        recupButton.setVisible(false);
 		}
 		else {
 			this.motdePasse = null;
@@ -114,6 +115,7 @@ public class PasswordEditDialogController implements Initializable {
 			mdpTextField.setText("");
 			webField.setText("");
 			commentaireField.setText("");
+                        recupButton.setVisible(true);
 		}
 	}
 	
@@ -121,8 +123,34 @@ public class PasswordEditDialogController implements Initializable {
 	
 	
 	
-	//Methodes liàs au FXML
-	
+	//Methodes liés au FXML
+	/**
+         * Permet la récupération d'un mot de passe
+         */
+        @FXML
+        private void recupMdp() {
+            try {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ContexteStatic.extensionPartage.toUpperCase()+" (*"+ ContexteStatic.extensionPartage+")", "*"+ContexteStatic.extensionPartage));
+                File file = fileChooser.showOpenDialog(dialogStage);
+                if(file != null) {
+                    ComFile fichier = new ComFile(file.getPath());
+                    MotDePasse mdp = PasswordBusiness.dechiffrerPartage(fichier.readFileToByteArray());
+                    setMotdePasse(mdp);
+                }
+            }
+            catch(Exception ex) {
+                ex.printStackTrace();
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.initOwner(main.getPrimaryStage());
+                alert.setTitle(bundle.getString("erreur"));
+                alert.setHeaderText(bundle.getString("erreur"));
+                alert.setContentText(bundle.getString("erreurRecup"));
+                alert.showAndWait();
+            }
+            
+        }
+        
 	/**
 	 * Affiche ou masque le mot de passe
 	 */
@@ -165,7 +193,7 @@ public class PasswordEditDialogController implements Initializable {
 	}
 	
 	/**
-	 * Bouton valider (vàrfie les données, et charge le mot de passe)
+	 * Bouton valider (vérifie les données, et charge le mot de passe)
 	 */
 	@FXML
 	private void valider() {

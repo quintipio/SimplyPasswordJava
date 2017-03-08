@@ -1,6 +1,4 @@
 package fr.quintipio.simplyPassword.view;
-
-import fr.quintipio.simplyPassword.Main;
 import fr.quintipio.simplyPassword.util.CryptUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,7 +31,7 @@ public class GenereMdpDialogController {
 	
 	
 	/**
-	 * Retourne le mot de passe gànàrà
+	 * Retourne le mot de passe généré
 	 * @return
 	 */
 	public String getMotdePasse() {
@@ -41,7 +39,7 @@ public class GenereMdpDialogController {
 	}
 
 	/**
-	 * Fourni la fenêtre gànàrà
+	 * Fourni la fenêtre généré
 	 * @param dialogStage
 	 */
 	public void setDialogStage(Stage dialogStage) {

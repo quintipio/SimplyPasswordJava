@@ -82,19 +82,19 @@ public class Main extends Application {
         	ParamBusiness.getDonneesParamUser();
         }
         
-        //àvnàment de fermeture
+        //évènement de fermeture
         this.primaryStage.setOnCloseRequest(t -> {
         	if(!askSave()) {
         		t.consume();
         	}
         });
         
-        //dàmarrage de la fenêtre
+        //démarrage de la fenêtre
         ouvrirFenetre(PasswordBusiness.isFichier());
     }
 
     /**
-     * Lance la fenêtre mére
+     * Lance la fenêtre mère
      * @param askPassword boolean pour ouvrir la fenetre de mot de passe avant
      */
     public void initRootLayout(boolean askPassword) {
@@ -111,7 +111,7 @@ public class Main extends Application {
             RootLayoutController controller = loader.getController();
             controller.setMain(this);
 
-            //affiche la dlg des mots d epasse, s'il fuat ouvrir un fichier
+            //affiche la dlg des mots de passe, s'il faut ouvrir un fichier
             if(askPassword) {
             	boolean erreurMdp = false;
             	boolean getError= false;

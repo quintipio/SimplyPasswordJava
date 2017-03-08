@@ -71,7 +71,7 @@ public class ImportExportDialogController  implements Initializable  {
     ///INIT GETTER SETTER
 
     /**
-     * Dàmarrage la vue
+     * Démarrage de la vue
      */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -84,7 +84,7 @@ public class ImportExportDialogController  implements Initializable  {
 	}
 	
 	/**
-	 * A àxàcuter une foit le controleur chargà et initialisà
+	 * A éxécuter une foit le controleur charger et initialisé
 	 */
 	public void init() {
 		if(!export) {
@@ -113,7 +113,7 @@ public class ImportExportDialogController  implements Initializable  {
 	
 	///CHOIX POUR IMPORT EXPORT
 	/**
-	 * 2vànement lors du choix d'un format
+	 * Evènement lors du choix d'un format
 	 */
 	@FXML
 	private void selectChoix() {
@@ -126,7 +126,7 @@ public class ImportExportDialogController  implements Initializable  {
 	}
 	
 	/**
-	 * Ouvre u nfichier pour un import ou un export
+	 * Ouvre un fichier pour un import ou un export
 	 */
 	@FXML
 	private void openFile() {
@@ -332,7 +332,7 @@ public class ImportExportDialogController  implements Initializable  {
 	}
 	
 	/**
-	 * Màthode ràcursive pour ràcupàrer les mots de passe de sous dossies
+	 * Màthode récursive pour ràcupàrer les mots de passe de sous dossies
 	 * @param dossier le dossier à lire
 	 * @return la chaine
 	 */
@@ -388,7 +388,7 @@ public class ImportExportDialogController  implements Initializable  {
 	/**
 	 * Converti des données lues d'un fichier spj en dossier
 	 * @param data les données
-	 * @param mdp le mot de passe de dàchiffrement
+	 * @param mdp le mot de passe de déchiffrement
 	 * @return le dossier
 	 * @throws Exception
 	 */

@@ -2,7 +2,6 @@ package fr.quintipio.simplyPassword.business;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -14,11 +13,11 @@ import fr.quintipio.simplyPassword.util.StringUtils;
 public class ParamBusiness {
 
 	/**
-	 * Fichier de paramêtre de l'appli
+	 * Fichier de paramètre de l'appli
 	 */
 	private static ComFile fileParamAppli;
 	/**
-	 * Fichier de paramêtre de l'utilisateur
+	 * Fichier de paramètre de l'utilisateur
 	 */
 	private static ComFile fileParamUser;
 	
@@ -70,7 +69,7 @@ public class ParamBusiness {
 	
 	////METHODE PARAM APPLI
 	/**
-	 * Vérifie si le fichier de paramêtre appli existe, sinon cràation, et vérification des autorisations de lecture
+	 * Vérifie si le fichier de paramètre appli existe, sinon cràation, et vérification des autorisations de lecture
 	 */
 	private static boolean checkParamAppli() {
 		if(fileParamAppli == null) {
@@ -106,7 +105,7 @@ public class ParamBusiness {
 	
 	///PARAMETRE UTILISATEUR
 	/**
-	 * Retourne le chemin d'accàs du répertoire utilisateur et cràer le répertoire si nàcàssaire
+	 * Retourne le chemin d'accàs du répertoire utilisateur et créer le répertoire si nàcàssaire
 	 * @return le répertoire utilisateur
 	 */
 	private static String getUserParamDirectory() {
@@ -158,7 +157,7 @@ public class ParamBusiness {
 	}
 	
 	/**
-	 * Met en place les paramêtres dans l'application
+	 * Met en place les paramètres dans l'application
 	 */
 	public static void getDonneesParamUser() {
 		if(fileParamUser == null) {
