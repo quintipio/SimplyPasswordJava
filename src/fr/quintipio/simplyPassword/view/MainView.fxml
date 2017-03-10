@@ -53,6 +53,7 @@
                                   <TableColumn fx:id="loginColumn" prefWidth="100.0" text="%login" />
                                   <TableColumn fx:id="mdpColumn" prefWidth="100.0" text="%mdp" />
                                   <TableColumn fx:id="webColumn" prefWidth="100.0" text="%web" />
+                                  <TableColumn fx:id="commentColumn" prefWidth="100.0" text="%commentaire" />
                               </columns>
                           </TableView>
                           <CheckBox fx:id="checkMdpAfficher" onAction="#afficherOuPasMdp" text="%afficherMdp" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />

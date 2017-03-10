@@ -6,7 +6,7 @@
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.quintipio.simplyPassword.view.RootLayoutController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.quintipio.simplyPassword.view.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -45,6 +45,12 @@
 	                <accelerator>
 	                   <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
 	                </accelerator></MenuItem>
+          	</items>
+          </Menu>
+           <Menu mnemonicParsing="false" text="%outils">
+          	<items>
+          		<MenuItem mnemonicParsing="false" onAction="#cryptFile" text="%cryptFichier"/>
+                <MenuItem mnemonicParsing="false" onAction="#decryptFile" text="%decryptFichier"/>
           	</items>
           </Menu>
             <Menu mnemonicParsing="false" text="%aide">

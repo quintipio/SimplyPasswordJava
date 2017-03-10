@@ -5,6 +5,8 @@ import fr.quintipio.simplyPassword.business.PasswordBusiness;
 import fr.quintipio.simplyPassword.contexte.ContexteStatic;
 import fr.quintipio.simplyPassword.model.Dossier;
 import fr.quintipio.simplyPassword.model.MotDePasse;
+import fr.quintipio.simplyPassword.util.CryptUtils.InvalidPasswordException;
+import fr.quintipio.simplyPassword.view.FileCryptDialogController;
 import fr.quintipio.simplyPassword.view.GenereMdpDialogController;
 import fr.quintipio.simplyPassword.view.GererMasterPasswordDialogController;
 import fr.quintipio.simplyPassword.view.ImportExportDialogController;
@@ -20,6 +22,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -28,6 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -35,6 +39,8 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -95,7 +101,7 @@ public class Main extends Application {
 
     /**
      * Lance la fenêtre mère
-     * @param askPassword boolean pour ouvrir la fenetre de mot de passe avant
+     * @param askPassword boolean pour ouvrir la fenetre de mot de passe pour déchiffrer un fichier (uniquement à true au démarrage)
      */
     public void initRootLayout(boolean askPassword) {
         try {
@@ -156,13 +162,12 @@ public class Main extends Application {
                 	});
                 	
                 	Optional<String> mdp = dlg.showAndWait();
-                	String data = mdp.get();
                 	
-                	if(data != null) {
+                	if(mdp.isPresent()) {
                 		try {
-                    		PasswordBusiness.load(PasswordBusiness.getFichier().getFile().getPath(),data);
-                		}catch(Exception ex) {
-                			ex.printStackTrace();
+                    		PasswordBusiness.load(PasswordBusiness.getFichier().getFile().getPath(),mdp.get());
+                		}
+                		catch(InvalidPasswordException ex) {
                 			erreurMdp = true;
                 			getError = true;
                 		}
@@ -175,8 +180,8 @@ public class Main extends Application {
             }
             
             primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+        	Main.showError(e);
         }
     }
 
@@ -197,13 +202,13 @@ public class Main extends Application {
             controller.setMain(this);
             rootLayout.setCenter(mainView);
         } catch (IOException e) {
-            e.printStackTrace();
+            Main.showError(e);
         }
     }
     
     /**
      * Affiche la boite de dialogue pour ajouter ou modifier un mot de passe
-     * @param mdp le mot de passe à modifier
+     * @param mdp le mot de passe à modifier sinon null
      */
     public MotDePasse showEditPassword(MotDePasse mdp) {
     	try {
@@ -232,13 +237,13 @@ public class Main extends Application {
     		return controller.getMotdePasse();
     	}
     	catch(Exception ex) {
-    		ex.printStackTrace();
+            Main.showError(ex);
     		return null;
     	}
     }
     
     /**
-     * Affiche la boite de dialogue pour modifier le mot de passe maêtre
+     * Affiche la boite de dialogue pour modifier le mot de passe maître
      */
     public void showChangeMasterPassword() {
     	try {
@@ -265,7 +270,7 @@ public class Main extends Application {
     		return ;
     	}
     	catch(Exception ex) {
-    		ex.printStackTrace();
+            Main.showError(ex);
     		return ;
     	}
     }
@@ -311,8 +316,41 @@ public class Main extends Application {
     		return ;
     	}
     	catch(Exception ex) {
-    		ex.printStackTrace();
+            Main.showError(ex);
     		return ;
+    	}
+    }
+    
+    /**
+     * Affiche la boite de dialogue pour chiffrer/déchiffrer un fichier
+     * @param cryptFile true si la dlg doit être en mode chiffrement de fichier sinon false
+     */
+    public void showCryptFile(boolean cryptFile) {
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+    		ResourceBundle bundle = ResourceBundle.getBundle(ContexteStatic.bundle,new Locale(ParamBusiness.getParametreLangue().toLowerCase(),ParamBusiness.getParametreLangue().toUpperCase()));
+    		loader.setLocation(Main.class.getResource("view/FileCryptDialog.fxml"));
+            loader.setResources(bundle);
+            AnchorPane page = loader.load();
+            
+            
+            
+            Stage dialogStage = new Stage();
+            dialogStage.setResizable(false);
+            dialogStage.getIcons().add(new Image("/rsc/icon.png"));
+            dialogStage.setTitle(bundle.getString(cryptFile?"cryptFichier":"decryptFichier"));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            
+            FileCryptDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.init(cryptFile);
+            dialogStage.showAndWait();
+    	}
+    	catch(Exception ex) {
+            Main.showError(ex);
     	}
     }
     
@@ -345,7 +383,7 @@ public class Main extends Application {
             
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+            Main.showError(e);
 			return null;
 		}
     }
@@ -364,7 +402,7 @@ public class Main extends Application {
     
     /**
      * Demande de confirmation de sauvegarde
-     * @return true si fermeture autorisée
+     * @return true si fermeture autorisée sinon false
      */
     public boolean askSave() {
     	if(PasswordBusiness.isModif()) {
@@ -423,5 +461,36 @@ public class Main extends Application {
 	    }
 	    return false;
     }
+    
+    /**
+     * Affiche un message d'erreur avec une exception dans une dialog
+     * @param ex l'exception
+     */
+    public static void showError(Exception ex) {
+    	ResourceBundle bundle = ResourceBundle.getBundle(ContexteStatic.bundle,new Locale(ParamBusiness.getParametreLangue().toLowerCase(),ParamBusiness.getParametreLangue().toUpperCase()));
+    	Alert alert = new Alert(AlertType.ERROR);
+    	alert.setTitle(bundle.getString("exception"));
+    	alert.setHeaderText(bundle.getString("exception"));
+    	
+    	StringWriter sw = new StringWriter();
+    	PrintWriter pw = new PrintWriter(sw);
+    	ex.printStackTrace(pw);
+    	String exceptionText = sw.toString();
+    	TextArea textArea = new TextArea(exceptionText);
+    	textArea.setEditable(false);
+    	textArea.setWrapText(true);
+    	textArea.setMaxWidth(Double.MAX_VALUE);
+    	textArea.setMaxHeight(Double.MAX_VALUE);
+    	
+    	GridPane.setVgrow(textArea, Priority.ALWAYS);
+    	GridPane.setHgrow(textArea, Priority.ALWAYS);
+    	
+    	GridPane expContent = new GridPane();
+    	expContent.setMaxWidth(Double.MAX_VALUE);
+    	expContent.add(textArea, 0, 1);
+    	
+    	alert.getDialogPane().setExpandableContent(expContent);
+    	alert.showAndWait();
+     }
     
 }

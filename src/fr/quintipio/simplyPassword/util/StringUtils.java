@@ -12,7 +12,7 @@ public class StringUtils {
 			return true;
 		}
 		else {
-			return chaine.isEmpty() || chaine.length() == 0;
+			return chaine.trim().isEmpty() || chaine.trim().length() == 0;
 		}
 	}
 	

@@ -14,12 +14,14 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import fr.quintipio.simplyPassword.Main;
 import fr.quintipio.simplyPassword.business.PasswordBusiness;
 import fr.quintipio.simplyPassword.com.ComFile;
 import fr.quintipio.simplyPassword.contexte.ContexteStatic;
 import fr.quintipio.simplyPassword.model.Dossier;
 import fr.quintipio.simplyPassword.model.MotDePasse;
 import fr.quintipio.simplyPassword.util.CryptUtils;
+import fr.quintipio.simplyPassword.util.CryptUtils.InvalidPasswordException;
 import fr.quintipio.simplyPassword.util.ObjectUtils;
 import fr.quintipio.simplyPassword.util.StringUtils;
 import javafx.application.Platform;
@@ -130,43 +132,47 @@ public class ImportExportDialogController  implements Initializable  {
 	 */
 	@FXML
 	private void openFile() {
-		if(export) {
-	        FileChooser fileChooser = new FileChooser();
-	        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("*"+extensionSelected, "*"+extensionSelected));
-	        File file = fileChooser.showSaveDialog(dialogStage);
-	        if(file != null) {
-	        	if(file.getPath().toLowerCase().endsWith("."+listeFormat.get(1).toLowerCase()) || file.getPath().toLowerCase().endsWith("."+listeFormat.get(2).toLowerCase()) || file.getPath().toLowerCase().endsWith("."+listeFormat.get(3).toLowerCase())) {
-            		fichierText.setText(file.getPath());
-            	}
-            	else {
-            		fichierText.setText(file.getPath()+"."+extensionSelected);
-            	}
-	        }
-		}
-		else {
-	        FileChooser fileChooser = new FileChooser();
-	        for (String string : listeFormat) {
-        		if(!StringUtils.stringEmpty(string)) {
-            		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("*."+string, "*."+string));
-        		}
+		try {
+			if(export) {
+			    FileChooser fileChooser = new FileChooser();
+			    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("*"+extensionSelected, "*"+extensionSelected));
+			    File file = fileChooser.showSaveDialog(dialogStage);
+			    if(file != null) {
+			    	if(file.getPath().toLowerCase().endsWith("."+listeFormat.get(1).toLowerCase()) || file.getPath().toLowerCase().endsWith("."+listeFormat.get(2).toLowerCase()) || file.getPath().toLowerCase().endsWith("."+listeFormat.get(3).toLowerCase())) {
+			    		fichierText.setText(file.getPath());
+			    	}
+			    	else {
+			    		fichierText.setText(file.getPath()+"."+extensionSelected);
+			    	}
+			    }
 			}
-	        File file = fileChooser.showOpenDialog(dialogStage);
-	        if(file != null) {
-	        	if(file.getPath().toLowerCase().endsWith("."+listeFormat.get(1).toLowerCase()) || file.getPath().toLowerCase().endsWith("."+listeFormat.get(2).toLowerCase()) ||file.getPath().toLowerCase().endsWith("."+listeFormat.get(3).toLowerCase())) {
-            		fichierText.setText(file.getPath());
-            		String extension = file.getPath().substring(file.getPath().length()-3);
-            		int index = listeFormat.indexOf(extension.toUpperCase());
-            		formatCombo.getSelectionModel().select(index);
-            	}
-        		else {
-        			Alert alert = new Alert(AlertType.ERROR);
-                    alert.initOwner(dialogStage);
-                    alert.setTitle(bundle.getString("erreur"));
-                    alert.setHeaderText(bundle.getString("erreur"));
-                    alert.setContentText(bundle.getString("formatNonPris"));
-                    alert.showAndWait();
-        		}
-	        }
+			else {
+			    FileChooser fileChooser = new FileChooser();
+			    for (String string : listeFormat) {
+					if(!StringUtils.stringEmpty(string)) {
+			    		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("*."+string, "*."+string));
+					}
+				}
+			    File file = fileChooser.showOpenDialog(dialogStage);
+			    if(file != null) {
+			    	if(file.getPath().toLowerCase().endsWith("."+listeFormat.get(1).toLowerCase()) || file.getPath().toLowerCase().endsWith("."+listeFormat.get(2).toLowerCase()) ||file.getPath().toLowerCase().endsWith("."+listeFormat.get(3).toLowerCase())) {
+			    		fichierText.setText(file.getPath());
+			    		String extension = file.getPath().substring(file.getPath().length()-3);
+			    		int index = listeFormat.indexOf(extension.toUpperCase());
+			    		formatCombo.getSelectionModel().select(index);
+			    	}
+					else {
+						Alert alert = new Alert(AlertType.ERROR);
+			            alert.initOwner(dialogStage);
+			            alert.setTitle(bundle.getString("erreur"));
+			            alert.setHeaderText(bundle.getString("erreur"));
+			            alert.setContentText(bundle.getString("formatNonPris"));
+			            alert.showAndWait();
+					}
+			    }
+			}
+		} catch (Exception e) {
+			Main.showError(e);
 		}
 		checkButtonEnable();
 	}
@@ -259,13 +265,17 @@ public class ImportExportDialogController  implements Initializable  {
 			}
 			
 			dialogStage.close();
-		}catch(Exception ex) {
+		}
+		catch(InvalidPasswordException e) {
 			Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle(bundle.getString("erreur"));
             alert.setHeaderText(bundle.getString("erreur"));
-            alert.setContentText(bundle.getString((export)?"erreurExp":"erreurImp"));
+            alert.setContentText(bundle.getString("erreurMdp"));
             alert.showAndWait();
+		}
+		catch(Exception ex) {
+			Main.showError(ex);
 		}
 		
 	}
@@ -416,6 +426,9 @@ public class ImportExportDialogController  implements Initializable  {
         CryptUtils.encrypt(128,mdp.toCharArray() , input, output);
 		return output.toByteArray();
 	}
+	
+	
+	
 	
 	/**
 	 * Affiche une dlg pour demander le mot de passe

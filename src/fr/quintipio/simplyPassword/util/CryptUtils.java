@@ -45,7 +45,7 @@ public class CryptUtils {
 	/**
 	 * Calcul la force approximative d'un mot de passe
 	 * @param motDePasse le mot de passe à calculer
-	 * @return
+	 * @return la force du mot de passe comprise entre 0 et 100
 	 */
 	public static int calculerForceMotDePasse(String motDePasse) {
 		int somme = 0;
@@ -112,7 +112,7 @@ public class CryptUtils {
 	
 	
 	/**
-	 * Genere un mot de passe alàatoire composer de caractères majuscules, minuscules, de chiffres et de caractères spéciaux
+	 * Genere un mot de passe aléatoire composer de caractères majuscules, minuscules, de chiffres et de caractères spéciaux
 	 * @param longueur longueur du mot de passe souhaité, si 0 sera de 12 caractères
 	 * @param lettre autorise les lettres minuscules et majuscules dans le mot de passe
 	 * @param chiffre autorise les chiffres dans le mot de passe

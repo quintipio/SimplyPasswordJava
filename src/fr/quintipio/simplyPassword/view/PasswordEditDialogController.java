@@ -46,8 +46,10 @@ public class PasswordEditDialogController implements Initializable {
 	private CheckBox affcheMdpCheckbox;
 	@FXML
 	private ProgressBar mdpProgress;
-        @FXML
-        private Button recupButton;
+	@FXML
+	private Button validButton;
+    @FXML
+    private Button recupButton;
 	
 	private ResourceBundle bundle;
         private Stage dialogStage;
@@ -67,6 +69,9 @@ public class PasswordEditDialogController implements Initializable {
 		mdpField.setVisible(true);
 		mdpTextField.setVisible(false);
 		mdpProgress.setProgress(0);
+		titreField.textProperty().addListener((observable,oldValue,newValue) -> checkValiderDisable());
+		loginField.textProperty().addListener((observable,oldValue,newValue) -> checkValiderDisable());
+		mdpField.textProperty().addListener((observable,oldValue,newValue) -> checkValiderDisable());
 	}
 	
 	/**
@@ -105,7 +110,7 @@ public class PasswordEditDialogController implements Initializable {
 			ecrireMdp(motdePasse.getMotDePasseObjet(),true);
 			webField.setText(motdePasse.getSiteWeb());
 			commentaireField.setText(motdePasse.getCommentaire());
-                        recupButton.setVisible(false);
+            recupButton.setVisible(false);
 		}
 		else {
 			this.motdePasse = null;
@@ -115,7 +120,8 @@ public class PasswordEditDialogController implements Initializable {
 			mdpTextField.setText("");
 			webField.setText("");
 			commentaireField.setText("");
-                        recupButton.setVisible(true);
+            recupButton.setVisible(true);
+            validButton.setDisable(true);
 		}
 	}
 	
@@ -140,13 +146,7 @@ public class PasswordEditDialogController implements Initializable {
                 }
             }
             catch(Exception ex) {
-                ex.printStackTrace();
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.initOwner(main.getPrimaryStage());
-                alert.setTitle(bundle.getString("erreur"));
-                alert.setHeaderText(bundle.getString("erreur"));
-                alert.setContentText(bundle.getString("erreurRecup"));
-                alert.showAndWait();
+            	Main.showError(ex);
             }
             
         }
@@ -263,5 +263,12 @@ public class PasswordEditDialogController implements Initializable {
             alert.showAndWait();
             return false;
         }
+	}
+	
+	/**
+	 * Vérifie si oui ou non le bouton valider est actif
+	 */
+	private void checkValiderDisable() {
+		validButton.setDisable(StringUtils.stringEmpty(mdpField.getText()) || StringUtils.stringEmpty(loginField.getText()) || StringUtils.stringEmpty(titreField.getText()));
 	}
 }

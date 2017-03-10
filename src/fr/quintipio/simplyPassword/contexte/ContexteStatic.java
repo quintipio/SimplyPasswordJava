@@ -13,7 +13,7 @@ public class ContexteStatic {
     /**
      * Numàro de version
      */
-    public static final String version = "0.9";
+    public static final String version = "1.0";
 
     /**
      * Nom du développeur

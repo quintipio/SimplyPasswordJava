@@ -12,13 +12,8 @@ import fr.quintipio.simplyPassword.util.StringUtils;
 
 public class ParamBusiness {
 
-	/**
-	 * Fichier de paramètre de l'appli
-	 */
+	
 	private static ComFile fileParamAppli;
-	/**
-	 * Fichier de paramètre de l'utilisateur
-	 */
 	private static ComFile fileParamUser;
 	
 	private static String parametreLangue;
@@ -105,27 +100,27 @@ public class ParamBusiness {
 	
 	///PARAMETRE UTILISATEUR
 	/**
-	 * Retourne le chemin d'accàs du répertoire utilisateur et créer le répertoire si nàcàssaire
-	 * @return le répertoire utilisateur
+	 * Retourne le chemin d'accàs du répertoire utilisateur et créer le répertoire si nécéssaire en fonction de l'os
+	 * @return le path du répertoire utilisateur avec concaténé le répertoire de l'appli
 	 */
 	private static String getUserParamDirectory() {
 		try {
 		String res = System.getProperty("os.name").toLowerCase();
 		String retour = "";
 		if(res.indexOf("win") >= 0) {
-			retour = System.getProperty("user.home")+"\\AppData\\Local\\"+ContexteStatic.nomAppli.replace(' ','_');
+			retour = System.getProperty("user.home")+"\\AppData\\Local\\"+ContexteStatic.nomAppli.replaceAll(" ","");
 		}
 		else if(res.indexOf("mac") >= 0) {
-			retour =  System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replace(' ','_');
+			retour =  System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replaceAll(" ","");
 		}
 		else if(res.indexOf("nix") >= 0) {
-			retour =  System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replace(' ','_');
+			retour =  System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replaceAll(" ","");
 		}
 		else if(res.indexOf("sunos") >= 0) {
-			retour =  System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replace(' ','_');
+			retour =  System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replaceAll(" ","");
 		}
 		else {
-			retour = System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replace(' ','_');
+			retour = System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replaceAll(" ","");
 		}
 		
 		ComFile folder = new ComFile(retour);
@@ -157,7 +152,7 @@ public class ParamBusiness {
 	}
 	
 	/**
-	 * Met en place les paramètres dans l'application
+	 * Met en place les paramètres utilisateurs dans l'application
 	 */
 	public static void getDonneesParamUser() {
 		if(fileParamUser == null) {

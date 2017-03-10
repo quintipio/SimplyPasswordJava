@@ -1,4 +1,5 @@
 package fr.quintipio.simplyPassword.view;
+import fr.quintipio.simplyPassword.Main;
 import fr.quintipio.simplyPassword.util.CryptUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -64,8 +65,12 @@ public class GenereMdpDialogController {
 	 */
 	@FXML
 	private void valider() {
-		motdePasse = CryptUtils.genereMotdePasse(new Double(longueurSlider.getValue()).intValue(), lettreCheck.isSelected(), chiffreCheck.isSelected(), specCheck.isSelected());
-		dialogStage.close();
+		try {
+			motdePasse = CryptUtils.genereMotdePasse(new Double(longueurSlider.getValue()).intValue(), lettreCheck.isSelected(), chiffreCheck.isSelected(), specCheck.isSelected());
+			dialogStage.close();
+		} catch (Exception e) {
+			Main.showError(e);
+		}
 	}
 	
 	/**

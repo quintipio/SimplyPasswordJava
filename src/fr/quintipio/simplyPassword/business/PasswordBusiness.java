@@ -64,30 +64,6 @@ public class PasswordBusiness {
         PasswordBusiness.modif = modif;
     }
 
-    public static void  init() {
-        dossierMere = new Dossier("Dossier racine",null);
-        Dossier dossierA = new Dossier("Dossier A",dossierMere);
-        Dossier dossierB = new Dossier("Dossier B",dossierMere);
-        Dossier dossierC = new Dossier("Dossier C",dossierA);
-
-        MotDePasse mdpa = new MotDePasse();
-        mdpa.setTitre("piou");
-        mdpa.setLogin("toto");
-        mdpa.setMotDePasseObjet("toto");
-        mdpa.setDossierPossesseur(dossierC);
-        MotDePasse mdpb = new MotDePasse();
-        mdpb.setTitre("pioupiou");
-        mdpb.setLogin("tata");
-        mdpb.setMotDePasseObjet("tata");
-        mdpb.setDossierPossesseur(dossierC);
-
-
-        dossierMere.getSousDossier().add(dossierA);
-        dossierMere.getSousDossier().add(dossierB);
-        dossierA.getSousDossier().add(dossierC);
-        dossierC.getListeMotDePasse().add(mdpa);
-        dossierA.getListeMotDePasse().add(mdpb);
-    }
     ///METHODES DE GESTION
     
     /**
@@ -108,7 +84,7 @@ public class PasswordBusiness {
     }
     
     /**
-     * Sauvegarde dans un fichier
+     * Sauvegarde dans un fichier les mots de passe et dossiers
      */
     public static void save() throws Exception {
         byte[] data = ObjectUtils.serialize(dossierMere);
@@ -156,7 +132,7 @@ public class PasswordBusiness {
     public static List<MotDePasse> recherche(String recherche,Dossier dossier) {
         List<MotDePasse> retour = new ArrayList<>();
         if(dossier.getListeMotDePasse() != null && dossier.getListeMotDePasse().size() > 0) {
-            retour.addAll(dossier.getListeMotDePasse().stream().filter(mdp -> mdp.getLogin().contains(recherche) || mdp.getTitre().contains(recherche)).collect(Collectors.toList()));
+            retour.addAll(dossier.getListeMotDePasse().stream().filter(mdp -> mdp.getLogin().toLowerCase().contains(recherche.toLowerCase()) || mdp.getTitre().toLowerCase().contains(recherche.toLowerCase())).collect(Collectors.toList()));
         }
         if(dossier.getSousDossier() != null && dossier.getSousDossier().size() > 0) {
             for (Dossier dos : dossier.getSousDossier()) {

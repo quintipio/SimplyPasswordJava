@@ -87,23 +87,27 @@ public class RootLayoutController implements Initializable  {
      */
     @FXML
     private void saveAs() {
-        //ouverture d'une dlg de fichier
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ContexteStatic.extension.toUpperCase()+" (*"+ ContexteStatic.extension+")", "*"+ContexteStatic.extension));
-        File file = fileChooser.showSaveDialog(main.getPrimaryStage());
-        if(file != null) {
-        	if (file.getPath().endsWith(ContexteStatic.extension)) {
-                PasswordBusiness.setFichier(file.getPath(),true);
-            }
-            else {
-                PasswordBusiness.setFichier(file.getPath()+ContexteStatic.extension,true);
-            }
-        }
+        try {
+			//ouverture d'une dlg de fichier
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ContexteStatic.extension.toUpperCase()+" (*"+ ContexteStatic.extension+")", "*"+ContexteStatic.extension));
+			File file = fileChooser.showSaveDialog(main.getPrimaryStage());
+			if(file != null) {
+				if (file.getPath().endsWith(ContexteStatic.extension)) {
+			        PasswordBusiness.setFichier(file.getPath(),true);
+			    }
+			    else {
+			        PasswordBusiness.setFichier(file.getPath()+ContexteStatic.extension,true);
+			    }
+			}
 
-        //sauvegarde
-        if(file != null && file.getPath() != null && !file.getPath().isEmpty()) {
-            save();
-        }
+			//sauvegarde
+			if(file != null && file.getPath() != null && !file.getPath().isEmpty()) {
+			    save();
+			}
+		} catch (Exception e) {
+			Main.showError(e);
+		}
     }
 
     /**
@@ -119,25 +123,29 @@ public class RootLayoutController implements Initializable  {
      */
     @FXML
     private void load() {
-        String path = null;
-        String password = null;
+        try {
+			String path = null;
+			String password = null;
 
-        //chargement du fichier
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ContexteStatic.extension.toUpperCase()+" (*"+ ContexteStatic.extension+")", "*"+ContexteStatic.extension));
-        File file = fileChooser.showOpenDialog(main.getPrimaryStage());
-        if(file != null) {
-        	if (file.getPath().endsWith(ContexteStatic.extension)) {
-                PasswordBusiness.setFichier(file.getPath(),true);
-            }
-            else {
-                PasswordBusiness.setFichier(file.getPath()+ContexteStatic.extension,true);
-            }
-        	
-        	PasswordBusiness.setMotDePasse(null);
-        	
-        	main.ouvrirFenetre(true);
-        }
+			//chargement du fichier
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ContexteStatic.extension.toUpperCase()+" (*"+ ContexteStatic.extension+")", "*"+ContexteStatic.extension));
+			File file = fileChooser.showOpenDialog(main.getPrimaryStage());
+			if(file != null) {
+				if (file.getPath().endsWith(ContexteStatic.extension)) {
+			        PasswordBusiness.setFichier(file.getPath(),true);
+			    }
+			    else {
+			        PasswordBusiness.setFichier(file.getPath()+ContexteStatic.extension,true);
+			    }
+				
+				PasswordBusiness.setMotDePasse(null);
+				
+				main.ouvrirFenetre(true);
+			}
+		} catch (Exception e) {
+			Main.showError(e);
+		}
     }
 
     /**
@@ -145,8 +153,12 @@ public class RootLayoutController implements Initializable  {
      */
     @FXML
     private void newApp() {
-        PasswordBusiness.reset();
-        main.ouvrirFenetre(false);
+        try {
+			PasswordBusiness.reset();
+			main.ouvrirFenetre(false);
+		} catch (Exception e) {
+			Main.showError(e);
+		}
     }
     
     /**
@@ -162,23 +174,27 @@ public class RootLayoutController implements Initializable  {
      */
     @FXML
     private void changeLangue() {
-    	List<String> listeLangue = new ArrayList<String>();
-    	for (String lang : ContexteStatic.listeLangues) {
-    		listeLangue.add(bundle.getString(lang));
+    	try {
+			List<String> listeLangue = new ArrayList<String>();
+			for (String lang : ContexteStatic.listeLangues) {
+				listeLangue.add(bundle.getString(lang));
+			}
+			
+			int choixDefaut = 0;
+			if(ParamBusiness.getParametreLangue() != null && ParamBusiness.getParametreLangue().contentEquals(listeLangue.get(1))) {
+				choixDefaut = 1;
+			}
+			
+			ChoiceDialog<String> dialog = new ChoiceDialog<>(listeLangue.get(choixDefaut),listeLangue);
+			dialog.setTitle(bundle.getString("changerlangue"));
+			dialog.setHeaderText(bundle.getString("selectLangue"));
+			dialog.setContentText(bundle.getString("langue"));
+			
+			Optional<String> result = dialog.showAndWait();
+			result.ifPresent(lang -> appliquerLangue(lang,listeLangue));
+		} catch (Exception e) {
+			Main.showError(e);
 		}
-    	
-    	int choixDefaut = 0;
-    	if(ParamBusiness.getParametreLangue() != null && ParamBusiness.getParametreLangue().contentEquals(listeLangue.get(1))) {
-    		choixDefaut = 1;
-    	}
-    	
-    	ChoiceDialog<String> dialog = new ChoiceDialog<>(listeLangue.get(choixDefaut),listeLangue);
-    	dialog.setTitle(bundle.getString("changerlangue"));
-    	dialog.setHeaderText(bundle.getString("selectLangue"));
-    	dialog.setContentText(bundle.getString("langue"));
-    	
-    	Optional<String> result = dialog.showAndWait();
-    	result.ifPresent(lang -> appliquerLangue(lang,listeLangue));
     }
     
     /**
@@ -201,11 +217,27 @@ public class RootLayoutController implements Initializable  {
     }
     
     /**
+     * Ouvre la dlg de chiffrement d'un fichier
+     */
+    @FXML
+    private void cryptFile() {
+    	main.showCryptFile(true);
+    }
+    
+    /**
+     * Ouvre la dlg de déchiffrement d'un fichier
+     */
+    @FXML
+    private void decryptFile() {
+    	main.showCryptFile(false);
+    }
+    
+    /**
      * Affiche la boite de dialogue à propos de...
      */
     @FXML
     private void openAppd() {
-    	Dialog dlg = new Dialog<String>();
+    	Dialog<String> dlg = new Dialog<String>();
     	dlg.setTitle(bundle.getString("appd"));
     	dlg.setHeaderText(ContexteStatic.nomAppli);
     	dlg.setGraphic(new ImageView("/rsc/icon.png"));

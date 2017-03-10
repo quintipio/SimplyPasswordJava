@@ -3,6 +3,7 @@ package fr.quintipio.simplyPassword.view;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import fr.quintipio.simplyPassword.Main;
 import fr.quintipio.simplyPassword.business.PasswordBusiness;
 import fr.quintipio.simplyPassword.util.CryptUtils;
 import fr.quintipio.simplyPassword.util.StringUtils;
@@ -133,10 +134,14 @@ public class GererMasterPasswordDialogController implements Initializable {
 	 */
 	@FXML
 	private void valider() {
-		if(validate()) {
-			PasswordBusiness.setMotDePasse(newMdp.getText());
-			PasswordBusiness.setModif(true);
-			dialogStage.close();
+		try {
+			if(validate()) {
+				PasswordBusiness.setMotDePasse(newMdp.getText());
+				PasswordBusiness.setModif(true);
+				dialogStage.close();
+			}
+		} catch (Exception e) {
+			Main.showError(e);
 		}
 	}
 	
