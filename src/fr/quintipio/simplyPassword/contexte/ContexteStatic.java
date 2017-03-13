@@ -36,6 +36,11 @@ public class ContexteStatic {
     public static final String extensionPartage = ".spp";
     
     /**
+     * Extension pour les fichiers exporter chiffré
+     */
+    public static final String extensionExport = ".spe";
+    
+    /**
      * Duràe en seconde de la copie d'un identifiant ou d'un mot de passe dans le presse papier
      */
     public static final int dureeTimerCopieClipboard = 20;

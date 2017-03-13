@@ -21,7 +21,7 @@ public class ParamBusiness {
 	private static String paramAppliName="param";
 	private static String paramLive = "live:";
 	private static String paramLiveYes = "o";
-	private static String paramLiveNo = "o";
+	private static String paramLiveNo = "n";
 	private static String paramSeparator = ";";
 	
 	private static String paramUserName = "LocalConf.ini";
@@ -89,7 +89,9 @@ public class ParamBusiness {
 				if(data.contains(paramLive)) {
 					String[] res = data.split(":");
 					if(res.length > 1) {
-						return res[1].contentEquals(paramLiveYes);
+                                                String[] resb = res[1].split(";");
+                                                boolean b= resb[0].contentEquals(paramLiveYes);
+						return resb[0].contentEquals(paramLiveYes);
 					}
 				}
 			}

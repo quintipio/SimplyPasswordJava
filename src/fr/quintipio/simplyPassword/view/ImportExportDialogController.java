@@ -78,7 +78,7 @@ public class ImportExportDialogController  implements Initializable  {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ok =false;
-		listeFormat = FXCollections.observableArrayList("","CSV","XML",ContexteStatic.extension.subSequence(1,ContexteStatic.extension.length()).toString().toUpperCase());
+		listeFormat = FXCollections.observableArrayList("","CSV","XML",ContexteStatic.extensionExport.subSequence(1,ContexteStatic.extensionExport.length()).toString().toUpperCase());
 		bundle = resources;
 		formatCombo.getItems().addAll(listeFormat);
 		validButton.setDisable(true);
@@ -207,7 +207,7 @@ public class ImportExportDialogController  implements Initializable  {
 				if(extensionSelected.toUpperCase().contentEquals("."+listeFormat.get(3).toUpperCase())) {
 					String mdp = askPassword();
 					if(!StringUtils.stringEmpty(mdp)) {
-						data = exportSpj(dossierSelected, mdp);
+						data = exportSpe(dossierSelected, mdp);
 						ok =true;
 					}
 				}
@@ -236,7 +236,7 @@ public class ImportExportDialogController  implements Initializable  {
 				if(extensionSelected.toUpperCase().contentEquals("."+listeFormat.get(3).toUpperCase())) {
 					String mdp = askPassword();
 					if(!StringUtils.stringEmpty(mdp)) {
-						dossier = importSpj(data, mdp);
+						dossier = importSpe(data, mdp);
 						ok =true;
 					}
 				}
@@ -402,7 +402,7 @@ public class ImportExportDialogController  implements Initializable  {
 	 * @return le dossier
 	 * @throws Exception
 	 */
-	public Dossier importSpj(byte[] data,String mdp) throws Exception {
+	public Dossier importSpe(byte[] data,String mdp) throws Exception {
 		ByteArrayInputStream input = new ByteArrayInputStream(data);
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         CryptUtils.decrypt(mdp.toCharArray() , input, output);
@@ -419,7 +419,7 @@ public class ImportExportDialogController  implements Initializable  {
 	 * @return les données
 	 * @throws Exception
 	 */
-	public byte[] exportSpj(Dossier dossier,String mdp) throws Exception {
+	public byte[] exportSpe(Dossier dossier,String mdp) throws Exception {
 		byte[] data = ObjectUtils.serialize(dossier);
 		ByteArrayInputStream input = new ByteArrayInputStream(data);
         ByteArrayOutputStream output = new ByteArrayOutputStream();
