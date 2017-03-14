@@ -86,7 +86,7 @@ public class ImportExportDialogController  implements Initializable  {
 	}
 	
 	/**
-	 * A éxécuter une foit le controleur charger et initialisé
+	 * A éxécuter une fois le controleur chargé et initialisé
 	 */
 	public void init() {
 		if(!export) {
@@ -249,6 +249,9 @@ public class ImportExportDialogController  implements Initializable  {
 				}
 				else {
 					dossier.setDossierParent(dossierSelected);
+                                        if(dossierSelected.getSousDossier() == null) {
+                                            dossierSelected.setSousDossier(new ArrayList<>());
+                                        }
 					dossierSelected.getSousDossier().add(dossier);
 				}
 				PasswordBusiness.setModif(true);
@@ -375,6 +378,7 @@ public class ImportExportDialogController  implements Initializable  {
 		Unmarshaller un = context.createUnmarshaller();
 		InputStream is = new ByteArrayInputStream(data);
 		Dossier dossierImport = (Dossier)un.unmarshal(is);
+                dossierImport = construireElementParent(dossierImport,null);
 		return dossierImport;
 	}
 	
@@ -409,6 +413,7 @@ public class ImportExportDialogController  implements Initializable  {
         
 		Dossier dossierImport = new Dossier();
 		dossierImport = (Dossier)ObjectUtils.deserialize(output.toByteArray());
+                dossierImport = construireElementParent(dossierImport, null);
 		return dossierImport;
 	}
 	
@@ -428,6 +433,38 @@ public class ImportExportDialogController  implements Initializable  {
 	}
 	
 	
+        
+        /**
+         * Refait la hiérarchie des dossiers parents, mots de passe...
+         * @param dossier le dossier à scanner
+         * @param dossierParent le dossier parent à inscrire dans le dossier
+         * @return le dossier
+         */
+        private Dossier construireElementParent(Dossier dossier, Dossier dossierParent) {
+            dossier.setDossierParent(dossierParent);
+            
+            if(dossier.getListeMotDePasse() == null) {
+                dossier.setListeMotDePasse(new ArrayList<>());
+            }
+            
+            if(dossier.getListeMotDePasse().size() > 0) {
+                dossier.getListeMotDePasse().forEach((motDePasse) -> {
+                    motDePasse.setDossierPossesseur(dossier);
+                });
+            }
+            
+            if(dossier.getSousDossier()== null) {
+                dossier.setSousDossier(new ArrayList<>());
+            }
+            
+            if(dossier.getSousDossier().size() > 0) {
+                dossier.getSousDossier().forEach((dossier1) -> {
+                    dossier1 = construireElementParent(dossier1,dossier);
+                });
+            }
+            return dossier;
+        }
+        
 	
 	
 	/**

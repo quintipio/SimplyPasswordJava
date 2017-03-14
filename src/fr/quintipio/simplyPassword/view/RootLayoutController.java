@@ -1,5 +1,6 @@
 package fr.quintipio.simplyPassword.view;
 
+import com.sun.deploy.net.offline.DeployOfflineManager;
 import fr.quintipio.simplyPassword.Main;
 import fr.quintipio.simplyPassword.business.ParamBusiness;
 import fr.quintipio.simplyPassword.business.PasswordBusiness;
@@ -124,28 +125,32 @@ public class RootLayoutController implements Initializable  {
     @FXML
     private void load() {
         try {
-			String path = null;
-			String password = null;
+            
+        if(main.askSave()) {
+            String path = null;
+                String password = null;
 
-			//chargement du fichier
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ContexteStatic.extension.toUpperCase()+" (*"+ ContexteStatic.extension+")", "*"+ContexteStatic.extension));
-			File file = fileChooser.showOpenDialog(main.getPrimaryStage());
-			if(file != null) {
-				if (file.getPath().endsWith(ContexteStatic.extension)) {
-			        PasswordBusiness.setFichier(file.getPath(),true);
-			    }
-			    else {
-			        PasswordBusiness.setFichier(file.getPath()+ContexteStatic.extension,true);
-			    }
-				
-				PasswordBusiness.setMotDePasse(null);
-				
-				main.ouvrirFenetre(true);
-			}
-		} catch (Exception e) {
-			Main.showError(e);
-		}
+                //chargement du fichier
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ContexteStatic.extension.toUpperCase()+" (*"+ ContexteStatic.extension+")", "*"+ContexteStatic.extension));
+                File file = fileChooser.showOpenDialog(main.getPrimaryStage());
+                if(file != null) {
+                        if (file.getPath().endsWith(ContexteStatic.extension)) {
+                        PasswordBusiness.setFichier(file.getPath(),true);
+                    }
+                    else {
+                        PasswordBusiness.setFichier(file.getPath()+ContexteStatic.extension,true);
+                    }
+
+                        PasswordBusiness.setMotDePasse(null);
+
+                        main.ouvrirFenetre(true);
+                }
+        }
+                
+        } catch (Exception e) {
+                Main.showError(e);
+        }
     }
 
     /**
@@ -154,11 +159,13 @@ public class RootLayoutController implements Initializable  {
     @FXML
     private void newApp() {
         try {
-			PasswordBusiness.reset();
-			main.ouvrirFenetre(false);
-		} catch (Exception e) {
-			Main.showError(e);
-		}
+            if(main.askSave()) {
+                PasswordBusiness.reset();
+		main.ouvrirFenetre(false);
+            }	
+            } catch (Exception e) {
+                    Main.showError(e);
+            }
     }
     
     /**

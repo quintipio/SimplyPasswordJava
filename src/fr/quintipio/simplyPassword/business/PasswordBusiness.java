@@ -81,6 +81,7 @@ public class PasswordBusiness {
         dossierMere = (Dossier)ObjectUtils.deserialize(output.toByteArray());
         fichier = nouveauFichier;
         motDePasse = nouveauMotDePasse;
+        modif = false;
     }
     
     /**
@@ -121,6 +122,7 @@ public class PasswordBusiness {
         dossierMere = null;
         motDePasse = null;
         fichier = null;
+        modif = false;
     }
 
     /**
