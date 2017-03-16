@@ -134,7 +134,7 @@ public class PasswordBusiness {
     public static List<MotDePasse> recherche(String recherche,Dossier dossier) {
         List<MotDePasse> retour = new ArrayList<>();
         if(dossier.getListeMotDePasse() != null && dossier.getListeMotDePasse().size() > 0) {
-            retour.addAll(dossier.getListeMotDePasse().stream().filter(mdp -> mdp.getLogin().toLowerCase().contains(recherche.toLowerCase()) || mdp.getTitre().toLowerCase().contains(recherche.toLowerCase())).collect(Collectors.toList()));
+            retour.addAll(dossier.getListeMotDePasse().stream().filter(mdp -> mdp.getLogin().toLowerCase().contains(recherche.toLowerCase()) || mdp.getCommentaire().toLowerCase().contains(recherche.toLowerCase()) || mdp.getTitre().toLowerCase().contains(recherche.toLowerCase())).collect(Collectors.toList()));
         }
         if(dossier.getSousDossier() != null && dossier.getSousDossier().size() > 0) {
             for (Dossier dos : dossier.getSousDossier()) {

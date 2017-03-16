@@ -124,8 +124,8 @@ public class Main extends Application {
             	do {
             		erreurMdp = false;
             		Dialog<String> dlg = new Dialog<String>();
-                	dlg.setTitle(bundle.getString("entrezmdp"));
-                	dlg.setHeaderText(ContexteStatic.nomAppli);
+                	dlg.setTitle(ContexteStatic.nomAppli);
+                	dlg.setHeaderText(PasswordBusiness.isFichier()?PasswordBusiness.getFichier().getFile().getAbsolutePath():ContexteStatic.nomAppli);
                 	ImageView img = new ImageView("/rsc/key.png");
                 	img.resize(64, 64);
                 	dlg.setGraphic(img);

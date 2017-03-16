@@ -69,6 +69,8 @@ public class MainViewController implements Initializable {
     private boolean coupe;
     private boolean copie;
     private MenuItem collerMenuItem;
+    private Dossier selectedDossierToMove;
+    private MenuItem collerDossierMenuItem;
     
     //pour le timer
     private Timer timer;
@@ -95,30 +97,44 @@ public class MainViewController implements Initializable {
         collerMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.V,KeyCombination.CONTROL_DOWN));
         collerMenuItem.setOnAction(t -> {
             try {
-				if(copie) {
-					if(selectedDossier != null) {
-						selectedDossier.getValue().getListeMotDePasse().add(selectedMotDePasseToMove);
-				        selectedMotDePasseToMove.setDossierPossesseur(selectedDossier.getValue());
-				        PasswordBusiness.setModif(true);
-				        supprimerCollerElement();
-				        ouvrirDossier(selectedDossier.getValue());
-					}
-				}
-				if(coupe) {
-					if(selectedDossier != null) {
-						 selectedDossier.getValue().getListeMotDePasse().add(selectedMotDePasseToMove);
-				         selectedMotDePasseToMove.getDossierPossesseur().getListeMotDePasse().remove(selectedMotDePasseToMove);
-				         selectedMotDePasseToMove.setDossierPossesseur(selectedDossier.getValue());
-				         PasswordBusiness.setModif(true);
-				         supprimerCollerElement();
-				         ouvrirDossier(selectedDossier.getValue());
-					}
-				}
-			} catch (Exception e) {
-				Main.showError(e);
-			}
+                    if(copie) {
+                            if(selectedDossier != null) {
+                                    selectedDossier.getValue().getListeMotDePasse().add(selectedMotDePasseToMove);
+                            selectedMotDePasseToMove.setDossierPossesseur(selectedDossier.getValue());
+                            PasswordBusiness.setModif(true);
+                            supprimerCollerElement();
+                            ouvrirDossier(selectedDossier.getValue());
+                            }
+                    }
+                    if(coupe) {
+                            if(selectedDossier != null) {
+                                     selectedDossier.getValue().getListeMotDePasse().add(selectedMotDePasseToMove);
+                             selectedMotDePasseToMove.getDossierPossesseur().getListeMotDePasse().remove(selectedMotDePasseToMove);
+                             selectedMotDePasseToMove.setDossierPossesseur(selectedDossier.getValue());
+                             PasswordBusiness.setModif(true);
+                             supprimerCollerElement();
+                             ouvrirDossier(selectedDossier.getValue());
+                            }
+                    }
+                } catch (Exception e) {
+                        Main.showError(e);
+                }
+        });
+        
+        collerDossierMenuItem = new MenuItem(resources.getString("collerDossier")); 
+        collerDossierMenuItem.setOnAction(t -> {
+            if(selectedDossierToMove != null && selectedDossier.getValue() != null && !isDossierEnfant(selectedDossierToMove, selectedDossier.getValue()) && selectedDossier.getValue() != selectedDossierToMove) {
+                selectedDossier.getValue().getSousDossier().add(selectedDossierToMove);
+                selectedDossierToMove.getDossierParent().getSousDossier().remove(selectedDossierToMove);
+                selectedDossierToMove.setDossierParent(selectedDossier.getValue());
+                selectedDossierToMove = null;
+                PasswordBusiness.setModif(true);
+                supprimerCollerDossierElement();
+                main.ouvrirFenetre(false);
+            }
         });
     }
+    
 
 
     /**
@@ -220,6 +236,14 @@ public class MainViewController implements Initializable {
         		 main.showImportExport(selectedDossier.getValue(), true);
         	}
         });
+        MenuItem couperDossier = new MenuItem(bundle.getString("couperDossier"));
+        couperDossier.setOnAction(t ->{
+        	if(selectedDossier != null && selectedDossier.getValue().getDossierParent() != null) {
+        		 selectedDossierToMove = selectedDossier.getValue();
+                         ajouterCollerDossierElement();
+                         
+        	}
+        });
         
         dossierContexteMenu.getItems().add(creerDossier);
         dossierContexteMenu.getItems().add(modifierDossier);
@@ -228,6 +252,7 @@ public class MainViewController implements Initializable {
         dossierContexteMenu.getItems().add(importerDossier);
         dossierContexteMenu.getItems().add(exporterDossier);
         dossierTreeView.setContextMenu(dossierContexteMenu);
+        dossierContexteMenu.getItems().add(couperDossier);
         selectedDossier = rootItem;
     }
     
@@ -241,6 +266,7 @@ public class MainViewController implements Initializable {
         mdpColumn.setCellValueFactory(cellData -> cellData.getValue().motDePasseObjetProperty());
         webColumn.setCellValueFactory(cellData -> cellData.getValue().siteWebProperty());
         commentColumn.setCellValueFactory(cellData -> cellData.getValue().commentaireProperty());
+        titreColumn.setSortType(TableColumn.SortType.ASCENDING);
 
         //évènement de sélection
         mdpTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -254,19 +280,19 @@ public class MainViewController implements Initializable {
         modifMdp.setAccelerator(new KeyCodeCombination(KeyCode.M,KeyCombination.CONTROL_DOWN));
         modifMdp.setOnAction(t -> {
         	try {
-				if(selectedMotDepasse != null) {
-					MotDePasse mdp = main.showEditPassword(selectedMotDepasse.getMdpOri());
-					if(mdp != null) {
-						mdp.setDossierPossesseur(selectedDossier.getValue());
-						selectedDossier.getValue().getListeMotDePasse().remove(selectedMotDepasse.getMdpOri());
-						selectedDossier.getValue().getListeMotDePasse().add(mdp);
-						ouvrirDossier(selectedDossier.getValue());
-				        PasswordBusiness.setModif(true);
-					}
-				}
-			} catch (Exception e) {
-				Main.showError(e);
-			}
+                        if(selectedMotDepasse != null) {
+                                MotDePasse mdp = main.showEditPassword(selectedMotDepasse.getMdpOri());
+                                if(mdp != null) {
+                                        mdp.setDossierPossesseur(selectedDossier.getValue());
+                                        selectedDossier.getValue().getListeMotDePasse().remove(selectedMotDepasse.getMdpOri());
+                                        selectedDossier.getValue().getListeMotDePasse().add(mdp);
+                                        ouvrirDossier(selectedDossier.getValue());
+                                PasswordBusiness.setModif(true);
+                                }
+                        }
+                    } catch (Exception e) {
+                            Main.showError(e);
+                    }
         });
         
         MenuItem supMdp = new MenuItem(bundle.getString("supprimerMdp"));
@@ -374,6 +400,28 @@ public class MainViewController implements Initializable {
 				Main.showError(e);
 			}
         });
+        
+        mdpTable.setOnMouseClicked(t -> {
+            if(t.getButton().equals(MouseButton.PRIMARY)) {
+                if(t.getClickCount() == 2) {
+                    try {
+                        if(selectedMotDepasse != null) {
+                                MotDePasse mdp = main.showEditPassword(selectedMotDepasse.getMdpOri());
+                                if(mdp != null) {
+                                        mdp.setDossierPossesseur(selectedDossier.getValue());
+                                        selectedDossier.getValue().getListeMotDePasse().remove(selectedMotDepasse.getMdpOri());
+                                        selectedDossier.getValue().getListeMotDePasse().add(mdp);
+                                        ouvrirDossier(selectedDossier.getValue());
+                                PasswordBusiness.setModif(true);
+                                }
+                        }
+                    } catch (Exception e) {
+                            Main.showError(e);
+                    }
+                }
+            }
+        });
+        
         mdpContexteMenu.getItems().add(copieLogin);
         mdpContexteMenu.getItems().add(copieMdp);
         mdpContexteMenu.getItems().add(new SeparatorMenuItem());
@@ -387,6 +435,7 @@ public class MainViewController implements Initializable {
         mdpTable.setContextMenu(mdpContexteMenu);
 
         mdpTable.setItems(listeMdp);
+        mdpTable.getSortOrder().add(titreColumn);
     }
 
     
@@ -417,7 +466,6 @@ public class MainViewController implements Initializable {
      * Ajoute le menu item coller dans les contexteMennu pour coller un mot de passe
      */
     private void ajouterCollerElement() {
-        dossierContexteMenu.getItems().add(collerMenuItem);
         mdpContexteMenu.getItems().add(collerMenuItem);
     }
 
@@ -425,8 +473,21 @@ public class MainViewController implements Initializable {
      * Supprime le menu item coller dans les contexteMennu
      */
     private void supprimerCollerElement() {
-        dossierContexteMenu.getItems().remove(collerMenuItem);
         mdpContexteMenu.getItems().remove(collerMenuItem);
+    }
+    
+    /**
+     * Ajoute le menu item coller d'un dossier dans les contexteMennu pour coller un dossier
+     */
+    private void ajouterCollerDossierElement() {
+        dossierContexteMenu.getItems().add(collerDossierMenuItem);
+    }
+
+    /**
+     * Supprime le menu item coller d'un dossier dans les contexteMennu
+     */
+    private void supprimerCollerDossierElement() {
+        dossierContexteMenu.getItems().remove(collerDossierMenuItem);
     }
     
     
@@ -580,5 +641,29 @@ public class MainViewController implements Initializable {
             }
         }
         return  dossierTreeItem;
+    }
+    
+    /**
+     * Méthode récursive pour vérifier qu'un dossier n'est pas compris dans un des sous dossiers de root
+     * @param root le dossier racine à vérifier
+     * @param search le dossier à recherche
+     * @return true si présent
+     */
+    private boolean isDossierEnfant(Dossier root, Dossier search) {
+        boolean retour = false;
+        for (Dossier dossier : root.getSousDossier()) {
+            if(dossier == search) {
+                retour = true;
+                break;
+            }
+            
+            if(dossier.getSousDossier() != null && dossier.getSousDossier().size() > 0 ){
+                if(isDossierEnfant(dossier, search)) {
+                    retour = true;
+                    break;
+                }
+            }
+        }
+        return retour;
     }
 }
