@@ -20,6 +20,7 @@ import javafx.scene.input.*;
 import javafx.util.StringConverter;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -266,13 +267,18 @@ public class MainViewController implements Initializable {
         mdpColumn.setCellValueFactory(cellData -> cellData.getValue().motDePasseObjetProperty());
         webColumn.setCellValueFactory(cellData -> cellData.getValue().siteWebProperty());
         commentColumn.setCellValueFactory(cellData -> cellData.getValue().commentaireProperty());
+        titreColumn.setSortable(true);
         titreColumn.setSortType(TableColumn.SortType.ASCENDING);
-
+        
+        mdpTable.setEditable(false);
+        mdpTable.setItems(listeMdp);
+        mdpTable.getSortOrder().add(titreColumn);
+        mdpTable.sort();
+        
         //évènement de sélection
         mdpTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             selectedMotDepasse = newValue;
         });
-        mdpTable.setEditable(false);
 
         //menu contextuel
         mdpContexteMenu = new ContextMenu();
@@ -434,8 +440,7 @@ public class MainViewController implements Initializable {
         mdpContexteMenu.getItems().add(shareMdp);
         mdpTable.setContextMenu(mdpContexteMenu);
 
-        mdpTable.setItems(listeMdp);
-        mdpTable.getSortOrder().add(titreColumn);
+        
     }
 
     
@@ -457,6 +462,7 @@ public class MainViewController implements Initializable {
     private void ouvrirMotsDePasse(List<MotDePasse> listeMdp) {
         this.listeMdp.clear();
         this.listeMdp.addAll(listeMdp.stream().map(ObservableMotDePasse::new).collect(Collectors.toList()));
+        Collections.sort(this.listeMdp, ( mdpA,  mdpB) -> mdpA.getTitre().compareToIgnoreCase(mdpB.getTitre()));
         afficherOuPasMdp();
     }
     
