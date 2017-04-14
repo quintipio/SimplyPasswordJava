@@ -7,6 +7,7 @@ import fr.quintipio.simplyPassword.contexte.ContexteStatic;
 import fr.quintipio.simplyPassword.model.Dossier;
 import fr.quintipio.simplyPassword.model.MotDePasse;
 import fr.quintipio.simplyPassword.model.ObservableMotDePasse;
+import fr.quintipio.simplyPassword.util.ObjectUtils;
 import java.io.File;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -98,24 +99,19 @@ public class MainViewController implements Initializable {
         collerMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.V,KeyCombination.CONTROL_DOWN));
         collerMenuItem.setOnAction(t -> {
             try {
-                    if(copie) {
-                            if(selectedDossier != null) {
-                                    selectedDossier.getValue().getListeMotDePasse().add(selectedMotDePasseToMove);
-                            selectedMotDePasseToMove.setDossierPossesseur(selectedDossier.getValue());
-                            PasswordBusiness.setModif(true);
-                            supprimerCollerElement();
-                            ouvrirDossier(selectedDossier.getValue());
-                            }
-                    }
-                    if(coupe) {
-                            if(selectedDossier != null) {
-                                     selectedDossier.getValue().getListeMotDePasse().add(selectedMotDePasseToMove);
+                    if(selectedDossier != null) {
+                        MotDePasse newMdp = ObjectUtils.copyMotDePasse(selectedMotDePasseToMove);
+                        newMdp.setDossierPossesseur(selectedDossier.getValue());
+                        selectedDossier.getValue().getListeMotDePasse().add(newMdp);
+                        
+                        if(coupe) {
                              selectedMotDePasseToMove.getDossierPossesseur().getListeMotDePasse().remove(selectedMotDePasseToMove);
-                             selectedMotDePasseToMove.setDossierPossesseur(selectedDossier.getValue());
-                             PasswordBusiness.setModif(true);
-                             supprimerCollerElement();
-                             ouvrirDossier(selectedDossier.getValue());
-                            }
+                        }
+                    
+                    
+                        PasswordBusiness.setModif(true);
+                        supprimerCollerElement();
+                        ouvrirDossier(selectedDossier.getValue());
                     }
                 } catch (Exception e) {
                         Main.showError(e);

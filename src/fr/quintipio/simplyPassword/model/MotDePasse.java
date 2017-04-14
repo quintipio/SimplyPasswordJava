@@ -22,11 +22,11 @@ public class MotDePasse implements Serializable {
 
     private String siteWeb;
 
-	@XmlTransient
+    @XmlTransient
     private Dossier dossierPossesseur;
 
     private Integer idIcone;
-
+    
     public String getTitre() {
         return titre;
     }

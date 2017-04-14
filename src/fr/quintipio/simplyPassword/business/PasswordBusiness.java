@@ -9,6 +9,7 @@ import fr.quintipio.simplyPassword.util.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,10 +37,16 @@ public class PasswordBusiness {
 
     public static void setFichier(String path,boolean changerParam) {
 
-        fichier = new ComFile(path);
-        if(changerParam) {
-            ParamBusiness.ecrireFichierParamUser();
+        if(path != null) {
+            fichier = new ComFile(path);
+            if(changerParam) {
+                ParamBusiness.ecrireFichierParamUser();
+            }
         }
+        else {
+            fichier = null;
+        }
+        
     }
 
     public static String getMotDePasse() {
@@ -92,7 +99,11 @@ public class PasswordBusiness {
         ByteArrayInputStream input = new ByteArrayInputStream(data);
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         CryptUtils.encrypt(128,motDePasse.toCharArray() , input, output);
-        fichier.writeFile(output.toByteArray(),true);
+        String pathTmp = fichier.getFile().getAbsolutePath();
+        ComFile fichierNew = new ComFile(pathTmp+"_new");
+        fichierNew.writeFile(output.toByteArray(),true);
+        fichier.getFile().delete();
+        fichierNew.getFile().renameTo(new File(pathTmp));
         ParamBusiness.ecrireFichierParamUser();
         modif = false;
     }

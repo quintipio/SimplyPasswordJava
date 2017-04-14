@@ -172,6 +172,9 @@ public class Main extends Application {
                 			getError = true;
                 		}
                 	}
+                        else {
+                            PasswordBusiness.setFichier(null, false);
+                        }
             	}while(erreurMdp);
             }
             

@@ -1,5 +1,6 @@
 package fr.quintipio.simplyPassword.util;
 
+import fr.quintipio.simplyPassword.model.MotDePasse;
 import java.io.*;
 
 /**
@@ -31,5 +32,40 @@ public class ObjectUtils {
         ByteArrayInputStream in = new ByteArrayInputStream(data);
         ObjectInputStream is = new ObjectInputStream(in);
         return is.readObject();
+    }
+    
+    /**
+     * Copier un mot de passe
+     * @param mdp le mot de passe
+     * @return le nouveau mot de passe
+     */
+    public static MotDePasse copyMotDePasse(MotDePasse mdp) {
+        MotDePasse newMdp = new MotDePasse();
+        if(mdp != null) {
+            if(mdp.getTitre() != null) {
+                newMdp.setTitre(new String(mdp.getTitre()));
+            }
+            
+            if(mdp.getLogin() != null) {
+                newMdp.setLogin(new String(mdp.getLogin()));
+            }
+            
+            if(mdp.getMotDePasseObjet() != null) {
+                newMdp.setMotDePasseObjet(new String(mdp.getMotDePasseObjet()));
+            }
+            if(mdp.getSiteWeb() != null) {
+                newMdp.setSiteWeb(new String(mdp.getSiteWeb()));
+            }
+            
+            if(mdp.getCommentaire() != null) {
+                newMdp.setCommentaire(new String(mdp.getCommentaire()));
+            }
+            
+            if(mdp.getIdIcone() != null) {
+                newMdp.setIdIcone(new Integer(mdp.getIdIcone()));
+            }
+            newMdp.setDossierPossesseur( mdp.getDossierPossesseur());
+        }
+        return newMdp;
     }
 }
