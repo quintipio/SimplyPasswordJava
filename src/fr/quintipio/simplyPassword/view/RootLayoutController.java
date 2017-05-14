@@ -1,6 +1,5 @@
 package fr.quintipio.simplyPassword.view;
 
-import com.sun.deploy.net.offline.DeployOfflineManager;
 import fr.quintipio.simplyPassword.Main;
 import fr.quintipio.simplyPassword.business.ParamBusiness;
 import fr.quintipio.simplyPassword.business.PasswordBusiness;
