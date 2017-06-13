@@ -326,8 +326,12 @@ public class ImportExportDialogController  implements Initializable  {
 			mdp.setTitre(byElement[0]);
 			mdp.setLogin(byElement[1]);
 			mdp.setMotDePasseObjet(byElement[2]);
-			mdp.setSiteWeb(byElement[3]);
-			mdp.setCommentaire(byElement[3]);
+			if(byElement.length > 3) {
+				mdp.setSiteWeb(byElement[3]);
+			}
+			if(byElement.length > 4) {
+				mdp.setCommentaire(byElement[3]);
+			}
 			mdp.setIdIcone(0);
 			dossierImport.getListeMotDePasse().add(mdp);
 		}
@@ -394,7 +398,7 @@ public class ImportExportDialogController  implements Initializable  {
 		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,true);
 		StringWriter wr = new StringWriter();
 		m.marshal(dossier,wr);
-		return wr.toString().getBytes();
+		return wr.toString().getBytes("UTF-8");
 	}
 	
 	
