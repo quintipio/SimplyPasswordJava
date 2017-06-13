@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="SimplyPasswordJava:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="6b9d2bfe-cb4c-40ca-85cd-5dee8171d9f3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/ImportExportDialogController.java" afterPath="$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/ImportExportDialogController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manifest.mf" afterPath="$PROJECT_DIR$/manifest.mf" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,8 +44,8 @@
       <file leaf-file-name="ImportExportDialogController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/ImportExportDialogController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
-              <caret line="334" column="30" lean-forward="true" selection-start-line="334" selection-start-column="30" selection-end-line="334" selection-end-column="30" />
+            <state relative-caret-position="318">
+              <caret line="347" column="9" lean-forward="true" selection-start-line="347" selection-start-column="9" selection-end-line="347" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -143,6 +147,7 @@
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -780,12 +785,20 @@
       <workItem from="1494754080906" duration="31000" />
       <workItem from="1497193476042" duration="1091000" />
       <workItem from="1497200001978" duration="424000" />
-      <workItem from="1497384989599" duration="2121000" />
+      <workItem from="1497384989599" duration="2840000" />
     </task>
+    <task id="LOCAL-00001" summary="Corrections de bugs sur l'import export">
+      <created>1497387462334</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1497387462334</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3667000" />
+    <option name="totallyTimeSpent" value="4386000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -828,6 +841,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Corrections de bugs sur l'import export" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrections de bugs sur l'import export" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -906,8 +923,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/quintipio/simplyPassword/view/ImportExportDialogController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="334" column="30" lean-forward="true" selection-start-line="334" selection-start-column="30" selection-end-line="334" selection-end-column="30" />
+        <state relative-caret-position="318">
+          <caret line="347" column="9" lean-forward="true" selection-start-line="347" selection-start-column="9" selection-end-line="347" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -918,7 +935,7 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>JarAppli</last-edited>
+          <last-edited>SimplyPasswordJava:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
