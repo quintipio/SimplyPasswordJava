@@ -144,7 +144,7 @@ public class MainViewController implements Initializable {
         dossierTreeView.setRoot(rootItem);
         dossierTreeView.setEditable(true);
         //converter pour la l'édtion d'un dossier
-        dossierTreeView.setCellFactory(p -> new TextFieldTreeCell<>(new StringConverter<Dossier>(){
+        dossierTreeView.setCellFactory(p -> new TextFieldTreeCell<>(new StringConverter<>() {
 
             @Override
             public String toString(Dossier object) {
@@ -165,9 +165,7 @@ public class MainViewController implements Initializable {
             ouvrirDossier(selectedDossier.getValue());
         });
         dossierTreeView.setEditable(true);
-        dossierTreeView.setOnEditCommit(t -> {
-            PasswordBusiness.setModif(true);
-        });
+        dossierTreeView.setOnEditCommit(t -> PasswordBusiness.setModif(true));
 
 
         //créer le menu contextuel
@@ -273,9 +271,7 @@ public class MainViewController implements Initializable {
         mdpTable.sort();
 
         //évènement de sélection
-        mdpTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            selectedMotDepasse = newValue;
-        });
+        mdpTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selectedMotDepasse = newValue);
 
         //menu contextuel
         mdpContexteMenu = new ContextMenu();
@@ -474,7 +470,7 @@ public class MainViewController implements Initializable {
     private void ouvrirMotsDePasse(List<MotDePasse> listeMdp) {
         this.listeMdp.clear();
         this.listeMdp.addAll(listeMdp.stream().map(ObservableMotDePasse::new).collect(Collectors.toList()));
-        Collections.sort(this.listeMdp, ( mdpA,  mdpB) -> mdpA.getTitre().compareToIgnoreCase(mdpB.getTitre()));
+        this.listeMdp.sort((mdpA, mdpB) -> mdpA.getTitre().compareToIgnoreCase(mdpB.getTitre()));
         afficherOuPasMdp();
     }
 
@@ -541,31 +537,23 @@ public class MainViewController implements Initializable {
                         if(nbSecondepasse < ContexteStatic.dureeTimerCopieClipboard) {
                             nbSecondepasse++;
                             double recul = (double)1/(double)ContexteStatic.dureeTimerCopieClipboard;
-                            Platform.runLater(new Runnable() {
+                            Platform.runLater(() -> {
+                                try {
+                                    countdownProgressbar.setProgress(countdownProgressbar.getProgress()-recul);
+                                }
+                                catch(Exception e) {
 
-                                @Override
-                                public void run() {
-                                    try {
-                                        countdownProgressbar.setProgress(countdownProgressbar.getProgress()-recul);
-                                    }
-                                    catch(Exception e) {
-
-                                    }
                                 }
                             });
                         }
                         else {
-                            Platform.runLater(new Runnable() {
+                            Platform.runLater(() -> {
+                                try {
+                                    copyToClipBoard("");
+                                    countdownProgressbar.setProgress(1);
+                                }
+                                catch(Exception e) {
 
-                                @Override
-                                public void run() {
-                                    try {
-                                        copyToClipBoard("");
-                                        countdownProgressbar.setProgress(1);
-                                    }
-                                    catch(Exception e) {
-
-                                    }
                                 }
                             });
                             this.cancel();

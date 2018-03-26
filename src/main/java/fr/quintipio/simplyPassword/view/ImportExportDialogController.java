@@ -354,18 +354,18 @@ public class ImportExportDialogController  implements Initializable  {
 	 * @return la chaine
 	 */
 	private String convertDossierToCsv(Dossier dossier) {
-		String data = "";
+		StringBuilder data = new StringBuilder();
 		if(dossier.getListeMotDePasse() != null && dossier.getListeMotDePasse().size() > 0) {
 			for (MotDePasse mdp : dossier.getListeMotDePasse()) {
-				data += "\""+mdp.getTitre()+"\",\""+mdp.getLogin()+"\",\""+mdp.getMotDePasseObjet()+"\",\""+((mdp.getSiteWeb() != null)?mdp.getSiteWeb():" ")+"\",\""+((mdp.getCommentaire() != null)?mdp.getCommentaire():" ")+"\";";
+				data.append("\"").append(mdp.getTitre()).append("\",\"").append(mdp.getLogin()).append("\",\"").append(mdp.getMotDePasseObjet()).append("\",\"").append((mdp.getSiteWeb() != null) ? mdp.getSiteWeb() : " ").append("\",\"").append((mdp.getCommentaire() != null) ? mdp.getCommentaire() : " ").append("\";");
 			}
 		}
 		if(dossier.getSousDossier() != null && dossier.getSousDossier().size() > 0) {
 			for (Dossier dos : dossier.getSousDossier()) {
-				data += convertDossierToCsv(dos);
+				data.append(convertDossierToCsv(dos));
 			}
 		}
-		return data;
+		return data.toString();
 	}
 	
 	
@@ -452,9 +452,7 @@ public class ImportExportDialogController  implements Initializable  {
             }
             
             if(dossier.getListeMotDePasse().size() > 0) {
-                dossier.getListeMotDePasse().forEach((motDePasse) -> {
-                    motDePasse.setDossierPossesseur(dossier);
-                });
+                dossier.getListeMotDePasse().forEach((motDePasse) -> motDePasse.setDossierPossesseur(dossier));
             }
             
             if(dossier.getSousDossier()== null) {
@@ -462,9 +460,7 @@ public class ImportExportDialogController  implements Initializable  {
             }
             
             if(dossier.getSousDossier().size() > 0) {
-                dossier.getSousDossier().forEach((dossier1) -> {
-                    dossier1 = construireElementParent(dossier1,dossier);
-                });
+                dossier.getSousDossier().forEach((dossier1) -> dossier1 = construireElementParent(dossier1,dossier));
             }
             return dossier;
         }
@@ -502,7 +498,7 @@ public class ImportExportDialogController  implements Initializable  {
     	
     	fieldA.textProperty().addListener((observable,oldValue,newValue) -> validButton.setDisable(newValue.trim().isEmpty() || newValue.length() < 8 || !newValue.contentEquals(fieldB.getText())));
     	fieldB.textProperty().addListener((observable,oldValue,newValue) -> validButton.setDisable(newValue.trim().isEmpty() || newValue.length() < 8 || !newValue.contentEquals(fieldA.getText())));
-    	Platform.runLater(() -> fieldA.requestFocus());
+    	Platform.runLater(fieldA::requestFocus);
     	
     	dlg.setResultConverter(dlgButton -> {
     		if(dlgButton == okButton) {
@@ -512,12 +508,7 @@ public class ImportExportDialogController  implements Initializable  {
     	});
     	
     	Optional<String> res = dlg.showAndWait();
-		
-		if(res.isPresent()) {
-			return res.get();
-		}
-		else {
-			return null;
-		}
+
+		return res.orElse(null);
 	}
 }

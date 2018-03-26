@@ -107,7 +107,7 @@ public class Main extends Application {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle(ContexteStatic.bundle,new Locale(ParamBusiness.getParametreLangue().toLowerCase(),ParamBusiness.getParametreLangue().toUpperCase()));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/RootLayout.fxml"),bundle);
-            rootLayout = (BorderPane) loader.load();
+            rootLayout = loader.load();
 
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -121,7 +121,7 @@ public class Main extends Application {
             	boolean getError= false;
             	do {
             		erreurMdp = false;
-            		Dialog<String> dlg = new Dialog<String>();
+            		Dialog<String> dlg = new Dialog<>();
                 	dlg.setTitle(ContexteStatic.nomAppli);
                 	dlg.setHeaderText(PasswordBusiness.isFichier()?PasswordBusiness.getFichier().getFile().getAbsolutePath():ContexteStatic.nomAppli);
                 	ImageView img = new ImageView("/rsc/key.png");
@@ -150,7 +150,7 @@ public class Main extends Application {
                 	validButton.setDisable(true);
                 	
                 	field.textProperty().addListener((observable,oldValue,newValue) -> validButton.setDisable(newValue.trim().isEmpty() || newValue.length() < 8));
-                	Platform.runLater(() -> field.requestFocus());
+                	Platform.runLater(field::requestFocus);
                 	
                 	dlg.setResultConverter(dlgButton -> {
                 		if(dlgButton == okButton) {

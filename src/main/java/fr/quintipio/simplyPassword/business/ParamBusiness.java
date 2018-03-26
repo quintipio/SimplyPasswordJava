@@ -109,16 +109,16 @@ public class ParamBusiness {
 		try {
 		String res = System.getProperty("os.name").toLowerCase();
 		String retour = "";
-		if(res.indexOf("win") >= 0) {
+		if(res.contains("win")) {
 			retour = System.getProperty("user.home")+"\\AppData\\Local\\"+ContexteStatic.nomAppli.replaceAll(" ","");
 		}
-		else if(res.indexOf("mac") >= 0) {
+		else if(res.contains("mac")) {
 			retour =  System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replaceAll(" ","");
 		}
-		else if(res.indexOf("nix") >= 0) {
+		else if(res.contains("nix")) {
 			retour =  System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replaceAll(" ","");
 		}
-		else if(res.indexOf("sunos") >= 0) {
+		else if(res.contains("sunos")) {
 			retour =  System.getProperty("user.home")+"\\"+ContexteStatic.nomAppli.replaceAll(" ","");
 		}
 		else {

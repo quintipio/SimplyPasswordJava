@@ -121,7 +121,7 @@ public class CryptUtils {
 	 */
 	public static String genereMotdePasse(int longueur, boolean lettre, boolean chiffre, boolean caracSpeciaux){
 		int length = (longueur == 0) ? 12 : longueur;
-        String password = "";
+        StringBuilder password = new StringBuilder();
         Random rnd = new Random();
         for (int i = 0; i < length; i++)
         {
@@ -134,35 +134,35 @@ public class CryptUtils {
                     case 0:
                         if (lettre)
                         {
-                            password += listeLettreMinuscule[rnd.nextInt(listeLettreMinuscule.length)];
+                            password.append(listeLettreMinuscule[rnd.nextInt(listeLettreMinuscule.length)]);
                             caracBienCree = true;
                         }
                         break;
                     case 1:
                         if (lettre)
                         {
-                            password += listeLettreMajuscule[rnd.nextInt(listeLettreMajuscule.length)];
+                            password.append(listeLettreMajuscule[rnd.nextInt(listeLettreMajuscule.length)]);
                             caracBienCree = true;
                         }
                         break;
                     case 2:
                         if (chiffre)
                         {
-                            password += listeChiffre[rnd.nextInt(listeChiffre.length)];
+                            password.append(listeChiffre[rnd.nextInt(listeChiffre.length)]);
                             caracBienCree = true;
                         }
                         break;
                     case 3:
                         if (caracSpeciaux)
                         {
-                            password += listeCaractereSpeciaux[rnd.nextInt(listeCaractereSpeciaux.length)];
+                            password.append(listeCaractereSpeciaux[rnd.nextInt(listeCaractereSpeciaux.length)]);
                             caracBienCree = true;
                         }
                         break;
                 }
             } while (!caracBienCree);
         }
-        return password;
+        return password.toString();
 	}
 	
 	
@@ -402,7 +402,8 @@ public class CryptUtils {
 	 * Thrown if an attempt is made to decrypt an invalid AES stream.
 	 */
 	public static class InvalidAESStreamException extends Exception {
-		public InvalidAESStreamException() { super(); };
+		public InvalidAESStreamException() { super(); }
+
 		public InvalidAESStreamException(Exception e) { super(e); }
 	}
 	

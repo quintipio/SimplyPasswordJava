@@ -56,7 +56,12 @@ public class GenereMdpDialogController {
 		chiffreCheck.setSelected(true);
 		specCheck.setSelected(true);
 		longueurSlider.setValue(11);
-		longueurSlider.valueProperty().addListener(t -> longueurLabel.setText(new Integer(new Double(longueurSlider.getValue()).intValue()).toString()));
+
+		longueurSlider.valueProperty().addListener(observable -> {
+            Double d = longueurSlider.getValue();
+            Integer i = d.intValue();
+            longueurLabel.setText(i.toString());
+        });
 		longueurLabel.setText("11");
 	}
 	
@@ -66,7 +71,8 @@ public class GenereMdpDialogController {
 	@FXML
 	private void valider() {
 		try {
-			motdePasse = CryptUtils.genereMotdePasse(new Double(longueurSlider.getValue()).intValue(), lettreCheck.isSelected(), chiffreCheck.isSelected(), specCheck.isSelected());
+            Double d = longueurSlider.getValue();
+			motdePasse = CryptUtils.genereMotdePasse( d.intValue(), lettreCheck.isSelected(), chiffreCheck.isSelected(), specCheck.isSelected());
 			dialogStage.close();
 		} catch (Exception e) {
 			Main.showError(e);

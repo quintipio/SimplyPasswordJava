@@ -181,7 +181,7 @@ public class RootLayoutController implements Initializable  {
     @FXML
     private void changeLangue() {
     	try {
-			List<String> listeLangue = new ArrayList<String>();
+			List<String> listeLangue = new ArrayList<>();
 			for (String lang : ContexteStatic.listeLangues) {
 				listeLangue.add(bundle.getString(lang));
 			}
@@ -243,7 +243,7 @@ public class RootLayoutController implements Initializable  {
      */
     @FXML
     private void openAppd() {
-    	Dialog<String> dlg = new Dialog<String>();
+    	Dialog<String> dlg = new Dialog<>();
     	dlg.setTitle(bundle.getString("appd"));
     	dlg.setHeaderText(ContexteStatic.nomAppli);
     	dlg.setGraphic(new ImageView("/rsc/icon.png"));

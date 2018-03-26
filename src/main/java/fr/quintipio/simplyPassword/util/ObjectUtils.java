@@ -43,26 +43,26 @@ public class ObjectUtils {
         MotDePasse newMdp = new MotDePasse();
         if(mdp != null) {
             if(mdp.getTitre() != null) {
-                newMdp.setTitre(new String(mdp.getTitre()));
+                newMdp.setTitre(mdp.getTitre());
             }
             
             if(mdp.getLogin() != null) {
-                newMdp.setLogin(new String(mdp.getLogin()));
+                newMdp.setLogin(mdp.getLogin());
             }
             
             if(mdp.getMotDePasseObjet() != null) {
-                newMdp.setMotDePasseObjet(new String(mdp.getMotDePasseObjet()));
+                newMdp.setMotDePasseObjet(mdp.getMotDePasseObjet());
             }
             if(mdp.getSiteWeb() != null) {
-                newMdp.setSiteWeb(new String(mdp.getSiteWeb()));
+                newMdp.setSiteWeb(mdp.getSiteWeb());
             }
             
             if(mdp.getCommentaire() != null) {
-                newMdp.setCommentaire(new String(mdp.getCommentaire()));
+                newMdp.setCommentaire(mdp.getCommentaire());
             }
             
             if(mdp.getIdIcone() != null) {
-                newMdp.setIdIcone(new Integer(mdp.getIdIcone()));
+                newMdp.setIdIcone(Integer.valueOf(mdp.getIdIcone()));
             }
             newMdp.setDossierPossesseur( mdp.getDossierPossesseur());
         }
