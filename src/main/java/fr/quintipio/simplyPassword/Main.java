@@ -362,7 +362,8 @@ public class Main extends Application {
             
             GenereMdpDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            
+
+
             dialogStage.showAndWait();
             return controller.getMotdePasse();
             
