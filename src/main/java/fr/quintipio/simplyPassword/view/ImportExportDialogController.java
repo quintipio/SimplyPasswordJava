@@ -1,18 +1,11 @@
 package fr.quintipio.simplyPassword.view;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.io.StringWriter;
+import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
 import fr.quintipio.simplyPassword.Main;
 import fr.quintipio.simplyPassword.business.PasswordBusiness;
@@ -22,7 +15,6 @@ import fr.quintipio.simplyPassword.model.Dossier;
 import fr.quintipio.simplyPassword.model.MotDePasse;
 import fr.quintipio.simplyPassword.util.CryptUtils;
 import fr.quintipio.simplyPassword.util.CryptUtils.InvalidPasswordException;
-import fr.quintipio.simplyPassword.util.ObjectUtils;
 import fr.quintipio.simplyPassword.util.StringUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -44,6 +36,10 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 public class ImportExportDialogController  implements Initializable  {
 
@@ -377,12 +373,12 @@ public class ImportExportDialogController  implements Initializable  {
 	 * @throws Exception
 	 */
 	public Dossier importXml(byte[] data) throws Exception {
-		
+
 		JAXBContext context = JAXBContext.newInstance(Dossier.class);
 		Unmarshaller un = context.createUnmarshaller();
 		InputStream is = new ByteArrayInputStream(data);
 		Dossier dossierImport = (Dossier)un.unmarshal(is);
-                dossierImport = construireElementParent(dossierImport,null);
+                dossierImport = PasswordBusiness.construireElementParent(dossierImport,null);
 		return dossierImport;
 	}
 	
@@ -414,10 +410,14 @@ public class ImportExportDialogController  implements Initializable  {
 		ByteArrayInputStream input = new ByteArrayInputStream(data);
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         CryptUtils.decrypt(mdp.toCharArray() , input, output);
-        
+
+		String xml = new String(output.toByteArray(),StandardCharsets.UTF_8);
+		JAXBContext context = JAXBContext.newInstance(Dossier.class);
+		Unmarshaller un = context.createUnmarshaller();
+
 		Dossier dossierImport = new Dossier();
-		dossierImport = (Dossier)ObjectUtils.deserialize(output.toByteArray());
-                dossierImport = construireElementParent(dossierImport, null);
+		dossierImport =  (Dossier)un.unmarshal(new StringReader(xml));
+		dossierImport = PasswordBusiness.construireElementParent(dossierImport, null);
 		return dossierImport;
 	}
 	
@@ -429,44 +429,20 @@ public class ImportExportDialogController  implements Initializable  {
 	 * @throws Exception
 	 */
 	public byte[] exportSpe(Dossier dossier,String mdp) throws Exception {
-		byte[] data = ObjectUtils.serialize(dossier);
-		ByteArrayInputStream input = new ByteArrayInputStream(data);
+		JAXBContext context  = JAXBContext.newInstance(Dossier.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		StringWriter wr = new StringWriter();
+		marshaller.marshal(dossier,wr);
+		String xml = wr.toString();
+
+		ByteArrayInputStream input = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         CryptUtils.encrypt(128,mdp.toCharArray() , input, output);
 		return output.toByteArray();
 	}
 	
-	
-        
-        /**
-         * Refait la hiérarchie des dossiers parents, mots de passe...
-         * @param dossier le dossier à scanner
-         * @param dossierParent le dossier parent à inscrire dans le dossier
-         * @return le dossier
-         */
-        private Dossier construireElementParent(Dossier dossier, Dossier dossierParent) {
-            dossier.setDossierParent(dossierParent);
-            
-            if(dossier.getListeMotDePasse() == null) {
-                dossier.setListeMotDePasse(new ArrayList<>());
-            }
-            
-            if(dossier.getListeMotDePasse().size() > 0) {
-                dossier.getListeMotDePasse().forEach((motDePasse) -> motDePasse.setDossierPossesseur(dossier));
-            }
-            
-            if(dossier.getSousDossier()== null) {
-                dossier.setSousDossier(new ArrayList<>());
-            }
-            
-            if(dossier.getSousDossier().size() > 0) {
-                dossier.getSousDossier().forEach((dossier1) -> dossier1 = construireElementParent(dossier1,dossier));
-            }
-            return dossier;
-        }
-        
-	
-	
+
 	/**
 	 * Affiche une dlg pour demander le mot de passe
 	 * @return le mot de passe

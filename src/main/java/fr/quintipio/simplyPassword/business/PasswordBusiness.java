@@ -4,12 +4,13 @@ import fr.quintipio.simplyPassword.com.ComFile;
 import fr.quintipio.simplyPassword.model.Dossier;
 import fr.quintipio.simplyPassword.model.MotDePasse;
 import fr.quintipio.simplyPassword.util.CryptUtils;
-import fr.quintipio.simplyPassword.util.ObjectUtils;
 import fr.quintipio.simplyPassword.util.StringUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -82,10 +83,17 @@ public class PasswordBusiness {
     public static void load(String path,String nouveauMotDePasse) throws Exception {
         ComFile nouveauFichier = new ComFile(path);
         byte[] data = nouveauFichier.readFileToByteArray();
+
         ByteArrayInputStream input = new ByteArrayInputStream(data);
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         CryptUtils.decrypt(nouveauMotDePasse.toCharArray() , input, output);
-        dossierMere = (Dossier)ObjectUtils.deserialize(output.toByteArray());
+
+        String xml = new String(output.toByteArray(),StandardCharsets.UTF_8);
+        JAXBContext context = JAXBContext.newInstance(Dossier.class);
+        Unmarshaller un = context.createUnmarshaller();
+
+        dossierMere =  (Dossier)un.unmarshal(new StringReader(xml));
+        construireElementParent(dossierMere,null);
         fichier = nouveauFichier;
         motDePasse = nouveauMotDePasse;
         modif = false;
@@ -95,8 +103,15 @@ public class PasswordBusiness {
      * Sauvegarde dans un fichier les mots de passe et dossiers
      */
     public static void save() throws Exception {
-        byte[] data = ObjectUtils.serialize(dossierMere);
-        ByteArrayInputStream input = new ByteArrayInputStream(data);
+
+        JAXBContext context  = JAXBContext.newInstance(Dossier.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        StringWriter wr = new StringWriter();
+        marshaller.marshal(dossierMere,wr);
+        String xml = wr.toString();
+
+        ByteArrayInputStream input = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         CryptUtils.encrypt(128,motDePasse.toCharArray() , input, output);
         String pathTmp = fichier.getFile().getAbsolutePath();
@@ -161,8 +176,15 @@ public class PasswordBusiness {
      * @return le mot de passe chiffré en AES
      */
     public static byte[] genererPartage(MotDePasse motDePasse) throws Exception {
-        byte[] data = ObjectUtils.serialize(motDePasse);
-        ByteArrayInputStream input = new ByteArrayInputStream(data);
+
+        JAXBContext context  = JAXBContext.newInstance(MotDePasse.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        StringWriter wr = new StringWriter();
+        marshaller.marshal(motDePasse,wr);
+        String xml = wr.toString();
+
+        ByteArrayInputStream input = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         CryptUtils.encrypt(128,clePartage.toCharArray() , input, output);
         return output.toByteArray();
@@ -177,6 +199,38 @@ public class PasswordBusiness {
         ByteArrayInputStream input = new ByteArrayInputStream(data);
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         CryptUtils.decrypt(clePartage.toCharArray() , input, output);
-        return (MotDePasse)ObjectUtils.deserialize(output.toByteArray());
+
+        String xml = new String(output.toByteArray(),StandardCharsets.UTF_8);
+        JAXBContext context = JAXBContext.newInstance(MotDePasse.class);
+        Unmarshaller un = context.createUnmarshaller();
+
+        return (MotDePasse)un.unmarshal(new StringReader(xml));
+    }
+
+    /**
+     * Refait la hiérarchie des dossiers parents, mots de passe...
+     * @param dossier le dossier à scanner
+     * @param dossierParent le dossier parent à inscrire dans le dossier
+     * @return le dossier
+     */
+    public static Dossier construireElementParent(Dossier dossier, Dossier dossierParent) {
+        dossier.setDossierParent(dossierParent);
+
+        if(dossier.getListeMotDePasse() == null) {
+            dossier.setListeMotDePasse(new ArrayList<>());
+        }
+
+        if(dossier.getListeMotDePasse().size() > 0) {
+            dossier.getListeMotDePasse().forEach((motDePasse) -> motDePasse.setDossierPossesseur(dossier));
+        }
+
+        if(dossier.getSousDossier()== null) {
+            dossier.setSousDossier(new ArrayList<>());
+        }
+
+        if(dossier.getSousDossier().size() > 0) {
+            dossier.getSousDossier().forEach((dossier1) -> dossier1 = construireElementParent(dossier1,dossier));
+        }
+        return dossier;
     }
 }

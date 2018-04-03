@@ -7,7 +7,7 @@ import fr.quintipio.simplyPassword.contexte.ContexteStatic;
 import fr.quintipio.simplyPassword.model.Dossier;
 import fr.quintipio.simplyPassword.model.MotDePasse;
 import fr.quintipio.simplyPassword.model.ObservableMotDePasse;
-import fr.quintipio.simplyPassword.util.ObjectUtils;
+
 import java.io.File;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -21,7 +21,6 @@ import javafx.scene.input.*;
 import javafx.util.StringConverter;
 
 import java.net.URL;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -29,7 +28,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
 import javafx.stage.FileChooser;
-import jdk.nashorn.api.tree.Tree;
 
 public class MainViewController implements Initializable {
 
@@ -101,7 +99,7 @@ public class MainViewController implements Initializable {
         collerMenuItem.setOnAction(t -> {
             try {
                 if(selectedDossier != null) {
-                    MotDePasse newMdp = ObjectUtils.copyMotDePasse(selectedMotDePasseToMove);
+                    MotDePasse newMdp = copyMotDePasse(selectedMotDePasseToMove);
                     newMdp.setDossierPossesseur(selectedDossier.getValue());
                     selectedDossier.getValue().getListeMotDePasse().add(newMdp);
 
@@ -706,5 +704,40 @@ public class MainViewController implements Initializable {
                 expandTreeView(child);
             }
         }
+    }
+
+    /**
+     * Copier un mot de passe
+     * @param mdp le mot de passe
+     * @return le nouveau mot de passe
+     */
+    private MotDePasse copyMotDePasse(MotDePasse mdp) {
+        MotDePasse newMdp = new MotDePasse();
+        if(mdp != null) {
+            if(mdp.getTitre() != null) {
+                newMdp.setTitre(mdp.getTitre());
+            }
+
+            if(mdp.getLogin() != null) {
+                newMdp.setLogin(mdp.getLogin());
+            }
+
+            if(mdp.getMotDePasseObjet() != null) {
+                newMdp.setMotDePasseObjet(mdp.getMotDePasseObjet());
+            }
+            if(mdp.getSiteWeb() != null) {
+                newMdp.setSiteWeb(mdp.getSiteWeb());
+            }
+
+            if(mdp.getCommentaire() != null) {
+                newMdp.setCommentaire(mdp.getCommentaire());
+            }
+
+            if(mdp.getIdIcone() != null) {
+                newMdp.setIdIcone(Integer.valueOf(mdp.getIdIcone()));
+            }
+            newMdp.setDossierPossesseur( mdp.getDossierPossesseur());
+        }
+        return newMdp;
     }
 }
