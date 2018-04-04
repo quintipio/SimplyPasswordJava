@@ -6,7 +6,7 @@
 
     <groupId>fr.quintipio</groupId>
     <artifactId>SimplyPassword</artifactId>
-    <version>1.2</version>
+    <version>1.3</version>
     <name>Simply Password</name>
     <packaging>jar</packaging>
     <description>Application de gestion de mots de passe</description>
@@ -15,11 +15,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.10</java.version>
+        <kotlin.version>1.2.31</kotlin.version>
     </properties>
 
-
     <dependencies>
-
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test</artifactId>
+            <version>${kotlin.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -46,9 +56,37 @@
         <defaultGoal>package</defaultGoal>
         <plugins>
             <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <configuration>
+                    <jvmTarget>1.8</jvmTarget>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <source>10</source>
                     <target>10</target>
@@ -78,6 +116,8 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
 
         <resources>
             <resource>
