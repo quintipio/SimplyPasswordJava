@@ -1,10 +1,5 @@
 package fr.quintipio.simplyPassword.view
 
-import java.io.*
-import java.net.URL
-import java.nio.charset.StandardCharsets
-import java.util.ResourceBundle
-
 import fr.quintipio.simplyPassword.Main
 import fr.quintipio.simplyPassword.business.PasswordBusiness
 import fr.quintipio.simplyPassword.com.ComFile
@@ -13,27 +8,24 @@ import fr.quintipio.simplyPassword.model.Dossier
 import fr.quintipio.simplyPassword.model.MotDePasse
 import fr.quintipio.simplyPassword.util.CryptUtils
 import fr.quintipio.simplyPassword.util.InvalidPasswordException
-import fr.quintipio.simplyPassword.util.StringUtils
 import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
-import javafx.scene.control.Alert
-import javafx.scene.control.Button
-import javafx.scene.control.ButtonType
-import javafx.scene.control.CheckBox
-import javafx.scene.control.ComboBox
-import javafx.scene.control.Dialog
-import javafx.scene.control.Label
-import javafx.scene.control.PasswordField
-import javafx.scene.control.TextField
+import javafx.scene.control.*
 import javafx.scene.control.Alert.AlertType
 import javafx.scene.control.ButtonBar.ButtonData
 import javafx.scene.layout.GridPane
 import javafx.stage.FileChooser
 import javafx.stage.Stage
-
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.StringReader
+import java.io.StringWriter
+import java.net.URL
+import java.nio.charset.StandardCharsets
+import java.util.*
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.Marshaller
 
@@ -107,9 +99,9 @@ class ImportExportDialogController : Initializable {
      */
     @FXML
     private fun selectChoix() {
-        extensionSelected = if (!StringUtils.isEmpty(formatCombo.selectionModel.selectedItem)) "." + formatCombo.selectionModel.selectedItem else ""
+        extensionSelected = if (formatCombo.selectionModel.selectedItem.isNotBlank()) "." + formatCombo.selectionModel.selectedItem else ""
         if (export) {
-            parcourirButton.isDisable = StringUtils.isEmpty(extensionSelected)
+            parcourirButton.isDisable = extensionSelected?.isBlank() ?: true
             fichierText.text = ""
         }
         checkButtonEnable()
@@ -135,7 +127,7 @@ class ImportExportDialogController : Initializable {
             } else {
                 val fileChooser = FileChooser()
                 for (string in listeFormat!!) {
-                    if (!StringUtils.isEmpty(string)) {
+                    if (string.isNotBlank()) {
                         fileChooser.extensionFilters.add(FileChooser.ExtensionFilter("*.$string", "*.$string"))
                     }
                 }
@@ -192,7 +184,7 @@ class ImportExportDialogController : Initializable {
                 //spj
                 if (extensionSelected!!.toUpperCase().contentEquals("." + listeFormat!![3].toUpperCase())) {
                     val mdp = askPassword()
-                    if (!StringUtils.isEmpty(mdp)) {
+                    if (mdp?.isNotBlank() == true) {
                         data = exportSpe(dossierSelected, mdp)
                         ok = true
                     }
@@ -219,7 +211,7 @@ class ImportExportDialogController : Initializable {
                 //spj
                 if (extensionSelected!!.toUpperCase().contentEquals("." + listeFormat!![3].toUpperCase())) {
                     val mdp = askPassword()
-                    if (!StringUtils.isEmpty(mdp)) {
+                    if (mdp?.isNotBlank() == true) {
                         dossier = importSpe(data!!, mdp)
                         ok = true
                     }
@@ -275,7 +267,7 @@ class ImportExportDialogController : Initializable {
      * Vérifie si le bouton valider est disponible
      */
     private fun checkButtonEnable() {
-        validButton.isDisable = StringUtils.isEmpty(formatCombo.selectionModel.selectedItem) && StringUtils.isEmpty(fichierText.text.trim { it <= ' ' })
+        validButton.isDisable = formatCombo.selectionModel.selectedItem.isBlank() && fichierText.text.trim { it <= ' ' }.isBlank()
     }
 
 

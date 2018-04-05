@@ -1,27 +1,19 @@
 package fr.quintipio.simplyPassword.view
 
-import java.net.URL
-import java.util.ResourceBundle
-
 import fr.quintipio.simplyPassword.Main
 import fr.quintipio.simplyPassword.business.PasswordBusiness
 import fr.quintipio.simplyPassword.com.ComFile
 import fr.quintipio.simplyPassword.contexte.ContexteStatic
 import fr.quintipio.simplyPassword.model.MotDePasse
 import fr.quintipio.simplyPassword.util.CryptUtils
-import fr.quintipio.simplyPassword.util.StringUtils
-
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
-import javafx.scene.control.Alert
+import javafx.scene.control.*
 import javafx.scene.control.Alert.AlertType
-import javafx.scene.control.Button
-import javafx.scene.control.CheckBox
-import javafx.scene.control.PasswordField
-import javafx.scene.control.ProgressBar
-import javafx.scene.control.TextField
 import javafx.stage.FileChooser
 import javafx.stage.Stage
+import java.net.URL
+import java.util.*
 
 /**
  * Controlleur de la boite de dialogue de gestion d'un mot de passe
@@ -209,13 +201,13 @@ class PasswordEditDialogController : Initializable {
     private fun validate(): Boolean {
         var errorMessage = ""
 
-        if (StringUtils.isEmpty(titreField.text)) {
+        if (titreField.text.isBlank()) {
             errorMessage += bundle!!.getString("titreInvalide") + "\n"
         }
-        if (StringUtils.isEmpty(loginField.text)) {
+        if (loginField.text.isBlank()) {
             errorMessage += bundle!!.getString("titreInvalide") + "\n"
         }
-        if (StringUtils.isEmpty(mdpField.text)) {
+        if (mdpField.text.isBlank()) {
             errorMessage += bundle!!.getString("mdpInvalide") + "\n"
         }
 
@@ -235,6 +227,6 @@ class PasswordEditDialogController : Initializable {
      * Vérifie si oui ou non le bouton valider est actif
      */
     private fun checkValiderDisable() {
-        validButton.isDisable = StringUtils.isEmpty(mdpField.text) || StringUtils.isEmpty(loginField.text) || StringUtils.isEmpty(titreField.text)
+        validButton.isDisable = mdpField.text.isBlank() || loginField.text.isBlank() || titreField.text.isBlank()
     }
 }

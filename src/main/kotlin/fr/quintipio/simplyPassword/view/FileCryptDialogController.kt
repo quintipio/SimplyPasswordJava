@@ -1,28 +1,21 @@
 package fr.quintipio.simplyPassword.view
 
+import fr.quintipio.simplyPassword.Main
+import fr.quintipio.simplyPassword.util.CryptUtils
+import fr.quintipio.simplyPassword.util.InvalidPasswordException
+import javafx.fxml.FXML
+import javafx.fxml.Initializable
+import javafx.scene.control.*
+import javafx.scene.control.Alert.AlertType
+import javafx.stage.FileChooser
+import javafx.stage.Stage
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.net.URL
 import java.nio.file.Files
 import java.nio.file.StandardOpenOption
-import java.util.ResourceBundle
-
-import fr.quintipio.simplyPassword.Main
-import fr.quintipio.simplyPassword.util.CryptUtils
-import fr.quintipio.simplyPassword.util.InvalidPasswordException
-import fr.quintipio.simplyPassword.util.StringUtils
-import javafx.fxml.FXML
-import javafx.fxml.Initializable
-import javafx.scene.control.Alert
-import javafx.scene.control.Button
-import javafx.scene.control.Label
-import javafx.scene.control.PasswordField
-import javafx.scene.control.ProgressBar
-import javafx.scene.control.TextField
-import javafx.scene.control.Alert.AlertType
-import javafx.stage.FileChooser
-import javafx.stage.Stage
+import java.util.*
 
 class FileCryptDialogController : Initializable {
 
@@ -67,7 +60,7 @@ class FileCryptDialogController : Initializable {
         bundle = resources
         fieldHaut.textProperty().addListener { _, _, newValue ->
             checkButtonValid()
-            parcourirB.isDisable = StringUtils.isEmpty(newValue)
+            parcourirB.isDisable = newValue.isBlank()
         }
         fieldBas.textProperty().addListener { _ -> checkButtonValid() }
         passwordA.textProperty().addListener {  _, _, newValue ->
@@ -198,7 +191,7 @@ class FileCryptDialogController : Initializable {
             erreur += bundle!!.getString("erreurFichierGros") + "\r\n"
         }
 
-        if (!StringUtils.isEmpty(erreur)) {
+        if (erreur.isNotBlank()) {
             val alert = Alert(AlertType.ERROR)
             alert.initOwner(dialogStage)
             alert.title = bundle!!.getString("erreur")
@@ -235,9 +228,9 @@ class FileCryptDialogController : Initializable {
      * Autorise ou non le disable du bouton de validation
      */
     private fun checkButtonValid() {
-        validButton.isDisable = StringUtils.isEmpty(fieldHaut.text) || StringUtils.isEmpty(fieldBas.text) ||
+        validButton.isDisable = fieldHaut.text.isBlank() || fieldBas.text.isBlank() ||
                 passwordA.text.length < 8 || passwordB.text.length < 8 ||
-                !StringUtils.isEmpty(passwordA.text) && !StringUtils.isEmpty(passwordB.text) && !passwordA.text!!.contentEquals(passwordB.text)
+                passwordA.text.isNotBlank() && passwordB.text.isNotBlank() && passwordA.text != passwordB.text
     }
 
 

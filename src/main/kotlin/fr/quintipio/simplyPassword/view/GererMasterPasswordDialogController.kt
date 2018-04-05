@@ -1,21 +1,15 @@
 package fr.quintipio.simplyPassword.view
 
-import java.net.URL
-import java.util.ResourceBundle
-
 import fr.quintipio.simplyPassword.Main
 import fr.quintipio.simplyPassword.business.PasswordBusiness
 import fr.quintipio.simplyPassword.util.CryptUtils
-import fr.quintipio.simplyPassword.util.StringUtils
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
-import javafx.scene.control.Alert
-import javafx.scene.control.Button
-import javafx.scene.control.PasswordField
-import javafx.scene.control.ProgressBar
+import javafx.scene.control.*
 import javafx.scene.control.Alert.AlertType
-import javafx.scene.control.Label
 import javafx.stage.Stage
+import java.net.URL
+import java.util.*
 
 class GererMasterPasswordDialogController : Initializable {
 
@@ -78,7 +72,7 @@ class GererMasterPasswordDialogController : Initializable {
     private fun validate(): Boolean {
         var errorMessage = ""
 
-        if (PasswordBusiness.isMotDePasse() && StringUtils.isEmpty(oldMdp.text)) {
+        if (PasswordBusiness.isMotDePasse() && oldMdp.text.isBlank()) {
             errorMessage += bundle!!.getString("oldMdpVide") + "\n"
         }
 
@@ -86,19 +80,19 @@ class GererMasterPasswordDialogController : Initializable {
             errorMessage += bundle!!.getString("oldMdpDif") + "\n"
         }
 
-        if (StringUtils.isEmpty(newMdp.text)) {
+        if (newMdp.text.isBlank()) {
             errorMessage += bundle!!.getString("newMdpVide") + "\n"
         }
 
-        if (StringUtils.isEmpty(confMdp.text)) {
+        if (confMdp.text.isBlank()) {
             errorMessage += bundle!!.getString("confirmmdpVide") + "\n"
         }
 
-        if (!StringUtils.isEmpty(confMdp.text) && !StringUtils.isEmpty(newMdp.text) && !newMdp.text!!.contentEquals(confMdp.text)) {
+        if (confMdp.text.isNotBlank() && newMdp.text.isNotBlank() && newMdp.text != confMdp.text) {
             errorMessage += bundle!!.getString("mdpDif") + "\n"
         }
 
-        if (!StringUtils.isEmpty(confMdp.text) && !StringUtils.isEmpty(newMdp.text) && newMdp.text.length < 8) {
+        if (confMdp.text.isNotBlank() && newMdp.text.isNotBlank() && newMdp.text.length < 8) {
             errorMessage += bundle!!.getString("mdpCours") + "\n"
         }
 
@@ -121,11 +115,12 @@ class GererMasterPasswordDialogController : Initializable {
      * Rend disponible ou no le bouton de validation
      */
     private fun checkDisableButtonValid() {
-        validButton.isDisable = (PasswordBusiness.isMotDePasse() && StringUtils.isEmpty(oldMdp.text) || PasswordBusiness.isMotDePasse() && !StringUtils.isEmpty(oldMdp.text) && !PasswordBusiness.motDePasse.contentEquals(oldMdp.text)
-                || StringUtils.isEmpty(newMdp.text) || !StringUtils.isEmpty(newMdp.text) && newMdp.text!!.length < 8
-                || StringUtils.isEmpty(confMdp.text) || !StringUtils.isEmpty(confMdp.text) && confMdp.text!!.length < 8
-                || !StringUtils.isEmpty(confMdp.text) && !StringUtils.isEmpty(newMdp.text) && !confMdp.text!!.contentEquals(newMdp.text)
-                || !StringUtils.isEmpty(newMdp.text) && !StringUtils.isEmpty(oldMdp.text) && oldMdp.text!!.contentEquals(newMdp.text))
+        validButton.isDisable = (PasswordBusiness.isMotDePasse() && oldMdp.text.isBlank()
+                || PasswordBusiness.isMotDePasse() && oldMdp.text.isNotBlank() && PasswordBusiness.motDePasse != oldMdp.text
+                || newMdp.text.isBlank() || newMdp.text.isNotBlank() && newMdp.text.length < 8
+                || confMdp.text.isBlank() || confMdp.text.isNotBlank() && confMdp.text.length < 8
+                || confMdp.text.isNotBlank() && newMdp.text.isNotBlank() && confMdp.text != newMdp.text
+                || newMdp.text.isNotBlank() && oldMdp.text.isNotBlank() && oldMdp.text == newMdp.text)
     }
 
     /**

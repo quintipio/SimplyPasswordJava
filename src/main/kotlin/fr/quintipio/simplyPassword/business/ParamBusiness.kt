@@ -2,7 +2,6 @@ package fr.quintipio.simplyPassword.business
 
 import fr.quintipio.simplyPassword.com.ComFile
 import fr.quintipio.simplyPassword.contexte.ContexteStatic
-import fr.quintipio.simplyPassword.util.StringUtils
 import java.io.File
 import java.util.*
 
@@ -29,7 +28,7 @@ object ParamBusiness {
 
 
     fun getParamLangue(): String {
-        if (StringUtils.isEmpty(parametreLangue)) {
+        if (parametreLangue.isBlank()) {
             val bundle = ResourceBundle.getBundle(ContexteStatic.bundle)
             val loc = bundle.locale
             parametreLangue = if (ContexteStatic.listeLangues.contains(loc.language)) loc.language else ContexteStatic.langueDefaut
@@ -55,7 +54,7 @@ object ParamBusiness {
     fun isModeLive(): Boolean {
         if (checkParamAppli()) {
             val data = fileParamAppli.readFileToString()
-            if (!StringUtils.isEmpty(data)) {
+            if (data.isNotBlank()) {
                 if (data.contains(paramLive)) {
                     val res = data.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                     if (res.size > 1) {

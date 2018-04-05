@@ -4,7 +4,6 @@ import fr.quintipio.simplyPassword.com.ComFile
 import fr.quintipio.simplyPassword.model.Dossier
 import fr.quintipio.simplyPassword.model.MotDePasse
 import fr.quintipio.simplyPassword.util.CryptUtils
-import fr.quintipio.simplyPassword.util.StringUtils
 import java.io.*
 import java.nio.charset.StandardCharsets
 import javax.xml.bind.JAXBContext
@@ -87,7 +86,7 @@ import javax.xml.bind.Marshaller
      * @return true si ok
      */
     fun isFichier(): Boolean {
-        return fichier != null && !StringUtils.isEmpty(fichier?.file?.path)
+        return fichier?.file?.path?.isNotBlank() ?: false
     }
 
     /**
@@ -95,7 +94,7 @@ import javax.xml.bind.Marshaller
      * @return true si ok
      */
     fun isMotDePasse(): Boolean {
-        return !StringUtils.isEmpty(motDePasse)
+        return motDePasse.isNotBlank()
     }
 
 
