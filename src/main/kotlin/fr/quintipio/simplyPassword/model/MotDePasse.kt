@@ -1,5 +1,6 @@
 package fr.quintipio.simplyPassword.model
 
+import java.io.Serializable
 import javax.xml.bind.annotation.XmlAccessType
 import javax.xml.bind.annotation.XmlAccessorType
 import javax.xml.bind.annotation.XmlRootElement
@@ -13,7 +14,7 @@ class MotDePasse(var titre: String = "",
                  var commentaire: String = "",
                  var siteWeb: String = "",
                  var idIcone: Int = 0
-                 )  {
+                 ) : Serializable  {
     @XmlTransient
     var dossierPossesseur: Dossier? = null
 

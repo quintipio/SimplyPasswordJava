@@ -7,14 +7,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b9d2bfe-cb4c-40ca-85cd-5dee8171d9f3" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_bind_jaxb_core_2_3_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_bind_jaxb_core_2_3_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_bind_jaxb_impl_2_3_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_bind_jaxb_impl_2_3_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_annotations_13_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_annotations_13_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_1_2_31.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_1_2_31.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_2_31.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_2_31.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_2_31.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_2_31.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_test_1_2_31.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_test_1_2_31.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/business/ParamBusiness.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/business/ParamBusiness.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/business/PasswordBusiness.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/business/PasswordBusiness.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/util/StringUtils.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/FileCryptDialogController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/FileCryptDialogController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/GererMasterPasswordDialogController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/GererMasterPasswordDialogController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/ImportExportDialogController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/ImportExportDialogController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/PasswordEditDialogController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/PasswordEditDialogController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/Dossier.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/Dossier.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/MotDePasse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/MotDePasse.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -30,8 +34,8 @@
       <file leaf-file-name="ImportExportDialogController.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/ImportExportDialogController.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="186" column="52" lean-forward="true" selection-start-line="186" selection-start-column="52" selection-end-line="186" selection-end-column="52" />
+            <state relative-caret-position="2567">
+              <caret line="178" column="52" selection-start-line="178" selection-start-column="52" selection-end-line="178" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -39,8 +43,8 @@
       <file leaf-file-name="PasswordEditDialogController.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/PasswordEditDialogController.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="206" column="37" lean-forward="true" selection-start-line="206" selection-start-column="37" selection-end-line="206" selection-end-column="37" />
+            <state relative-caret-position="3145">
+              <caret line="198" column="25" selection-start-line="198" selection-start-column="25" selection-end-line="198" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -54,6 +58,24 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Dossier.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/Dossier.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="14" column="55" selection-start-line="14" selection-start-column="55" selection-end-line="14" selection-end-column="55" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MotDePasse.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/MotDePasse.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ParamBusiness.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/business/ParamBusiness.kt">
           <provider selected="true" editor-type-id="text-editor">
@@ -63,7 +85,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PasswordBusiness.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PasswordBusiness.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/business/PasswordBusiness.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
@@ -132,13 +154,11 @@
         <option value="$PROJECT_DIR$/src/main/java/fr/quintipio/simplyPassword/view/ImportExportDialogController.kt" />
         <option value="$PROJECT_DIR$/src/main/java/fr/quintipio/simplyPassword/Main.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/GenereMdpDialogController.kt" />
-        <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/MotDePasse.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/RootLayoutController.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/contexte/ContexteStatic.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/MainViewController.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/Main.kt" />
         <option value="$PROJECT_DIR$/module_simplypasswordjava.tmp.xml" />
-        <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/Dossier.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/ObservableMotDePasse.kt" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/util/StringUtils.kt" />
@@ -148,6 +168,8 @@
         <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/PasswordEditDialogController.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/business/ParamBusiness.kt" />
         <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/business/PasswordBusiness.kt" />
+        <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/MotDePasse.kt" />
+        <option value="$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/Dossier.kt" />
       </list>
     </option>
   </component>
@@ -169,6 +191,9 @@
       </MavenImportingSettings>
     </option>
   </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
@@ -183,7 +208,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -224,13 +249,22 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="kotlin" type="462c0819:PsiDirectoryNode" />
               <item name="simplyPassword" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SimplyPasswordJava" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SimplyPasswordJava" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="simplyPassword" type="462c0819:PsiDirectoryNode" />
               <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -243,7 +277,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Bureau/SimplyPasswordJava-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -900,6 +934,9 @@
       <workItem from="1522923665506" duration="77000" />
       <workItem from="1522929305729" duration="472000" />
       <workItem from="1522929951101" duration="2007000" />
+      <workItem from="1523475392082" duration="318000" />
+      <workItem from="1524084133374" duration="620000" />
+      <workItem from="1524085519013" duration="28000" />
     </task>
     <task id="LOCAL-00001" summary="Corrections de bugs sur l'import export">
       <created>1497387462334</created>
@@ -954,7 +991,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75532000" />
+    <option name="totallyTimeSpent" value="76498000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -966,33 +1003,33 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50292826" side_tool="true" weight="0.3263328" />
-      <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info id="Designer" order="2" />
-      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info auto_hide="true" x="512" y="48" width="341" height="641" id="Structure" internal_type="SLIDING" order="1" side_tool="true" type="SLIDING" weight="0.24963397" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="6" visible="true" weight="0.3961039" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32792208" />
-      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.49707174" weight="0.3262987" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50292826" side_tool="true" visible="true" weight="0.32543105" />
+      <window_info anchor="right" id="Maven Projects" order="3" />
+      <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32954547" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.32792208" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32954547" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2655068" />
-      <window_info anchor="bottom" id="Find" order="2" weight="0.32954547" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Designer" order="2" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27345416" />
+      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info id="Learn" order="3" />
       <window_info anchor="right" id="SciView" order="4" />
+      <window_info auto_hide="true" x="512" y="48" width="341" height="641" id="Structure" internal_type="SLIDING" order="1" side_tool="true" type="SLIDING" weight="0.24963397" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="6" weight="0.3961039" />
       <window_info anchor="right" id="Properties" order="3" />
       <window_info anchor="bottom" id="Inspection Results" order="0" weight="0.32792208" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1001,7 +1038,9 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24962178" />
       <window_info id="Nl-Palette" order="2" />
       <window_info anchor="right" id="CDI" order="4" />
+      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.49707174" weight="0.3262987" />
       <window_info anchor="right" id="JSF" order="4" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32954547" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Data View" order="3" />
       <window_info anchor="bottom" id="Message" order="1" />
@@ -1041,6 +1080,48 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/business/PasswordBusiness.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="50" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/ImportExportDialogController.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3162">
+          <caret line="186" column="52" lean-forward="true" selection-start-line="186" selection-start-column="52" selection-end-line="186" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/PasswordEditDialogController.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3502">
+          <caret line="206" column="25" lean-forward="true" selection-start-line="206" selection-start-column="25" selection-end-line="206" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/util/CryptUtils.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1683">
+          <caret line="99" column="11" selection-start-line="99" selection-start-column="11" selection-end-line="99" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/business/ParamBusiness.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="58" selection-start-line="3" selection-start-column="58" selection-end-line="3" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/business/PasswordBusiness.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="50" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/FileCryptDialogController.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3655">
@@ -1082,29 +1163,11 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/fr/quintipio/simplyPassword/business/PasswordBusiness.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/fr/quintipio/simplyPassword/model/MotDePasse.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/fr/quintipio/simplyPassword/model/Dossier.java" />
-    <entry file="jar://D:/Logiciel/Java/jdk9/lib/src.zip!/javafx.graphics/javafx/scene/image/Image.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="1106" selection-start-line="1106" selection-end-line="1106" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://D:/logiciel/Java/jdk9/lib/src.zip!/javafx.graphics/javafx/scene/image/Image.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/fr/quintipio/simplyPassword/model/MotDePasse.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/fr/quintipio/simplyPassword/module-info.java" />
-    <entry file="jar://D:/Logiciel/Java/jdk9/lib/src.zip!/javafx.fxml/javafx/fxml/FXMLLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="2178" column="16" selection-start-line="2178" selection-start-column="16" selection-end-line="2178" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Logiciel/Java/jdk9/lib/src.zip!/javafx.base/javafx/util/Callback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="51" column="13" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://D:/logiciel/Java/jdk9/lib/src.zip!/javafx.fxml/javafx/fxml/FXMLLoader.java" />
+    <entry file="jar://D:/logiciel/Java/jdk9/lib/src.zip!/javafx.base/javafx/util/Callback.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/fr/quintipio/simplyPassword/util/CryptUtils.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/fr/quintipio/simplyPassword/com/ComFile.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/fr/quintipio/simplyPassword/business/ParamBusiness.java" />
@@ -1129,20 +1192,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://D:/Logiciel/Java/jdk10/lib/src.zip!/javafx.fxml/javafx/fxml/FXMLLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="2608" selection-start-line="2608" selection-end-line="2608" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Logiciel/conf/.m2/repository/com/sun/xml/bind/jaxb-impl/2.3.0/jaxb-impl-2.3.0-sources.jar!/com/sun/xml/bind/v2/runtime/MarshallerImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="330" selection-start-line="330" selection-end-line="330" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://D:/logiciel/Java/jdk10/lib/src.zip!/javafx.fxml/javafx/fxml/FXMLLoader.java" />
+    <entry file="jar://D:/Logiciel/conf/.m2/repository/com/sun/xml/bind/jaxb-impl/2.3.0/jaxb-impl-2.3.0-sources.jar!/com/sun/xml/bind/v2/runtime/MarshallerImpl.java" />
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/RootLayoutController.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
@@ -1187,20 +1238,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/Dossier.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" selection-start-line="2" selection-end-line="22" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/MotDePasse.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" selection-start-line="7" selection-end-line="19" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/GererMasterPasswordDialogController.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -1215,31 +1252,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/util/StringUtils.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="11" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/util/StringUtils.kt" />
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/ImportExportDialogController.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="186" column="52" lean-forward="true" selection-start-line="186" selection-start-column="52" selection-end-line="186" selection-end-column="52" />
+        <state relative-caret-position="2567">
+          <caret line="178" column="52" selection-start-line="178" selection-start-column="52" selection-end-line="178" selection-end-column="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/view/PasswordEditDialogController.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="206" column="37" lean-forward="true" selection-start-line="206" selection-start-column="37" selection-end-line="206" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/util/CryptUtils.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1377">
-          <caret line="99" column="11" selection-start-line="99" selection-start-column="11" selection-end-line="99" selection-end-column="11" />
+        <state relative-caret-position="3145">
+          <caret line="198" column="25" selection-start-line="198" selection-start-column="25" selection-end-line="198" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -1254,6 +1278,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="50" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/util/CryptUtils.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1377">
+          <caret line="99" column="11" selection-start-line="99" selection-start-column="11" selection-end-line="99" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/MotDePasse.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/kotlin/fr/quintipio/simplyPassword/model/Dossier.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="14" column="55" selection-start-line="14" selection-start-column="55" selection-end-line="14" selection-end-column="55" />
         </state>
       </provider>
     </entry>
