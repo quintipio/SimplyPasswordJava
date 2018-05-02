@@ -7,7 +7,6 @@ import fr.quintipio.simplyPassword.contexte.ContexteStatic
 import fr.quintipio.simplyPassword.model.Dossier
 import fr.quintipio.simplyPassword.model.MotDePasse
 import fr.quintipio.simplyPassword.model.ObservableMotDePasse
-
 import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
@@ -16,15 +15,18 @@ import javafx.scene.control.*
 import javafx.scene.control.Alert.AlertType
 import javafx.scene.control.cell.TextFieldTreeCell
 import javafx.scene.input.*
+import javafx.stage.FileChooser
 import javafx.util.StringConverter
-
 import java.net.URL
 import java.util.ResourceBundle
 import java.util.Timer
 import java.util.TimerTask
 import java.util.stream.Collectors
-import javafx.stage.FileChooser
-import java.util.function.Predicate
+import kotlin.Boolean
+import kotlin.Comparator
+import kotlin.Exception
+import kotlin.Int
+import kotlin.String
 
 class MainViewController : Initializable {
 
@@ -163,9 +165,7 @@ class MainViewController : Initializable {
             ouvrirDossier(selectedDossier!!.value)
             if(tmpMdp != null) {
                 var data = mdpTable.items.stream().filter( { x -> x.mdpOri === tmpMdp.mdpOri }).findFirst()
-                if(data.isPresent) {
-                    mdpTable.selectionModel.select(data.get())
-                } else {
+                if(data.isPresent) mdpTable.selectionModel.select(data.get()) else {
                     mdpTable.selectionModel.selectFirst()
                 }
             }
