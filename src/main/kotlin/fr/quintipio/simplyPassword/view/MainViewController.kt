@@ -24,6 +24,7 @@ import java.util.Timer
 import java.util.TimerTask
 import java.util.stream.Collectors
 import javafx.stage.FileChooser
+import java.util.function.Predicate
 
 class MainViewController : Initializable {
 
@@ -156,7 +157,19 @@ class MainViewController : Initializable {
         //créer l'évènement de sélection
         dossierTreeView.selectionModel.selectedItemProperty().addListener { _, _, newValue ->
             selectedDossier = newValue
+
+            val tmpMdp = selectedMotDepasse
+
             ouvrirDossier(selectedDossier!!.value)
+            if(tmpMdp != null) {
+                var data = mdpTable.items.stream().filter( { x -> x.mdpOri === tmpMdp.mdpOri }).findFirst()
+                if(data.isPresent) {
+                    mdpTable.selectionModel.select(data.get())
+                } else {
+                    mdpTable.selectionModel.selectFirst()
+                }
+            }
+
         }
         dossierTreeView.isEditable = true
         dossierTreeView.setOnEditCommit { PasswordBusiness.modif = true }
