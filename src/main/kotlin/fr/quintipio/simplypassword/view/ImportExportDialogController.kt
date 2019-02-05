@@ -1,13 +1,13 @@
-package fr.quintipio.simplyPassword.view
+package fr.quintipio.simplypassword.view
 
-import fr.quintipio.simplyPassword.Main
-import fr.quintipio.simplyPassword.business.PasswordBusiness
-import fr.quintipio.simplyPassword.com.ComFile
-import fr.quintipio.simplyPassword.contexte.ContexteStatic
-import fr.quintipio.simplyPassword.model.Dossier
-import fr.quintipio.simplyPassword.model.MotDePasse
-import fr.quintipio.simplyPassword.util.CryptUtils
-import fr.quintipio.simplyPassword.util.InvalidPasswordException
+import fr.quintipio.simplypassword.Main
+import fr.quintipio.simplypassword.business.PasswordBusiness
+import fr.quintipio.simplypassword.com.ComFile
+import fr.quintipio.simplypassword.contexte.ContexteStatic
+import fr.quintipio.simplypassword.model.Dossier
+import fr.quintipio.simplypassword.model.MotDePasse
+import fr.quintipio.simplypassword.util.CryptUtils
+import fr.quintipio.simplypassword.util.InvalidPasswordException
 import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList

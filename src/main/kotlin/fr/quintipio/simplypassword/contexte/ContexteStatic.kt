@@ -1,4 +1,4 @@
-package fr.quintipio.simplyPassword.contexte
+package fr.quintipio.simplypassword.contexte
 
 
 /**
@@ -14,7 +14,7 @@ object ContexteStatic {
     /**
      * Numàro de version
      */
-    const val version = "1.3"
+    const val version = "1.4"
 
     /**
      * Nom du développeur

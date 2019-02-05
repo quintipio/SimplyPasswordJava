@@ -1,12 +1,12 @@
-package fr.quintipio.simplyPassword
+package fr.quintipio.simplypassword
 
-import fr.quintipio.simplyPassword.business.ParamBusiness
-import fr.quintipio.simplyPassword.business.PasswordBusiness
-import fr.quintipio.simplyPassword.contexte.ContexteStatic
-import fr.quintipio.simplyPassword.model.Dossier
-import fr.quintipio.simplyPassword.model.MotDePasse
-import fr.quintipio.simplyPassword.util.InvalidPasswordException
-import fr.quintipio.simplyPassword.view.*
+import fr.quintipio.simplypassword.business.ParamBusiness
+import fr.quintipio.simplypassword.business.PasswordBusiness
+import fr.quintipio.simplypassword.contexte.ContexteStatic
+import fr.quintipio.simplypassword.model.Dossier
+import fr.quintipio.simplypassword.model.MotDePasse
+import fr.quintipio.simplypassword.util.InvalidPasswordException
+import fr.quintipio.simplypassword.view.*
 import javafx.application.Application
 import javafx.application.Platform
 import javafx.fxml.FXMLLoader
@@ -44,6 +44,7 @@ class Main : Application() {
 
     private lateinit var rootLayout: BorderPane
 
+
     /**
      * Démarrage de la fenêtre principale
      * @param primaryStage
@@ -53,7 +54,7 @@ class Main : Application() {
     override fun start(primaryStage: Stage) {
         this.primaryStage = primaryStage
         this.primaryStage.title = ContexteStatic.nomAppli
-        this.primaryStage.icons.add(Image("/rsc/icon.png"))
+        this.primaryStage.icons.add(Image(javaClass.getResource("/rsc/icon.png").toExternalForm()))
 
         //chargement de la configuration
         if (!ParamBusiness.isModeLive()) {
@@ -96,7 +97,7 @@ class Main : Application() {
                     val dlg = Dialog<String>()
                     dlg.title = ContexteStatic.nomAppli
                     dlg.headerText = if (PasswordBusiness.isFichier()) PasswordBusiness.fichier!!.file.absolutePath else ContexteStatic.nomAppli
-                    val img = ImageView("/rsc/key.png")
+                    val img = ImageView(javaClass.getResource("/rsc/key.png").toExternalForm())
                     img.resize(64.0, 64.0)
                     dlg.graphic = img
 
@@ -184,7 +185,7 @@ class Main : Application() {
 
             val dialogStage = Stage()
             dialogStage.isResizable = false
-            dialogStage.icons.add(Image("/rsc/icon.png"))
+            dialogStage.icons.add(Image(javaClass.getResource("/rsc/icon.png").toExternalForm()))
             dialogStage.title = if (mdp == null) bundle.getString("creerMdp") else bundle.getString("modifMdp")
             dialogStage.initModality(Modality.WINDOW_MODAL)
             dialogStage.initOwner(primaryStage)
@@ -217,7 +218,7 @@ class Main : Application() {
 
             val dialogStage = Stage()
             dialogStage.isResizable = false
-            dialogStage.icons.add(Image("/rsc/icon.png"))
+            dialogStage.icons.add(Image(javaClass.getResource("/rsc/icon.png").toExternalForm()))
             dialogStage.title = bundle.getString("changerMdpMaitre")
             dialogStage.initModality(Modality.WINDOW_MODAL)
             dialogStage.initOwner(primaryStage)
@@ -250,7 +251,7 @@ class Main : Application() {
 
             val dialogStage = Stage()
             dialogStage.isResizable = false
-            dialogStage.icons.add(Image("/rsc/icon.png"))
+            dialogStage.icons.add(Image(javaClass.getResource("/rsc/icon.png").toExternalForm()))
             dialogStage.title = bundle.getString(if (export) "export" else "import")
             dialogStage.initModality(Modality.WINDOW_MODAL)
             dialogStage.initOwner(primaryStage)
@@ -291,7 +292,7 @@ class Main : Application() {
 
             val dialogStage = Stage()
             dialogStage.isResizable = false
-            dialogStage.icons.add(Image("/rsc/icon.png"))
+            dialogStage.icons.add(Image(javaClass.getResource("/rsc/icon.png").toExternalForm()))
             dialogStage.title = bundle.getString(if (cryptFile) "cryptFichier" else "decryptFichier")
             dialogStage.initModality(Modality.WINDOW_MODAL)
             dialogStage.initOwner(primaryStage)
@@ -320,7 +321,7 @@ class Main : Application() {
 
             val dialogStage = Stage()
             dialogStage.isResizable = false
-            dialogStage.icons.add(Image("/rsc/icon.png"))
+            dialogStage.icons.add(Image(javaClass.getResource("/rsc/icon.png").toExternalForm()))
             dialogStage.title = bundle.getString("genereMdp")
             dialogStage.initModality(Modality.WINDOW_MODAL)
             dialogStage.initOwner(stage)
@@ -415,7 +416,7 @@ class Main : Application() {
         return false
     }
 
-    companion object {
+   companion object {
 
 
         /**

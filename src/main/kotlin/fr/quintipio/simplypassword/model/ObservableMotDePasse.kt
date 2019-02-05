@@ -1,4 +1,4 @@
-package fr.quintipio.simplyPassword.model
+package fr.quintipio.simplypassword.model
 
 
 import javafx.beans.property.SimpleStringProperty

@@ -1,9 +1,9 @@
-package fr.quintipio.simplyPassword.view
+package fr.quintipio.simplypassword.view
 
-import fr.quintipio.simplyPassword.Main
-import fr.quintipio.simplyPassword.business.ParamBusiness
-import fr.quintipio.simplyPassword.business.PasswordBusiness
-import fr.quintipio.simplyPassword.contexte.ContexteStatic
+import fr.quintipio.simplypassword.Main
+import fr.quintipio.simplypassword.business.ParamBusiness
+import fr.quintipio.simplypassword.business.PasswordBusiness
+import fr.quintipio.simplypassword.contexte.ContexteStatic
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.control.ButtonBar.ButtonData
@@ -211,7 +211,7 @@ class RootLayoutController : Initializable {
         val dlg = Dialog<String>()
         dlg.title = bundle!!.getString("appd")
         dlg.headerText = ContexteStatic.nomAppli
-        dlg.graphic = ImageView("/rsc/icon.png")
+        dlg.graphic = ImageView(javaClass.getResource("/rsc/icon.png").toExternalForm())
 
         val button = ButtonType("OK", ButtonData.OK_DONE)
         dlg.dialogPane.buttonTypes.add(button)

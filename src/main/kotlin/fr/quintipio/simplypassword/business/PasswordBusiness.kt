@@ -1,9 +1,9 @@
-package fr.quintipio.simplyPassword.business
+package fr.quintipio.simplypassword.business
 
-import fr.quintipio.simplyPassword.com.ComFile
-import fr.quintipio.simplyPassword.model.Dossier
-import fr.quintipio.simplyPassword.model.MotDePasse
-import fr.quintipio.simplyPassword.util.CryptUtils
+import fr.quintipio.simplypassword.com.ComFile
+import fr.quintipio.simplypassword.model.Dossier
+import fr.quintipio.simplypassword.model.MotDePasse
+import fr.quintipio.simplypassword.util.CryptUtils
 import java.io.*
 import java.nio.charset.StandardCharsets
 import javax.xml.bind.JAXBContext

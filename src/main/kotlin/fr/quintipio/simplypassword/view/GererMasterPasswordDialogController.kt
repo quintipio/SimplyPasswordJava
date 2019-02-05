@@ -1,8 +1,8 @@
-package fr.quintipio.simplyPassword.view
+package fr.quintipio.simplypassword.view
 
-import fr.quintipio.simplyPassword.Main
-import fr.quintipio.simplyPassword.business.PasswordBusiness
-import fr.quintipio.simplyPassword.util.CryptUtils
+import fr.quintipio.simplypassword.Main
+import fr.quintipio.simplypassword.business.PasswordBusiness
+import fr.quintipio.simplypassword.util.CryptUtils
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.control.*

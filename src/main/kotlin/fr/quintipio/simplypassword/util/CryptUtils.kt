@@ -1,4 +1,4 @@
-package fr.quintipio.simplyPassword.util
+package fr.quintipio.simplypassword.util
 
 import java.security.NoSuchAlgorithmException
 import java.security.SecureRandom

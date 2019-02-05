@@ -1,7 +1,7 @@
-package fr.quintipio.simplyPassword.business
+package fr.quintipio.simplypassword.business
 
-import fr.quintipio.simplyPassword.com.ComFile
-import fr.quintipio.simplyPassword.contexte.ContexteStatic
+import fr.quintipio.simplypassword.com.ComFile
+import fr.quintipio.simplypassword.contexte.ContexteStatic
 import java.io.File
 import java.util.*
 
@@ -18,7 +18,7 @@ object ParamBusiness {
     private const val paramLiveNo = "n"
     private const val paramSeparator = ";"
 
-    private const val paramUserName = "LocalConf.ini"
+    private const val paramUserName = ".LocalConf.ini"
     private const val paramUserFile = "fichierChiffre"
     private const val paramUserLang = "lang"
 
@@ -78,10 +78,11 @@ object ParamBusiness {
             val retour: String
             retour = when {
                 res.contains("win") -> System.getProperty("user.home") + "\\AppData\\Local\\" + ContexteStatic.nomAppli.replace(" ".toRegex(), "")
-                res.contains("mac") -> System.getProperty("user.home") + "\\" + ContexteStatic.nomAppli.replace(" ".toRegex(), "")
-                res.contains("nix") -> System.getProperty("user.home") + "\\" + ContexteStatic.nomAppli.replace(" ".toRegex(), "")
-                res.contains("sunos") -> System.getProperty("user.home") + "\\" + ContexteStatic.nomAppli.replace(" ".toRegex(), "")
-                else -> System.getProperty("user.home") + "\\" + ContexteStatic.nomAppli.replace(" ".toRegex(), "")
+                res.contains("mac") -> System.getProperty("user.home")
+                res.contains("nix") -> System.getProperty("user.home")
+                res.contains("nux") -> System.getProperty("user.home")
+                res.contains("sunos") -> System.getProperty("user.home")
+                else -> System.getProperty("user.home") + "/" + ContexteStatic.nomAppli.replace(" ".toRegex(), "")
             }
 
             val folder = ComFile(retour)
@@ -89,7 +90,11 @@ object ParamBusiness {
                 folder.file.mkdir()
 
             }
-            return retour + "\\" + paramUserName
+            return if(res.contains("win")) {
+                retour + "\\" + paramUserName
+            } else {
+                "$retour/$paramUserName"
+            }
         } catch (e: SecurityException) {
             e.printStackTrace()
             return ""

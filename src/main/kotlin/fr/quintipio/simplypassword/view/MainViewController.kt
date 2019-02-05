@@ -1,12 +1,12 @@
-package fr.quintipio.simplyPassword.view
+package fr.quintipio.simplypassword.view
 
-import fr.quintipio.simplyPassword.Main
-import fr.quintipio.simplyPassword.business.PasswordBusiness
-import fr.quintipio.simplyPassword.com.ComFile
-import fr.quintipio.simplyPassword.contexte.ContexteStatic
-import fr.quintipio.simplyPassword.model.Dossier
-import fr.quintipio.simplyPassword.model.MotDePasse
-import fr.quintipio.simplyPassword.model.ObservableMotDePasse
+import fr.quintipio.simplypassword.Main
+import fr.quintipio.simplypassword.business.PasswordBusiness
+import fr.quintipio.simplypassword.com.ComFile
+import fr.quintipio.simplypassword.contexte.ContexteStatic
+import fr.quintipio.simplypassword.model.Dossier
+import fr.quintipio.simplypassword.model.MotDePasse
+import fr.quintipio.simplypassword.model.ObservableMotDePasse
 import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
@@ -17,6 +17,7 @@ import javafx.scene.control.cell.TextFieldTreeCell
 import javafx.scene.input.*
 import javafx.stage.FileChooser
 import javafx.util.StringConverter
+import java.io.File
 import java.net.URL
 import java.util.ResourceBundle
 import java.util.Timer
@@ -330,8 +331,11 @@ class MainViewController : Initializable {
                     try {
                         val fileChooser = FileChooser()
                         fileChooser.extensionFilters.add(FileChooser.ExtensionFilter(ContexteStatic.extensionPartage.toUpperCase() + " (*" + ContexteStatic.extensionPartage + ")", "*" + ContexteStatic.extensionPartage))
-                        val file = fileChooser.showSaveDialog(main!!.primaryStage)
+                        var file = fileChooser.showSaveDialog(main!!.primaryStage)
                         if (file != null) {
+                            if(!file.name.toUpperCase().endsWith(ContexteStatic.extensionPartage.toUpperCase())) {
+                                file = File(file.name +  ContexteStatic.extensionPartage)
+                            }
                             val data = PasswordBusiness.genererPartage(selectedMotDepasse!!.mdpOri)
                             val fichier = ComFile(file.path)
                             fichier.writeFile(data, true)
