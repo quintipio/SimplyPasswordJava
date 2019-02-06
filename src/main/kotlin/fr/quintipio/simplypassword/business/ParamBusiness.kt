@@ -18,7 +18,7 @@ object ParamBusiness {
     private const val paramLiveNo = "n"
     private const val paramSeparator = ";"
 
-    private const val paramUserName = ".LocalConf.ini"
+    private const val paramUserName = ".SimplyPasswordConf.ini"
     private const val paramUserFile = "fichierChiffre"
     private const val paramUserLang = "lang"
 
